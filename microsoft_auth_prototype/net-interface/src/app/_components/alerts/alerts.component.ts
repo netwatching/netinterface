@@ -17,4 +17,6 @@ export class AlertsComponent implements OnInit {
   close(alert: Alert) {
     this.alertsService.remove(alert);
   }
+
 }
+
