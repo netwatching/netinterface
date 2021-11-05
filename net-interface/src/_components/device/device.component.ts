@@ -25,11 +25,14 @@ export class DeviceComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.getDevices()
+  }
 
   getDevices() {
     this.central.getDevices().subscribe((devices) => {
             this.devices = devices;
+            console.log(this.devices);
         },
         (error) => {
             if (error.status == 404) {

@@ -1,5 +1,5 @@
 export interface Device {
-    id: string;
+    _id: string;
     name: string;
     timestamp: string;
 }

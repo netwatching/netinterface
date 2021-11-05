@@ -4,7 +4,8 @@
       <img src="assets/_img/logo.png">
     </a>
 
-    <a (click)="toggleNavbar()" #navBurger role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a (click)="toggleNavbar()" #navBurger role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -17,9 +18,11 @@
         home
       </a>
 
-      <a class="navbar-item" href="/device">
+      <!-- <a class="navbar-item" routerLink="/device">
         network devices
-      </a>
+      </a> -->
+
+      <a class="navbar-item" routerLink="/device" [routerLinkActive]='["active"]'>network devices</a>
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">

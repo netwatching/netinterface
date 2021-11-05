@@ -10,13 +10,13 @@ import { Device } from '../_interfaces/device';
 })
 export class CentralApiService {
 
-  private BASE_URL = 'palguin.htl-vil.local:8081/api/devices'
+  private BASE_URL = 'http://palguin.htl-vil.local:8081/api'
   // private headers = new HttpHeaders().set("Accept", "application/jwt").set('Content-Type', 'text/plain; charset=utf-8');
+  private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
   private httpOptions: object = {
-      // headers: this.headers,
+      headers: this.headers,
       responseType: 'text'
   }
-getImageData: any;
 
   constructor(private httpClient: HttpClient) {
   }
