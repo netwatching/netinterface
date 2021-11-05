@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { NavBarComponent } from './../_components/nav-bar/nav-bar.component';
-// import { FooterComponent } from '../_components/footer/footer.component';
+import { FooterComponent } from './../_components/footer/footer.component';
 import { DeviceComponent } from './../_components/device/device.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     NavBarComponent,
-    // FooterComponent,
+    FooterComponent,
     DeviceComponent
   ],
   imports: [

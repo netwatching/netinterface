@@ -1,57 +1,58 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="">
-      <img src="assets/_img/logo.png">
-    </a>
-
-    <a (click)="toggleNavbar()" #navBurger role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-      data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu" #navMenu>
-    <div class="navbar-start">
-      <a class="navbar-item">
-        home
+<div id="nav">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="">
+        <img src="assets/_img/logo.png">
       </a>
 
-      <!-- <a class="navbar-item" routerLink="/device">
-        network devices
-      </a> -->
+      <a (click)="toggleNavbar()" #navBurger role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
 
-      <a class="navbar-item" routerLink="/device" [routerLinkActive]='["active"]'>network devices</a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          more
+    <div id="navbarBasicExample" class="navbar-menu" #navMenu>
+      <div class="navbar-start">
+        <a class="navbar-item" href="">
+          home
         </a>
 
-        <div class="navbar-dropdown">
-          <a class="navbar-item">
-            about
-          </a>
-          <a class="navbar-item">
-            contact
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            imprint
-          </a>
-        </div>
-      </div>
-    </div>
+        <a class="navbar-item" routerLink="/device">
+          network devices
+        </a>
 
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary" style="background-color: #ff0000;">
-            <strong>Login</strong>
+        <!-- <a class="navbar-item" routerLink="/device" [routerLinkActive]='["active"]'>network devices</a> -->
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            more
           </a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              about
+            </a>
+            <a class="navbar-item">
+              contact
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              imprint
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" style="background-color: #ff0000;">
+              <strong>Login</strong>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>
