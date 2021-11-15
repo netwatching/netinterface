@@ -17,6 +17,7 @@ import * as MicrosoftGraph from '@microsoft/microsoft-graph-types';
 export class AuthService {
   public authenticated: boolean;
   public user?: User;
+
   public graphClient?: Client;
 
   constructor(
@@ -47,6 +48,13 @@ export class AuthService {
       this.authenticated = true;
       this.user = await this.getUser();
     }
+  }
+
+  // Sign out
+  async signOut(): Promise<void> {
+    await this.msalService.logout().toPromise();
+    this.user = undefined;
+    this.authenticated = false;
   }
 
   private async getUser(): Promise<User | undefined> {
@@ -85,10 +93,4 @@ export class AuthService {
     return user;
   }
 
-  // Sign out
-  async signOut(): Promise<void> {
-    await this.msalService.logout().toPromise();
-    this.user = undefined;
-    this.authenticated = false;
-  }
 }

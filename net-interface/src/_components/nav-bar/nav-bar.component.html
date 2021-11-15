@@ -1,7 +1,7 @@
 <div id="nav">
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="">
+      <a class="navbar-item" routerLink="">
         <img src="assets/_img/logo.png">
       </a>
 
@@ -15,7 +15,7 @@
 
     <div id="navbarBasicExample" class="navbar-menu" #navMenu>
       <div class="navbar-start">
-        <a class="navbar-item" href="">
+        <a class="navbar-item" routerLink="">
           home
         </a>
 
@@ -45,8 +45,20 @@
         </div>
       </div>
       <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
+        <div class="navbar-item" *ngIf="authenticated">
+          <a class="navbar-item" id="username">
+            <img src="{{user != null ? user.avatar : ''}}" class="rounded-circle align-self-center mr-2"
+              style="width: 32px;">
+            <p>{{user != null ? user.displayName : ''}}</p>
+          </a>
+          <div class="buttons" (click)="signOut()">
+            <a class="button is-primary" style="background-color: #ff0000;">
+              <strong>Logout</strong>
+            </a>
+          </div>
+        </div>
+        <div class="navbar-item" *ngIf="!authenticated">
+          <div class="buttons" (click)="signIn()">
             <a class="button is-primary" style="background-color: #ff0000;">
               <strong>Login</strong>
             </a>

@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="box" style="width: 40%; text-align: center;">
+    <div>
+      <div *ngIf="authenticated; then welcomeUser else signInPrompt"></div>
+      <ng-template #welcomeUser>
+        <h4>Welcome {{ user != null ? user.displayName : '' }}!</h4>
+        <p>Use the navigation bar at the top of the page to get started.</p>
+      </ng-template>
+      <ng-template #signInPrompt>
+        <div class="buttons" (click)="signIn()">
+          <a class="button is-primary" style="background-color: #ff0000;">
+            <strong>Click here to sign in</strong>
+          </a>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

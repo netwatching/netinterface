@@ -23,7 +23,7 @@ export class CentralApiService {
 
   public getDevices(): Observable<Array<Device>> {
     return this.httpClient
-        .get<Array<Device>>(`${this.BASE_URL}/devices/`).pipe(
+        .get<Array<Device>>(`${this.BASE_URL}/devices`).pipe(
             retry(3)
         );
   }
