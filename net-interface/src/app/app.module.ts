@@ -51,7 +51,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MsalModule
+    MsalModule,
   ],
   providers: [
     {
