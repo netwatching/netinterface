@@ -50,13 +50,15 @@ import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http'
 import { CentralApiService } from '../_services/central-api.service';
 import { User } from '../_interfaces/user';
 import { AuthService } from '../_services/auth.service';
+import { Jwt } from '../_interfaces/jwt';
+
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
 export class JWTInterceptor implements HttpInterceptor {
+  jwt_object!: Jwt;
   constructor(public centralApiService: CentralApiService, public authService: AuthService) { }
-
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     let authReq = req;
     console.log("interceptors")
@@ -66,7 +68,14 @@ export class JWTInterceptor implements HttpInterceptor {
     requestData['name'] = this.authService.user!.username
     requestData['pw'] = 'TYlZfng0wwuEOaxcyyoJ2N5otTPS0g4X6fXq9s777yJxwtcpHsRQC1F5Ao5PI3MT42xlMeBOP4jN7fUAA5a5vEtM7WWIMYvQPDebr5Lcgz9Ri1yEQiwmObINIHyI8pMw'
 
-    const token = this.centralApiService.getJWTToken(requestData);
+
+    this.centralApiService.getJWTToken(requestData).subscribe((object) => {
+      this.jwt_object = object;
+  }
+  );
+
+    const token = this.jwt_object.access_token
+
     console.log(token)
 
     if (token != null) {
