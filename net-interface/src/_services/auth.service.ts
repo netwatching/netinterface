@@ -83,14 +83,12 @@ export class AuthService {
 
     const user = new User();
     user.displayName = graphUser.displayName ?? '';
-    // Prefer the mail property, but fall back to userPrincipalName
     user.email = graphUser.mail ?? graphUser.userPrincipalName ?? '';
     user.timeZone = graphUser.mailboxSettings?.timeZone ?? 'UTC';
-
-    // Use default avatar
-    user.avatar = '/assets/no-profile-photo.png';
+    // user.avatar = "https://graph.microsoft.com/v1.0/users("+graphUser.id+")/photo"
+    user.id = graphUser.id!;
+    user.username = graphUser.userPrincipalName!.replace("@edu.htl-villach.at", "").replace("@htl-villach.at", "");
 
     return user;
   }
-
 }

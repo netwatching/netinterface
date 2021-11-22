@@ -5,6 +5,8 @@
       Device: {{ device.name }}
     </h2>
     <p>Id: {{ device._id }}</p>
-    <p>Timestamp: {{ device.timestamp }}</p>
+    <p>Timestamp: {{ device.timestamp | date:'full'}}</p>
+    <p>{{ device.timestamp }}</p>
   </div>
 </div>
+<app-footer></app-footer>

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './../_components/nav-bar/nav-bar.component';
 import { FooterComponent } from './../_components/footer/footer.component';
 import { DeviceComponent } from './../_components/device/device.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from 'src/_components/home/home.component';
 import { AlertsComponent } from 'src/_components/alerts/alerts.component';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +17,8 @@ import { MsalModule,
   MsalService,
   MSAL_INSTANCE } from '@azure/msal-angular';
 import { OAuthSettings } from '../_interfaces/oauth';
+import { JWTInterceptor } from '../_interceptors/jwt.interceptor';
+
 
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
@@ -54,6 +56,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     MsalModule,
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true },
     {
       provide: MSAL_INSTANCE,
       useFactory: MSALInstanceFactory

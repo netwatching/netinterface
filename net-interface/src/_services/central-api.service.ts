@@ -11,8 +11,9 @@ import { Device } from '../_interfaces/device';
 export class CentralApiService {
 
   private BASE_URL = 'http://palguin.htl-vil.local:8081/api'
-  // private headers = new HttpHeaders().set("Accept", "application/jwt").set('Content-Type', 'text/plain; charset=utf-8');
-  private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+  // private headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  private headers = new HttpHeaders().set("Accept", "application/json").set('Content-Type', 'application/json; charset=utf-8');
+  // private headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
   private httpOptions: object = {
       headers: this.headers,
       responseType: 'text'
@@ -20,6 +21,13 @@ export class CentralApiService {
 
   constructor(private httpClient: HttpClient) {
   }
+
+  public async getJWTToken(body: object): Promise<object> {
+    return await this.httpClient
+        .post<object>(`${this.BASE_URL}/login`, body).pipe(
+            retry(1)
+        ).toPromise();
+    }
 
   public getDevices(): Observable<Array<Device>> {
     return this.httpClient
