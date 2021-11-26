@@ -32,7 +32,6 @@ export class DeviceComponent implements OnInit {
   getDevices() {
     this.central.getDevices().subscribe((devices) => {
             this.devices = devices;
-            console.log(this.devices);
         },
         (error) => {
             if (error.status == 404) {

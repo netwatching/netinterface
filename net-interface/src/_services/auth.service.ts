@@ -87,8 +87,7 @@ export class AuthService {
     user.timeZone = graphUser.mailboxSettings?.timeZone ?? 'UTC';
     // user.avatar = "https://graph.microsoft.com/v1.0/users("+graphUser.id+")/photo"
     user.id = graphUser.id!;
-    user.username = graphUser.userPrincipalName!.replace("@edu.htl-villach.at", "").replace("@htl-villach.at", "");
-
+    user.username = graphUser.userPrincipalName!.split("@", 1).toString()
     return user;
   }
 }

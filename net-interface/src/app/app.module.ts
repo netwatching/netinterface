@@ -17,7 +17,7 @@ import { MsalModule,
   MsalService,
   MSAL_INSTANCE } from '@azure/msal-angular';
 import { OAuthSettings } from '../_interfaces/oauth';
-import { JWTInterceptor } from '../_interceptors/jwt.interceptor';
+import { JwtInterceptor } from '../_interceptors/jwt.interceptor';
 
 
 
@@ -56,7 +56,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     MsalModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     {
       provide: MSAL_INSTANCE,
       useFactory: MSALInstanceFactory

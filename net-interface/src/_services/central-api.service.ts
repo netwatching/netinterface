@@ -12,10 +12,10 @@ import { Jwt } from '../_interfaces/jwt';
 export class CentralApiService {
 
   private BASE_URL = 'http://palguin.htl-vil.local:8081/api'
-  private headers = new HttpHeaders().set("Accept", "application/json").set('Content-Type', 'text/plain; charset=utf-8');
+  private headers = new HttpHeaders().set("Accept", "application/j").set('Content-Type', 'text/plain; charset=utf-8');
   private httpOptions: object = {
       headers: this.headers,
-      responseType: 'json'
+      responseType: 'text'
   }
 
   constructor(private httpClient: HttpClient) {
