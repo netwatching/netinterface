@@ -28,7 +28,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     auth: {
       clientId: OAuthSettings.appId,
       redirectUri: OAuthSettings.redirectUri,
-      postLogoutRedirectUri: OAuthSettings.redirectUri
+      postLogoutRedirectUri: OAuthSettings.redirectUri,
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,

@@ -6,6 +6,7 @@ import { retry } from 'rxjs/operators';
 import { Device } from '../_interfaces/device';
 import { Jwt } from '../_interfaces/jwt';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,24 +15,32 @@ export class CentralApiService {
   private BASE_URL = 'http://palguin.htl-vil.local:8081/api'
   private headers = new HttpHeaders().set("Accept", "application/j").set('Content-Type', 'text/plain; charset=utf-8');
   private httpOptions: object = {
-      headers: this.headers,
-      responseType: 'text'
+    headers: this.headers,
+    responseType: 'text'
   }
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient) {}
+
+  public getDevices(): Observable < Array < Device >> {
+    return this.httpClient
+      .get < Array < Device >> (`${this.BASE_URL}/devices`).pipe(
+        retry(3)
+      );
   }
 
-  public getJWTToken(body: object): Observable<Jwt> {
-    return this.httpClient
-        .post<Jwt>(`${this.BASE_URL}/login`, body).pipe(
-            retry(1)
-        );
-    }
+  // jwt
 
-  public getDevices(): Observable<Array<Device>> {
+  public getJWTToken(body: object): Observable < Jwt > {
     return this.httpClient
-        .get<Array<Device>>(`${this.BASE_URL}/devices`).pipe(
-            retry(3)
-        );
+      .post < Jwt > (`${this.BASE_URL}/login`, body).pipe(
+        retry(1)
+      );
+  }
+
+  public getNewAccessToken(): Observable < Jwt > {
+    return this.httpClient
+      .post < Jwt > (`${this.BASE_URL}/request`, "").pipe(
+        retry(1)
+      );
   }
 }

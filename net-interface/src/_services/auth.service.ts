@@ -9,6 +9,9 @@ import { User } from '../_interfaces/user';
 import { Client } from '@microsoft/microsoft-graph-client';
 import { AuthCodeMSALBrowserAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/authCodeMsalBrowser';
 import * as MicrosoftGraph from '@microsoft/microsoft-graph-types';
+import { couldStartTrivia } from 'typescript';
+import { resolve } from 'dns';
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +35,6 @@ export class AuthService {
     this.getUser().then((user) => {this.user = user});
   }
 
-  // Prompt the user to sign in and
-  // grant consent to the requested permission scopes
   async signIn(): Promise<void> {
     const result = await this.msalService
       .loginPopup(OAuthSettings)
@@ -43,6 +44,8 @@ export class AuthService {
           JSON.stringify(reason, null, 2));
       });
 
+    console.log(result)
+
     if (result) {
       this.msalService.instance.setActiveAccount(result.account);
       this.authenticated = true;
@@ -50,7 +53,6 @@ export class AuthService {
     }
   }
 
-  // Sign out
   async signOut(): Promise<void> {
     await this.msalService.logout().toPromise();
     this.user = undefined;
@@ -60,7 +62,6 @@ export class AuthService {
   private async getUser(): Promise<User | undefined> {
     if (!this.authenticated) return undefined;
 
-    // Create an authentication provider for the current user
     const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(
       this.msalService.instance as PublicClientApplication,
       {
@@ -70,12 +71,10 @@ export class AuthService {
       }
     );
 
-    // Initialize the Graph client
     this.graphClient = Client.initWithMiddleware({
       authProvider: authProvider
     });
 
-    // Get the user from Graph (GET /me)
     const graphUser: MicrosoftGraph.User = await this.graphClient
       .api('/me')
       .select('displayName,mail,mailboxSettings,userPrincipalName')
@@ -88,6 +87,12 @@ export class AuthService {
     // user.avatar = "https://graph.microsoft.com/v1.0/users("+graphUser.id+")/photo"
     user.id = graphUser.id!;
     user.username = graphUser.userPrincipalName!.split("@", 1).toString()
+
+    // const graphtoken = await this.msalService.acquireTokenSilent({
+    //   scopes: [ "User.Read" ]
+    // })
+    // graphtoken.subscribe(val=>console.log(val.accessToken))
+
     return user;
   }
 }

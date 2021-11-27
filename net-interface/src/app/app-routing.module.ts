@@ -7,9 +7,6 @@ import { AppComponent } from './app.component';
 import { AuthService } from '../_services/auth.service';
 import { AuthGuard } from './auth.guard';
 
-authService: AuthService
-
-
 
 const routes: Routes = [
 
