@@ -25,11 +25,10 @@ export class JwtInterceptor implements HttpInterceptor {
     requestData['name'] = this.authService.user!.username
     requestData['pw'] = 'TYlZfng0wwuEOaxcyyoJ2N5otTPS0g4X6fXq9s777yJxwtcpHsRQC1F5Ao5PI3MT42xlMeBOP4jN7fUAA5a5vEtM7WWIMYvQPDebr5Lcgz9Ri1yEQiwmObINIHyI8pMw'
 
-    console.log('des is da access token: ', localStorage.getItem('access_token'))
-    console.log("is expired: ", this.helper.isTokenExpired(localStorage.getItem('access_token')?.toString()))
+    // console.log('current access token: ', localStorage.getItem('access_token'))
+    // console.log('is expired: ', this.helper.isTokenExpired(localStorage.getItem('access_token')?.toString()))
 
     if (!this.helper.isTokenExpired(localStorage.getItem('access_token')?.toString()) || !localStorage.getItem('access_token')) {
-      console.log("nix expired")
       if (!localStorage.getItem('access_token') && !request.url.startsWith(this.login_url)) {
         this.centralApiService.getJWTToken(requestData).subscribe((object) => {
           localStorage.setItem('refresh_token', object.refresh_token);
@@ -37,7 +36,6 @@ export class JwtInterceptor implements HttpInterceptor {
         });
       }
     } else {
-        console.log("token expired")
         this.centralApiService.getJWTToken(requestData).subscribe((object) => {
           localStorage.setItem('refresh_token', object.refresh_token);
           localStorage.setItem('access_token', object.access_token);
