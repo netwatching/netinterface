@@ -28,8 +28,6 @@ export class CentralApiService {
       );
   }
 
-  // jwt
-
   public getJWTToken(body: object): Observable < Jwt > {
     return this.httpClient
       .post < Jwt > (`${this.BASE_URL}/login`, body).pipe(
