@@ -1,17 +1,12 @@
-FROM nodesolidserver/node-solid-server As builder
+# stage 1
 
-WORKDIR /usr/src/app
-
-COPY package.json package-lock.json ./
-
-RUN sudo chmod -R 777 /usr/src/app
-
-RUN npm install
-
+FROM node:alpine AS my-app-build
+WORKDIR /app
 COPY . .
+RUN npm ci && npm run build
 
-RUN npm run build --prod
+# stage 2
 
-FROM nginx
-
-COPY --from=builder /usr/src/app/dist/net-interface/ /usr/share/nginx/html
+FROM nginx:alpine
+COPY --from=my-app-build /app/dist/net-interface /usr/share/nginx/html
+EXPOSE 80
