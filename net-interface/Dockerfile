@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY package.json package-lock.json ./
 
+RUN sudo chmod -R 777 /usr/src/app
+
 RUN npm install
 
 COPY . .
