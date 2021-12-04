@@ -1,4 +1,4 @@
-FROM node:12.16.1-alpine As builder
+FROM nodesolidserver/node-solid-server As builder
 
 WORKDIR /usr/src/app
 
@@ -10,6 +10,6 @@ COPY . .
 
 RUN npm run build --prod
 
-FROM nginx:1.15.8-alpine
+FROM nginx
 
 COPY --from=builder /usr/src/app/dist/net-interface/ /usr/share/nginx/html
