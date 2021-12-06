@@ -1,12 +1,15 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
-  <div class="box" *ngFor="let device of devices">
-    <h2>
-      Device: {{ device.name }}
-    </h2>
-    <p>Id: {{ device._id }}</p>
-    <p>Timestamp: {{ device.timestamp | date:'full'}}</p>
-    <p>{{ device.timestamp }}</p>
+  <div *ngFor="let device of devices">
+    <a href="/devices/{{ device.id }}">
+      <div class="box">
+        <h2>
+          Device: {{ device.device }}
+        </h2>
+        <p>Id: {{ device.id }}</p>
+        <p>Category Id: {{ device.category_id }}</p>
+      </div>
+    </a>
   </div>
 </div>
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

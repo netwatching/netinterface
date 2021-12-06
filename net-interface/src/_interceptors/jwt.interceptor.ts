@@ -21,9 +21,9 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest < unknown > , next: HttpHandler): Observable < HttpEvent < unknown >> {
     let auth_request = request;
     const requestData: any = {};
-    requestData['id'] = this.authService.user!.id;
-    requestData['name'] = this.authService.user!.username
-    requestData['pw'] = 'TYlZfng0wwuEOaxcyyoJ2N5otTPS0g4X6fXq9s777yJxwtcpHsRQC1F5Ao5PI3MT42xlMeBOP4jN7fUAA5a5vEtM7WWIMYvQPDebr5Lcgz9Ri1yEQiwmObINIHyI8pMw'
+    requestData['id'] = "zoppothp"; //this.authService.user!.id
+    requestData['name'] = "zoppothp"; //this.authService.user!.username;
+    requestData['pw'] = 'TYlZfng0wwuEOaxcyyoJ2N5otTPS0g4X6fXq9s777yJxwtcpHsRQC1F5Ao5PI3MT42xlMeBOP4jN7fUAA5a5vEtM7WWIMYvQPDebr5Lcgz9Ri1yEQiwmObINIHyI8pMw';
 
     // console.log('current access token: ', localStorage.getItem('access_token'))
     // console.log('is expired: ', this.helper.isTokenExpired(localStorage.getItem('access_token')?.toString()))
@@ -42,11 +42,11 @@ export class JwtInterceptor implements HttpInterceptor {
         });
     }
 
-    if (this.authService.authenticated) {
+    // if (this.authService.authenticated) {
         auth_request = request.clone({
           headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + localStorage.getItem('access_token'))
         });
-    }
+    // }
     return next.handle(auth_request);
   }
 }

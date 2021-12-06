@@ -11,18 +11,13 @@ import { CentralApiService } from '../../_services/central-api.service';
 })
 export class DeviceComponent implements OnInit {
 
-  devices: Array < Device > = [];
+  devices!: Array < Device >;
   errorMessage: string | undefined;
 
   constructor(
-    private actRoute: ActivatedRoute,
     private central: CentralApiService,
     private router: Router,
-
   ) {
-    this.actRoute.params.subscribe((params) => {
-      this.devices = params.devices;
-    });
   }
 
   ngOnInit() {
@@ -40,6 +35,5 @@ export class DeviceComponent implements OnInit {
             this.errorMessage = error.message;
         }
     );
-}
-
+  }
 }

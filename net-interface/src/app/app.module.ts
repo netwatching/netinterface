@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './../_components/nav-bar/nav-bar.component';
 import { FooterComponent } from './../_components/footer/footer.component';
 import { DeviceComponent } from './../_components/device/device.component';
+import { DeviceDetailsComponent } from './../_components/device-details/device-details.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from 'src/_components/home/home.component';
 import { AlertsComponent } from 'src/_components/alerts/alerts.component';
@@ -44,6 +45,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NavBarComponent,
     FooterComponent,
     DeviceComponent,
+    DeviceDetailsComponent,
     HomeComponent,
     AlertsComponent
   ],

@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 import { Device } from '../_interfaces/device';
+import { Features } from '../_interfaces/features';
 import { Jwt } from '../_interfaces/jwt';
 
 
@@ -27,6 +28,20 @@ export class CentralApiService {
         retry(3)
       );
   }
+
+  public getDeviceById(deviceId: string): Observable < Device > {
+    return this.httpClient
+      .get < Device > (`${this.BASE_URL}/devices/${deviceId}`).pipe(
+        retry(3)
+      );
+  }
+
+  public getFeaturesByDevice(deviceId: string): Observable < Features > {
+    return this.httpClient
+        .get < Features > (`${this.BASE_URL}/devices/${deviceId}/features`).pipe(
+            retry(1)
+        );
+}
 
   public getJWTToken(body: object): Observable < Jwt > {
     return this.httpClient
