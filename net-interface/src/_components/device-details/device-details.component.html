@@ -7,7 +7,6 @@
     <p>Id: {{ device.id }}</p>
     <p>Category Id: {{ device.category_id }}</p>
   </div>
-
   <div class="box">
     <h2 class="headline">System</h2>
     <p>hostname: {{ features.system.hostname }}</p>
@@ -16,7 +15,6 @@
     <p>name: {{ features.system.name }}</p>
     <p>uptime: {{ features.system.uptime }}</p>
   </div>
-
   <div class="box">
     <h2 class="headline">Active Services</h2>
     <p *ngIf="features.services.PhysicalLayer">Physical Layer</p>
@@ -27,7 +25,6 @@
     <p *ngIf="features.services.PresentationLayer">Presentation Layer</p>
     <p *ngIf="features.services.ApplicationLayer">Application Layer</p>
   </div>
-
   <div class="box">
     <h2 class="headline">IP Addresses</h2>
     <div *ngFor="let ip of features.ipAddresses">
@@ -37,7 +34,6 @@
       <p>netmask size: {{ ip.ipAdEntReasmMaxSize }}</p>
     </div>
   </div>
-
   <div class="box">
     <h2 class="headline" style="margin-bottom: 1%">Interfaces</h2>
     <div class="box" *ngFor="let interface of features.interfaces">
@@ -48,5 +44,5 @@
       <p>Operating Status: {{ interface.ifOperStatus }}</p>
     </div>
   </div>
-
 </div>
+<app-footer></app-footer>

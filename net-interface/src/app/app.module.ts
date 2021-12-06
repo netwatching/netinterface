@@ -20,6 +20,11 @@ import { MsalModule,
 import { OAuthSettings } from '../_interfaces/oauth';
 import { JwtInterceptor } from '../_interceptors/jwt.interceptor';
 
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
@@ -56,6 +61,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HttpClientModule,
     FormsModule,
     MsalModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
