@@ -11,8 +11,8 @@ const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  login_url = 'http://palguin.htl-vil.local:8081/api/login'
-  refresh_url = 'http://palguin.htl-vil.local:8081/api/refresh'
+  // login_url = 'http://palguin.htl-vil.local:8080/api/login'
+  login_url = 'https://palguin.htl-vil.local:8443/api/login'
   jwt!: Jwt;
   helper = new JwtHelperService();
 

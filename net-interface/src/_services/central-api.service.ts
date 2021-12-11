@@ -13,7 +13,9 @@ import { Jwt } from '../_interfaces/jwt';
 })
 export class CentralApiService {
 
-  private BASE_URL = 'http://palguin.htl-vil.local:8081/api'
+  // private BASE_URL = 'http://palguin.htl-vil.local:8080/api'
+  
+  private BASE_URL = 'https://palguin.htl-vil.local:8443/api'
   private headers = new HttpHeaders().set("Accept", "application/j").set('Content-Type', 'text/plain; charset=utf-8');
   private httpOptions: object = {
     headers: this.headers,
