@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './../_components/nav-bar/nav-bar.component';
 import { FooterComponent } from './../_components/footer/footer.component';
+import { AlertsComponent } from 'src/_components/alerts/alerts.component';
 import { DeviceComponent } from './../_components/device/device.component';
 import { DeviceDetailsComponent } from './../_components/device-details/device-details.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from 'src/_components/home/home.component';
-import { AlertsComponent } from 'src/_components/alerts/alerts.component';
 import { FormsModule } from '@angular/forms';
 import { IPublicClientApplication,
   PublicClientApplication,
@@ -55,7 +55,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MsalModule,
+    MsalModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
