@@ -19,6 +19,8 @@ import { MsalModule,
   MSAL_INSTANCE } from '@azure/msal-angular';
 import { OAuthSettings } from '../_interfaces/oauth';
 import { JwtInterceptor } from '../_interceptors/jwt.interceptor';
+import { HomeDevicesComponent } from './../_components/home-devices/home-devices.component';
+import { HomeAlertsComponent } from './../_components/home-alerts/home-alerts.component';
 
 
 
@@ -47,7 +49,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     DeviceComponent,
     DeviceDetailsComponent,
     HomeComponent,
-    AlertsComponent
+    AlertsComponent,
+    HomeDevicesComponent,
+    HomeAlertsComponent
   ],
   imports: [
     BrowserModule,
