@@ -2,3 +2,8 @@
   width: 95%;
   margin: 0 2.5%;
 }
+
+.home-container-scroll{
+  height: 90vh;
+  overflow: scroll;
+}

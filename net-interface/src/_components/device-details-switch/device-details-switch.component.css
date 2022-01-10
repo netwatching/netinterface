@@ -1,0 +1,42 @@
+#switch{
+  height: 12vh;
+  width: 100%;
+
+}
+
+.sw-component {
+  display: inline-block;
+  height: 100%;
+}
+
+.sw-port{
+  fill: rgb(255, 255, 255);
+}
+
+.sw-port:hover{
+  fill: rgb(190, 53, 202);
+}
+
+.sw-port-admin-up{
+  fill: rgb(66, 66, 66);
+}
+
+.sw-port-operational-down{
+  fill: rgb(150, 150, 150);
+}
+
+.sw-port-admin-down{
+  fill: rgb(202, 45, 45);
+}
+
+.sw-port-operational-up{
+  fill: rgb(99, 206, 0);
+}
+
+.sw-port-100mbps{
+  fill: rgb(236, 187, 81);
+}
+
+.sw-port-1000mbps{
+  fill: rgb(95, 179, 0);
+}

@@ -1,16 +1,19 @@
-<div *ngFor="let event of events">
-  <a href="/events/1">
-    <div class="box my-5 device-box">
-      <h4 class="is-size-4 has-text-weight-bold">event</h4>
-      <p>
-        <span class="has-text-weight-semibold">ID: </span>1<br>
-        <span class="tag is-info"><b>1</b></span>
-      </p>
-    </div>
-  </a>
-</div>
-<div class="has-text-centered mb-5">
-  <a href="/events" class="button is-primary" style="background-color: #ff0000;">
-    <strong>show more</strong>
-  </a>
+<div class="home-container-scroll">
+  <div *ngFor="let alert of alerts">
+    <a href="/events/{{ alert.id }}">
+      <div class="box my-5 device-box" [ngClass]="{'alertL0': alert.severity==0,'alertL1': alert.severity==1,'alertL2': alert.severity==2,'alertL3': alert.severity==3,'alertL4': alert.severity==4,'alertL5': alert.severity==5,'alertL6': alert.severity==6,'alertL7': alert.severity==7,'alertL8': alert.severity==8,'alertL9': alert.severity==9}">
+        <h4 class="is-size-4 has-text-weight-bold">{{ alert.device_id }}</h4>
+        <p>
+          <span class="has-text-weight-semibold">Timestamp: </span>{{ alert.timestamp }}<br>
+          <span class="has-text-weight-semibold">Info: </span>{{ alert.problem }}<br>
+          <span class="has-text-weight-semibold">Severity: </span><span class="tag is-info"><b>{{ alert.severity }}</b></span>
+        </p>
+      </div>
+    </a>
+  </div>
+  <div class="has-text-centered mb-5">
+    <a href="/events" class="button is-primary" style="background-color: #ff0000;">
+      <strong>show more</strong>
+    </a>
+  </div>
 </div>

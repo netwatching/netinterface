@@ -1,0 +1,45 @@
+.alertL0{
+  border-left: rgb(255, 0, 0) 10px solid;
+}
+
+.alertL1{
+  border-left: rgb(255, 115, 0) 10px solid;
+}
+
+.alertL2{
+  border-left: rgb(255, 208, 0) 10px solid;
+}
+
+.alertL3{
+  border-left: rgb(217, 255, 0) 10px solid;
+}
+
+.alertL4{
+  border-left: rgb(30, 255, 0) 10px solid;
+}
+
+.alertL5{
+  border-left: rgb(0, 255, 191) 10px solid;
+}
+
+.alertL6{
+  border-left: rgb(0, 153, 255) 10px solid;
+}
+
+.alertL7{
+  border-left: rgb(25, 0, 255) 10px solid;
+}
+
+.alertL8{
+  border-left: rgb(174, 0, 255) 10px solid;
+}
+
+.alertL9{
+  border-left: rgb(255, 0, 179) 10px solid;
+}
+
+.home-container-scroll{
+  height: 90vh;
+  overflow: scroll;
+}
+

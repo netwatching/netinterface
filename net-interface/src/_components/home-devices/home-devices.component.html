@@ -1,16 +1,18 @@
-<div *ngFor="let device of devices">
-  <a href="/devices/{{ device.id }}">
-    <div class="box my-5 device-box">
-      <h4 class="is-size-4 has-text-weight-bold">{{ device.device }}</h4>
-      <p>
-        <span class="has-text-weight-semibold">ID: </span>{{ device.id }}<br>
-        <span class="tag is-info"><b>{{ device.category_id }}</b></span>
-      </p>
-    </div>
-  </a>
-</div>
-<div class="has-text-centered mb-5">
-  <a href="/devices" class="button is-primary" style="background-color: #ff0000;">
-    <strong>show more</strong>
-  </a>
+<div class="home-container-scroll">
+  <div *ngFor="let device of devices">
+    <a href="/devices/{{ device.id }}">
+      <div class="box my-5 device-box">
+        <h4 class="is-size-4 has-text-weight-bold">{{ device.device }}</h4>
+        <p>
+          <span class="has-text-weight-semibold">ID: </span>{{ device.id }}<br>
+          <span class="has-text-weight-semibold">Category: </span><span class="tag is-info"><b>{{ device.category }}</b></span>
+        </p>
+      </div>
+    </a>
+  </div>
+  <div class="has-text-centered mb-5">
+    <a href="/devices" class="button is-primary" style="background-color: #ff0000;">
+      <strong>show more</strong>
+    </a>
+  </div>
 </div>

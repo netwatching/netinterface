@@ -4,9 +4,18 @@
     <h2 class="headline">
       Device: {{ device.device }}
     </h2>
-    <p>Id: {{ device.id }}</p>
-    <p>Category Id: {{ device.category_id }}</p>
+    <p><b>Device-ID:</b> {{ device.id }}</p>
+    <p><b>Category:</b> wird noch nicht von API returned</p>
+    <p><b>Category-ID:</b> {{ device.category_id }}</p>
   </div>
+
+  <div class="box">
+    <h2 class="headline">
+      Switch
+    </h2>
+    <app-device-details-switch></app-device-details-switch>
+  </div>
+
 
   <div class="box">
     <h2 class="headline">System</h2>

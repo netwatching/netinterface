@@ -5,5 +5,6 @@ export interface Device {
     id: string;
     category_id: string;
     device: string;
-    
+    category: string;
+
 }
