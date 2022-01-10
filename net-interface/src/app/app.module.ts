@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './../_components/nav-bar/nav-bar.component';
 import { FooterComponent } from './../_components/footer/footer.component';
+import { AlertsComponent } from 'src/_components/alerts/alerts.component';
 import { DeviceComponent } from './../_components/device/device.component';
 import { DeviceDetailsComponent } from './../_components/device-details/device-details.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from 'src/_components/home/home.component';
-import { AlertsComponent } from 'src/_components/alerts/alerts.component';
 import { FormsModule } from '@angular/forms';
 import { IPublicClientApplication,
   PublicClientApplication,
@@ -21,6 +21,7 @@ import { OAuthSettings } from '../_interfaces/oauth';
 import { JwtInterceptor } from '../_interceptors/jwt.interceptor';
 import { HomeDevicesComponent } from './../_components/home-devices/home-devices.component';
 import { HomeAlertsComponent } from './../_components/home-alerts/home-alerts.component';
+import { DeviceDetailsSwitchComponent } from './../_components/device-details-switch/device-details-switch.component';
 
 
 
@@ -51,7 +52,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HomeComponent,
     AlertsComponent,
     HomeDevicesComponent,
-    HomeAlertsComponent
+    HomeAlertsComponent,
+    DeviceDetailsSwitchComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MsalModule,
+    MsalModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
