@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Events } from 'src/_interfaces/events';
+import { Events } from '../../_interfaces/events';
 import { CentralApiService } from '../../_services/central-api.service';
 
 @Component({
