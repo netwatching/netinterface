@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Device } from '../../_interfaces/device';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Features } from '../../_interfaces/features';
+import { Feature } from '../../_interfaces/feature';
 import { CentralApiService } from '../../_services/central-api.service';
 import { Observable } from 'rxjs';
 
@@ -15,7 +15,7 @@ export class DeviceDetailsComponent implements OnInit {
 
   device!: Device;
   deviceId!: string;
-  features!: Features;
+  features!: Feature;
   errorMessage: string | undefined;
 
   constructor(

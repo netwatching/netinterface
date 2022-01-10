@@ -6,6 +6,7 @@ import { HomeComponent } from 'src/_components/home/home.component';
 import { LoginComponent } from 'src/_components/login/login.component';
 import { AppComponent } from './app.component';
 import { AuthService } from '../_services/auth.service';
+import { EventsComponent } from 'src/_components/events/events.component';
 import { AuthGuard } from './auth.guard';
 
 
@@ -14,8 +15,8 @@ const routes: Routes = [
   { path: 'devices', component: DeviceComponent, canActivate: [AuthGuard] },
   { path: 'devices/:deviceId', component: DeviceDetailsComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  // { path: 'alerts', component: AlertsComponent, canActivate: [AuthGuard]},
-  // { path: 'alerts/:alertId', component: AlertsComponent, canActivate: [AuthGuard] },
+  { path: 'events', component: EventsComponent, canActivate: [AuthGuard]},
+  { path: 'events/:alertId', component: EventsComponent, canActivate: [AuthGuard] },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
 ];
 

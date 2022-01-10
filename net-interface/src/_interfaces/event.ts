@@ -1,4 +1,4 @@
-export interface Events {
+export interface Event {
     id: number;
     timestamp: string;
     device_id: number;

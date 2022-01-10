@@ -10,7 +10,6 @@ import { DeviceComponent } from './../_components/device/device.component';
 import { DeviceDetailsComponent } from './../_components/device-details/device-details.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from 'src/_components/home/home.component';
-import { FormsModule } from '@angular/forms';
 import { IPublicClientApplication,
   PublicClientApplication,
   BrowserCacheLocation } from '@azure/msal-browser';
@@ -19,6 +18,8 @@ import { MsalModule,
   MSAL_INSTANCE } from '@azure/msal-angular';
 import { OAuthSettings } from '../_interfaces/oauth';
 import { JwtInterceptor } from '../_interceptors/jwt.interceptor';
+import { EventsComponent } from 'src/_components/events/events.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -47,7 +48,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     DeviceComponent,
     DeviceDetailsComponent,
     HomeComponent,
-    AlertsComponent
+    AlertsComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MsalModule
+    MsalModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

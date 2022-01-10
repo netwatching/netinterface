@@ -1,0 +1,62 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="box" id="filter">
+    <form [formGroup]="severityForm" (ngSubmit)="submitForm()" novalidate>
+      <div class="columns">
+        <div class="column is-four-fifths">
+          <div class="field" *ngFor="let rank of severityRanks; let i=index" id="form-elements">
+            <label class="checkbox">
+              <input type="checkbox" [value]="rank" (change)="onCheckboxChange($event)">
+              {{ rank }}
+            </label>
+          </div>
+        </div>
+        <div class="column"></div>
+        <div class="column">
+          <input type="submit" value="filter" class="button is-link" id="button">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *ngFor="let event of events">
+    <div class="box my-5 device-box"
+      [ngClass]="{'event-debug': event.severity==1,'event-information': event.severity==2,'event-warning': event.severity==3,'event-error': event.severity==4,'event-disaster': event.severity==5}">
+      <table class="table" style="width: 100%;">
+        <thead>
+          <tr>
+            <th style="width: 10%;">severity</th>
+            <th style="width: 17%;">time</th>
+            <th style="width: 8%;">device</th>
+            <th style="width: 65%;">info</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>
+                <div *ngIf="event.severity == 1">
+                  <p style="color: var(--events_debug);">debug</p>
+                </div>
+                <div *ngIf="event.severity == 2">
+                  <p style="color: var(--events_information);">information</p>
+                </div>
+                <div *ngIf="event.severity == 3">
+                  <p style="color: var(--events_warning);">warning</p>
+                </div>
+                <div *ngIf="event.severity == 4">
+                  <p style="color: var(--events_error);">error</p>
+                </div>
+                <div *ngIf="event.severity == 5">
+                  <p style="color: var(--events_disaster);">disaster</p>
+                </div>
+              </strong>
+            </td>
+            <td>{{ event.timestamp | date:'medium' }}</td>
+            <td>{{ event.device_id }}</td>
+            <td>{{ event.problem }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <app-footer></app-footer>
