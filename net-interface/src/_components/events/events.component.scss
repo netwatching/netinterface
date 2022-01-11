@@ -1,36 +1,49 @@
-#button{
-    background-color: #ff0000;
-    color: white;
-    width: 100%;
-    // margin-top: 1%;
-    // text-align: center;
+#button {
+  background-color: #ff0000;
+  color: white;
+  width: 100%;
+  // margin-top: 1%;
+  // text-align: center;
 }
 
-#form-elements{
-    display: inline;
-    margin-right: 2%;
+#form-elements {
+  display: inline;
+  margin-right: 2%;
 }
 
-.event-debug{
-    border-left: var(--events_debug) 10px solid;
+.event-heading{
+    border-left: 5px solid transparent;
 }
 
-.event-information{
-    border-left: var(--events_information) 10px solid;
+.event-debug {
+  border-left: var(--events_debug) 5px solid;
 }
 
-.event-warning{
-    border-left: var(--events_warning) 10px solid;
+.event-information {
+  border-left: var(--events_information) 5px solid;
 }
 
-.event-error{
-    border-left: var(--events_error) 10px solid;
+.event-warning {
+  border-left: var(--events_warning) 5px solid;
 }
 
-.event-disaster{
-    border-left: var(--events_disaster) 10px solid;
+.event-error {
+  border-left: var(--events_error) 5px solid;
 }
 
-#event-box{
-    margin-bottom: 2%; 
+.event-disaster {
+  border-left: var(--events_disaster) 5px solid;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+.table-data{
+    vertical-align: middle;
+}
+
+.table-row:hover{
+    background-color: rgb(240, 240, 240);
 }
