@@ -1,5 +1,62 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
+  <div class="box" id="filter">
+    <form [formGroup]="categoryForm" (ngSubmit)="submitForm()" novalidate>
+      <div class="columns">
+        <div class="column is-four-fifths">
+          <div class="field" *ngFor="let category of categories; let i=index" id="form-elements">
+            <label class="checkbox">
+              <input type="checkbox" [value]="category" (change)="onCheckboxChange($event)">
+              {{ category }}
+            </label>
+          </div>
+        </div>
+        <div class="column"></div>
+        <div class="column">
+          <input type="submit" value="filter" class="button is-link" id="button">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="box">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="event-heading" style="width: 30%;">device</th>
+          <th style="width: 15%;">id</th>
+          <th style="width: 55%;">category</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let device of devices">
+        <tr class="table-row" [routerLink]="['/devices/', device.id]">
+          <td><a class="hyperlink">{{ device.device }}</a></td>
+          <td>{{ device.id }}</td>
+          <td>{{ device.category }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+    <a class="pagination-previous">Previous</a>
+    <a class="pagination-next">Next page</a>
+    <ul class="pagination-list">
+      <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+      <li><span class="pagination-ellipsis">&hellip;</span></li>
+      <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+      <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
+      <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+      <li><span class="pagination-ellipsis">&hellip;</span></li>
+      <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+    </ul>
+  </nav>
+</div>
+<app-footer></app-footer>
+
+
+<!-- Alternative List implementation -->
+
+<!-- <app-nav-bar></app-nav-bar>
+<div class="container">
   <div *ngFor="let device of devices">
     <a href="/devices/{{ device.id }}">
       <div class="box" style="margin-bottom: 2%;">
@@ -12,4 +69,4 @@
     </a>
   </div>
 </div>
-<app-footer></app-footer>
+<app-footer></app-footer> -->

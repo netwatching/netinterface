@@ -3,7 +3,8 @@
 @import "~bulma/sass/utilities/functions";
 
 
-$blue: #ff0000;;
+$blue: #ff0000;
+;
 // // Add pink and its invert
 // $pink: #ffb3b3;
 // $pink-invert: #fff;
@@ -47,13 +48,19 @@ $blue: #ff0000;;
 
 :root {
 
-    // events
-    --events_debug: rgb(158, 158, 158);
-    --events_information: rgb(255, 213, 0);
-    --events_warning: rgb(255, 145, 0);
-    --events_error: rgb(255, 68, 0);
-    --events_disaster: rgb(255, 0, 0);
+  // events
+  --events_debug: rgb(158, 158, 158);
+  --events_information: rgb(255, 213, 0);
+  --events_warning: rgb(255, 145, 0);
+  --events_error: rgb(255, 68, 0);
+  --events_disaster: rgb(255, 0, 0);
 }
 
+.hyperlink {
+  color: black;
+}
 
-
+.hyperlink:hover {
+  color: rgb(82, 82, 82);
+  text-decoration: underline;
+}
