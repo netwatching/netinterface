@@ -23,6 +23,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeDevicesComponent } from './../_components/home-devices/home-devices.component';
 import { HomeAlertsComponent } from './../_components/home-alerts/home-alerts.component';
 import { DeviceDetailsSwitchComponent } from './../_components/device-details-switch/device-details-switch.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
@@ -54,7 +59,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     EventsComponent,
     HomeDevicesComponent,
     HomeAlertsComponent,
-    DeviceDetailsSwitchComponent
+    DeviceDetailsSwitchComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,15 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HttpClientModule,
     FormsModule,
     MsalModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    MatChipsModule,
+    MatTableModule,
+    MatFormFieldModule,
+  ],
+  exports: [
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

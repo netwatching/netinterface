@@ -23,17 +23,17 @@ export class HomeAlertsComponent implements OnInit {
   }
 
   getEvents() {
-    let size = 5;
+    // let size = 5;
 
-    this.central.getEvents().subscribe((alerts) => {
-      this.alerts = alerts.slice(0, size);
-    },
-    (error) => {
-        if (error.status == 404) {
-            this.router.navigate(['']);
-        }
-        this.errorMessage = error.message;
-    });
+    // this.central.getEvents(1, 5).subscribe((alerts) => {
+    //   this.alerts = alerts.slice(0, size);
+    // },
+    // (error) => {
+    //     if (error.status == 404) {
+    //         this.router.navigate(['']);
+    //     }
+    //     this.errorMessage = error.message;
+    // });
   }
 
 }

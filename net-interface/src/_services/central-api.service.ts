@@ -7,6 +7,7 @@ import { Device } from '../_interfaces/device';
 import { Feature } from '../_interfaces/feature';
 import { Jwt } from '../_interfaces/jwt';
 import { Event } from 'src/_interfaces/event';
+import { EventData } from 'src/_interfaces/event-data';
 
 @Injectable({
   providedIn: 'root'
@@ -58,16 +59,16 @@ export class CentralApiService {
   //     );
   // }
   
-  public getEvents(page: number, amount: number): Observable < Array < Event >> {
+  public getEvents(page: number, amount: number): Observable < EventData > {
     return this.httpClient
-      .get < Array < Event >> (`${this.BASE_URL}/alerts/?page=${page}&amount=${amount}`).pipe(
+      .get < EventData > (`${this.BASE_URL}/alerts/?page=${page}&amount=${amount}`).pipe(
         retry(1)
       );
   }
 
-  public getEventsBySeverity(page: number, amount: number, severity: string): Observable < Array < Event >> {
+  public getEventsBySeverity(page: number, amount: number, severity: string): Observable < EventData > {
     return this.httpClient
-      .get < Array < Event >> (`${this.BASE_URL}/alerts/?page=${page}&amount=${amount}&severity=${severity}`).pipe(
+      .get < EventData > (`${this.BASE_URL}/alerts/?page=${page}&amount=${amount}&severity=${severity}`).pipe(
         retry(1)
       );
   }

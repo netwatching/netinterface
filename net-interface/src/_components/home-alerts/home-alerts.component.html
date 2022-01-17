@@ -1,5 +1,5 @@
 <div class="home-container-scroll">
-  <div *ngFor="let alert of alerts">
+  <!-- <div *ngFor="let alert of alerts">
     <a href="/events/{{ alert.id }}">
       <div class="box my-5 device-box" [ngClass]="{'alertL0': alert.severity==0,'alertL1': alert.severity==1,'alertL2': alert.severity==2,'alertL3': alert.severity==3,'alertL4': alert.severity==4,'alertL5': alert.severity==5,'alertL6': alert.severity==6,'alertL7': alert.severity==7,'alertL8': alert.severity==8,'alertL9': alert.severity==9}">
         <h4 class="is-size-4 has-text-weight-bold">{{ alert.device_id }}</h4>
@@ -10,7 +10,7 @@
         </p>
       </div>
     </a>
-  </div>
+  </div> -->
   <div class="has-text-centered mb-5">
     <a href="/events" class="button is-primary" style="background-color: #ff0000;">
       <strong>show more</strong>
