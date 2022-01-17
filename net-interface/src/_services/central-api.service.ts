@@ -44,23 +44,30 @@ export class CentralApiService {
       );
   }
 
-  public getEvents(): Observable < Array < Event >> {
+  // public getEvents(): Observable < Array < Event >> {
+  //   return this.httpClient
+  //     .get < Array < Event >> (`${this.BASE_URL}/alerts`).pipe(
+  //       retry(1)
+  //     );
+  // }
+
+  // public getEventsById(eventId: string): Observable < Event > {
+  //   return this.httpClient
+  //     .get < Event > (`${this.BASE_URL}/alerts/${eventId}/`).pipe(
+  //       retry(1)
+  //     );
+  // }
+  
+  public getEvents(page: number, amount: number): Observable < Array < Event >> {
     return this.httpClient
-      .get < Array < Event >> (`${this.BASE_URL}/alerts`).pipe(
+      .get < Array < Event >> (`${this.BASE_URL}/alerts/?page=${page}&amount=${amount}`).pipe(
         retry(1)
       );
   }
 
-  public getEventsById(eventId: string): Observable < Event > {
+  public getEventsBySeverity(page: number, amount: number, severity: string): Observable < Array < Event >> {
     return this.httpClient
-      .get < Event > (`${this.BASE_URL}/alerts/${eventId}/`).pipe(
-        retry(1)
-      );
-  }
-
-  public getEventsByMinSeverity(minSeverity: string): Observable < Array < Event >> {
-    return this.httpClient
-      .get < Array < Event >> (`${this.BASE_URL}/alerts/?minSeverity=${minSeverity}`).pipe(
+      .get < Array < Event >> (`${this.BASE_URL}/alerts/?page=${page}&amount=${amount}&severity=${severity}`).pipe(
         retry(1)
       );
   }
