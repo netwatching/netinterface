@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Device } from '../../_interfaces/device';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Features } from '../../_interfaces/features';
+import { Feature } from '../../_interfaces/feature';
 import { CentralApiService } from '../../_services/central-api.service';
 import { Switch } from '../../_interfaces/switch';
 import { count } from 'console';
@@ -14,7 +14,7 @@ import { count } from 'console';
 export class DeviceDetailsSwitchComponent implements OnInit {
   device!: Device;
   deviceId!: string;
-  features!: Features;
+  features!: Feature;
   errorMessage: string | undefined;
   switch!: Array < Switch >;
 

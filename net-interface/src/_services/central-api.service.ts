@@ -4,9 +4,9 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 import { Device } from '../_interfaces/device';
-import { Features } from '../_interfaces/features';
+import { Feature } from '../_interfaces/feature';
 import { Jwt } from '../_interfaces/jwt';
-import { Events } from 'src/_interfaces/events';
+import { Event } from 'src/_interfaces/event';
 
 @Injectable({
   providedIn: 'root'
@@ -37,30 +37,30 @@ export class CentralApiService {
       );
   }
 
-  public getFeaturesByDevice(deviceId: string): Observable < Features > {
+  public getFeaturesByDevice(deviceId: string): Observable < Feature > {
     return this.httpClient
-      .get < Features > (`${this.BASE_URL}/devices/${deviceId}/features`).pipe(
+      .get < Feature > (`${this.BASE_URL}/devices/${deviceId}/features`).pipe(
         retry(1)
       );
   }
 
-  public getEvents(): Observable < Array < Events >> {
+  public getEvents(): Observable < Array < Event >> {
     return this.httpClient
-      .get < Array < Events >> (`${this.BASE_URL}/alerts`).pipe(
+      .get < Array < Event >> (`${this.BASE_URL}/alerts`).pipe(
         retry(1)
       );
   }
 
-  public getEventsById(eventId: string): Observable < Events > {
+  public getEventsById(eventId: string): Observable < Event > {
     return this.httpClient
-      .get < Events > (`${this.BASE_URL}/alerts/${eventId}/`).pipe(
+      .get < Event > (`${this.BASE_URL}/alerts/${eventId}/`).pipe(
         retry(1)
       );
   }
 
-  public getEventsByMinSeverity(minSeverity: string): Observable < Events > {
+  public getEventsByMinSeverity(minSeverity: string): Observable < Array < Event >> {
     return this.httpClient
-      .get < Events > (`${this.BASE_URL}/alerts/?minSeverity=${minSeverity}`).pipe(
+      .get < Array < Event >> (`${this.BASE_URL}/alerts/?minSeverity=${minSeverity}`).pipe(
         retry(1)
       );
   }

@@ -45,5 +45,15 @@ $blue: #ff0000;;
 //   flex-direction: column;
 // }
 
+:root {
+
+    // events
+    --events_debug: rgb(158, 158, 158);
+    --events_information: rgb(255, 213, 0);
+    --events_warning: rgb(255, 145, 0);
+    --events_error: rgb(255, 68, 0);
+    --events_disaster: rgb(255, 0, 0);
+}
+
 
 
