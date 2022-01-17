@@ -55,7 +55,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HomeDevicesComponent,
     HomeAlertsComponent,
     DeviceDetailsSwitchComponent
-
   ],
   imports: [
     BrowserModule,
