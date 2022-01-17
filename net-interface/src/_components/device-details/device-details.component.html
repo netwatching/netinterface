@@ -1,61 +1,82 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
-  <div class="box">
-    <h2 class="headline">
-      Device: {{ device.device }}
-    </h2>
-    <p><b>Device-ID:</b> {{ device.id }}</p>
-    <p><b>Category:</b> wird noch nicht von API returned</p>
-    <p><b>Category-ID:</b> {{ device.category_id }}</p>
+  <div class="box" *ngIf="(features.system | keyvalue)?.length">
+    <h2 class="headline" *ngIf="features.system.name">{{ features.system.name }} <span
+        *ngIf="device.category">({{ device.category }})</span></h2>
+    <p *ngIf="features.system.description">{{ features.system.description }}</p>
+    <p *ngIf="features.system.uptime">up since {{ upSince  | date }} at {{ upSince | date:'HH:mm:ss'}}</p>
+    <p *ngIf="features.system.contact">contact: {{ features.system.contact }}</p>
   </div>
-
-  <div class="box">
-    <h2 class="headline">
-      Switch
-    </h2>
-    <app-device-details-switch></app-device-details-switch>
-  </div>
-
-
-  <div class="box">
-    <h2 class="headline">System</h2>
-    <p>hostname: {{ features.system.hostname }}</p>
-    <p>description: {{ features.system.description }}</p>
-    <p>contact: {{ features.system.contact }}</p>
-    <p>name: {{ features.system.name }}</p>
-    <p>uptime: {{ features.system.uptime }}</p>
-  </div>
-
-  <div class="box">
-    <h2 class="headline">Active Services</h2>
-    <p *ngIf="features.services.PhysicalLayer">Physical Layer</p>
-    <p *ngIf="features.services.DataLinkLayer">DataLink Layer</p>
-    <p *ngIf="features.services.NetworkLayer">Network Layer</p>
-    <p *ngIf="features.services.TransportLayer">Transport Layer</p>
-    <p *ngIf="features.services.SessionLayer">Session Layer</p>
-    <p *ngIf="features.services.PresentationLayer">Presentation Layer</p>
-    <p *ngIf="features.services.ApplicationLayer">Application Layer</p>
-  </div>
-
-  <div class="box">
-    <h2 class="headline">IP Addresses</h2>
+  <div class="box" *ngIf="(features.ipAddresses | keyvalue)?.length">
+    <h2 class="sub-headline">IP Addresses</h2>
     <div *ngFor="let ip of features.ipAddresses">
       <p>IP Address: {{ ip.ipAdEntAddr }}</p>
+      <p *ngIf="features.system.hostname">hostname: {{ features.system.hostname }}</p>
       <p>interface: {{ ip.ipAdEntIfIndex }}</p>
       <p>netmask: {{ ip.ipAdEntNetMask }}</p>
       <p>netmask size: {{ ip.ipAdEntReasmMaxSize }}</p>
     </div>
   </div>
-
-  <div class="box">
-    <h2 class="headline" style="margin-bottom: 1%">Interfaces</h2>
-    <div class="box" *ngFor="let interface of features.interfaces">
-      <h3><strong>{{ interface.ifIndex }}: {{ interface.ifDescr }}</strong></h3>
-      <p>Type: {{ interface.ifType }}</p>
-      <p>MAC: {{ interface.ifPhysAddress }}</p>
-      <p>Admin Status: {{ interface.ifAdminStatus }}</p>
-      <p>Operating Status: {{ interface.ifOperStatus }}</p>
-    </div>
+  <div class="box" *ngIf="(features.alerts | keyvalue)?.length">
+    <tbody *ngFor="let event of features.alerts">
+      <tr class="table-row">
+        <td class="table-data"
+          [ngClass]="{'event-debug': event.severity==1,'event-information': event.severity==2,'event-warning': event.severity==3,'event-error': event.severity==4,'event-disaster': event.severity==5}">
+          {{ event.timestamp | date:'M/d/yyyy' }}</td>
+        <td class="table-data">{{ event.timestamp | date:'HH:mm:ss' }}</td>
+        <td class="table-data">
+          <strong>
+            <div *ngIf="event.severity == 1">
+              <p style="color: var(--events_debug);">debug</p>
+            </div>
+            <div *ngIf="event.severity == 2">
+              <p style="color: var(--events_information);">information</p>
+            </div>
+            <div *ngIf="event.severity == 3">
+              <p style="color: var(--events_warning);">warning</p>
+            </div>
+            <div *ngIf="event.severity == 4">
+              <p style="color: var(--events_error);">error</p>
+            </div>
+            <div *ngIf="event.severity == 5">
+              <p style="color: var(--events_disaster);">disaster</p>
+            </div>
+          </strong>
+        </td>
+        <td class="table-data">
+          <a href="/devices/{{ event.device_id }}" class="hyperlink">
+            {{ event.device | slice : 0: event.device.length - 14 }}
+          </a>
+        </td>
+        <td class="table-data">{{ event.problem }}</td>
+      </tr>
+    </tbody>
+  </div>
+  <div class="box" *ngIf="(features.interfaces | keyvalue)?.length">
+    <h2 class="sub-headline" style="margin-bottom: 1%">Interfaces</h2>
+    <app-device-details-switch></app-device-details-switch>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Interface</th>
+          <th>Slot / Port</th>
+          <th>Type</th>
+          <th>MAC</th>
+          <th>Admin status</th>
+          <th>Operating status</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let interface of features.interfaces">
+        <tr class="table-row">
+          <td class="table-data">{{ interface.ifIndex }}</td>
+          <td class="table-data">{{ interface.ifDescr }}</td>
+          <td class="table-data">{{ interface.ifType }}</td>
+          <td class="table-data">{{ interface.ifPhysAddress }}</td>
+          <td class="table-data">{{ interface.ifAdminStatus }}</td>
+          <td class="table-data">{{ interface.ifOperStatus }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 <app-footer></app-footer>

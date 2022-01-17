@@ -17,6 +17,8 @@ export class DeviceDetailsComponent implements OnInit {
   deviceId!: string;
   features!: Feature;
   errorMessage: string | undefined;
+  date!: Date;
+  upSince!: string;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -37,7 +39,7 @@ export class DeviceDetailsComponent implements OnInit {
   getDevice() {
     this.central.getDeviceById(this.deviceId).subscribe((device) => {
             this.device = device
-            console.log(this.device)
+            // console.log(this.device)
         },
         (error) => {
             if (error.status == 404) {
@@ -49,10 +51,10 @@ export class DeviceDetailsComponent implements OnInit {
   }
 
   getDeviceFeatures() {
-    console.log(this.deviceId.toString())
     this.central.getFeaturesByDevice(this.deviceId).subscribe((features) => {
       this.features = features;
-      console.log(this.features)
+      // console.log(this.features)
+      this.calcUpTime()
       },
       (error) => {
         if (error.status == 404) {
@@ -63,4 +65,8 @@ export class DeviceDetailsComponent implements OnInit {
     );
   }
 
+  calcUpTime(){
+    this.date=new Date();
+    this.upSince = String(Date.parse(String(this.date)) - this.features.system.uptime)
+  }
 }

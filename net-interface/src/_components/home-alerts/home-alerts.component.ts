@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Events } from '../../_interfaces/events';
+import { Event } from '../../_interfaces/event';
 import { CentralApiService } from '../../_services/central-api.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { CentralApiService } from '../../_services/central-api.service';
   styleUrls: ['./home-alerts.component.css']
 })
 export class HomeAlertsComponent implements OnInit {
-  alerts!: Array < Events >;
+  alerts!: Array < Event >;
   errorMessage: string | undefined;
 
   constructor(
