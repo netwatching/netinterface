@@ -44,20 +44,20 @@ export class CentralApiService {
         retry(1)
       );
   }
+  
+  public getEventsByDevice(page: number, amount: number, deviceId: string): Observable < EventData > {
+    return this.httpClient
+      .get < EventData > (`${this.BASE_URL}/devices/${deviceId}/alerts/?page=${page}&amount=${amount}`).pipe(
+        retry(1)
+      );
+  }
 
-  // public getEvents(): Observable < Array < Event >> {
-  //   return this.httpClient
-  //     .get < Array < Event >> (`${this.BASE_URL}/alerts`).pipe(
-  //       retry(1)
-  //     );
-  // }
-
-  // public getEventsById(eventId: string): Observable < Event > {
-  //   return this.httpClient
-  //     .get < Event > (`${this.BASE_URL}/alerts/${eventId}/`).pipe(
-  //       retry(1)
-  //     );
-  // }
+  public getEventsBySeverityByDevice(page: number, amount: number, severity: string, deviceId: string): Observable < EventData > {
+    return this.httpClient
+      .get < EventData > (`${this.BASE_URL}/devices/${deviceId}/alerts/?page=${page}&amount=${amount}&severity=${severity}`).pipe(
+        retry(1)
+      );
+  }
   
   public getEvents(page: number, amount: number): Observable < EventData > {
     return this.httpClient

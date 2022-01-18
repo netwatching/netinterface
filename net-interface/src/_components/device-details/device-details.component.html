@@ -1,56 +1,56 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
-  <div class="box" *ngIf="(features.system | keyvalue)?.length">
+  <div class="box" *ngIf="(features.system| keyvalue)?.length">
     <h2 class="headline" *ngIf="features.system.name">{{ features.system.name }} <span
         *ngIf="device.category">({{ device.category }})</span></h2>
     <p *ngIf="features.system.description">{{ features.system.description }}</p>
     <p *ngIf="features.system.uptime">up since {{ upSince  | date }} at {{ upSince | date:'HH:mm:ss'}}</p>
     <p *ngIf="features.system.contact">contact: {{ features.system.contact }}</p>
+    <p *ngIf="features.system.location">location: {{ features.system.location }}</p>
   </div>
-  <div class="box" *ngIf="(features.ipAddresses | keyvalue)?.length">
+  <div class="box" *ngIf="(features.ipAddresses)?.length">
     <h2 class="sub-headline">IP Addresses</h2>
     <div *ngFor="let ip of features.ipAddresses">
-      <p>IP Address: {{ ip.ipAdEntAddr }}</p>
-      <p *ngIf="features.system.hostname">hostname: {{ features.system.hostname }}</p>
-      <p>interface: {{ ip.ipAdEntIfIndex }}</p>
-      <p>netmask: {{ ip.ipAdEntNetMask }}</p>
-      <p>netmask size: {{ ip.ipAdEntReasmMaxSize }}</p>
+      <p>IP Address: {{ ip.address }}</p>
+      <!-- <p *ngIf="features.system.hostname">hostname: {{ features.system.hostname }}</p> -->
+      <p>interface: {{ ip.interface_index }}</p>
+      <p>netmask: {{ ip.netmask }}</p>
     </div>
   </div>
-  <div class="box" *ngIf="(features.alerts | keyvalue)?.length">
-    <!-- <tbody *ngFor="let event of features.alerts">
+  <div class="box" *ngIf="(events | keyvalue)?.length">
+    <tbody *ngFor="let event of events">
       <tr class="table-row">
         <td class="table-data"
-          [ngClass]="{'event-debug': event.severity==1,'event-information': event.severity==2,'event-warning': event.severity==3,'event-error': event.severity==4,'event-disaster': event.severity==5}">
-          {{ event.timestamp | date:'M/d/yyyy' }}</td>
-        <td class="table-data">{{ event.timestamp | date:'HH:mm:ss' }}</td>
+          [ngClass]="{'event-debug': event.Alert.severity==1,'event-information': event.Alert.severity==2,'event-warning': event.Alert.severity==3,'event-error': event.Alert.severity==4,'event-disaster': event.Alert.severity==5}">
+          {{ event.Alert.timestamp | date:'M/d/yyyy' }}</td>
+        <td class="table-data">{{ event.Alert.timestamp | date:'HH:mm:ss' }}</td>
         <td class="table-data">
           <strong>
-            <div *ngIf="event.severity == 1">
+            <div *ngIf="event.Alert.severity == 1">
               <p style="color: var(--events_debug);">debug</p>
             </div>
-            <div *ngIf="event.severity == 2">
+            <div *ngIf="event.Alert.severity == 2">
               <p style="color: var(--events_information);">information</p>
             </div>
-            <div *ngIf="event.severity == 3">
+            <div *ngIf="event.Alert.severity == 3">
               <p style="color: var(--events_warning);">warning</p>
             </div>
-            <div *ngIf="event.severity == 4">
+            <div *ngIf="event.Alert.severity == 4">
               <p style="color: var(--events_error);">error</p>
             </div>
-            <div *ngIf="event.severity == 5">
+            <div *ngIf="event.Alert.severity == 5">
               <p style="color: var(--events_disaster);">disaster</p>
             </div>
           </strong>
         </td>
         <td class="table-data">
-          <a href="/devices/{{ event.device_id }}" class="hyperlink">
+          <a href="/devices/{{ event.Alert.device_id }}" class="hyperlink">
             {{ event.device | slice : 0: event.device.length - 14 }}
           </a>
         </td>
-        <td class="table-data">{{ event.problem }}</td>
+        <td class="table-data">{{ event.Alert.problem }}</td>
       </tr>
-    </tbody> -->
+    </tbody>
   </div>
   <div class="box" *ngIf="(features.interfaces | keyvalue)?.length">
     <h2 class="sub-headline" style="margin-bottom: 1%">Interfaces</h2>
@@ -67,13 +67,13 @@
         </tr>
       </thead>
       <tbody *ngFor="let interface of features.interfaces">
-        <tr class="table-row">
-          <td class="table-data">{{ interface.ifIndex }}</td>
-          <td class="table-data">{{ interface.ifDescr }}</td>
-          <td class="table-data">{{ interface.ifType }}</td>
-          <td class="table-data">{{ interface.ifPhysAddress }}</td>
-          <td class="table-data">{{ interface.ifAdminStatus }}</td>
-          <td class="table-data">{{ interface.ifOperStatus }}</td>
+        <tr class="table-row" *ngIf="(interface | keyvalue)?.length">
+          <td class="table-data">{{ interface.index }}</td>
+          <td class="table-data">{{ interface.description }}</td>
+          <td class="table-data">{{ interface.type }}</td>
+          <td class="table-data">{{ interface.mac_address }}</td>
+          <td class="table-data">{{ interface.admin_status }}</td>
+          <td class="table-data">{{ interface.operating_status }}</td>
         </tr>
       </tbody>
     </table>
