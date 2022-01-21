@@ -1,0 +1,13 @@
+.chart-box{
+  width: 95%;
+  margin: 0 2.5%;
+}
+
+.chart-div{
+  height: 37vh;
+}
+
+.home-container-scroll{
+  height: 90vh;
+  overflow: scroll;
+}

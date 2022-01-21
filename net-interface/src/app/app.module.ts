@@ -22,7 +22,9 @@ import { EventsComponent } from 'src/_components/events/events.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeDevicesComponent } from './../_components/home-devices/home-devices.component';
 import { HomeAlertsComponent } from './../_components/home-alerts/home-alerts.component';
+import { HomeChartsComponent } from './../_components/home-charts/home-charts.component';
 import { DeviceDetailsSwitchComponent } from './../_components/device-details-switch/device-details-switch.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
@@ -54,6 +56,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     EventsComponent,
     HomeDevicesComponent,
     HomeAlertsComponent,
+    HomeChartsComponent,
     DeviceDetailsSwitchComponent
 
   ],
@@ -64,7 +67,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HttpClientModule,
     FormsModule,
     MsalModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

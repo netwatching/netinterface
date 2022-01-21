@@ -9,7 +9,7 @@
     <p><b>Category-ID:</b> {{ device.category_id }}</p>
   </div>
 
-  <div class="box">
+  <div *ngIf="features.interfaces.length >= 5" class="box">
     <h2 class="headline">
       Switch
     </h2>

@@ -23,7 +23,7 @@ export class HomeDevicesComponent implements OnInit {
   }
 
   getDevices() {
-    let size = 5;
+    let size = 8;
     this.central.getDevices().subscribe((devices) => {
       this.devices = devices.slice(0, size);
     },
