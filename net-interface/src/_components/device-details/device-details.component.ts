@@ -40,12 +40,12 @@ export class DeviceDetailsComponent implements OnInit {
   ngOnInit() {
     this.getDevice()
     this.getDeviceFeatures()
-    // this.getEvents(1, this.alertsPerPage)
+    this.getEvents(0, 0)
   }
 
   getDevice() {
     this.central.getDeviceById(this.deviceId).subscribe((device) => {
-            this.device = device
+            this.device = device;
         },
         (error) => {
             if (error.status == 404) {
@@ -71,9 +71,10 @@ export class DeviceDetailsComponent implements OnInit {
   }
 
   getEvents(page: number, amount: number) {
-    this.central.getEventsByDevice(page, amount, this.device.id).subscribe((eventData) => {
+    this.central.getEventsByDevice(page, amount, this.deviceId).subscribe((eventData) => {
         this.eventData = eventData;
         this.events = eventData.alerts;
+        console.log(this.events)
         // if (this.firstCall == true) {
         //   this.calcPageAmount(this.alertsPerPage)
         //   this.firstCall = false;
@@ -89,7 +90,7 @@ export class DeviceDetailsComponent implements OnInit {
   }
 
   getEventsBySeverity(page: number, amount: number, severity: string) {
-    this.central.getEventsBySeverityByDevice(page, amount, severity, this.device.id).subscribe((eventData) => {
+    this.central.getEventsBySeverityByDevice(page, amount, severity, this.deviceId).subscribe((eventData) => {
         this.eventData = eventData;
         this.events = eventData.alerts;
         // this.calcPageAmount(this.alertsPerPage)
