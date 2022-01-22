@@ -33,24 +33,24 @@
       <tbody *ngFor="let event of events">
         <tr class="table-row">
           <td class="table-data"
-            [ngClass]="{'event-debug': event.Alert.severity==1,'event-information': event.Alert.severity==2,'event-warning': event.Alert.severity==3,'event-error': event.Alert.severity==4,'event-disaster': event.Alert.severity==5}">
-            {{ event.Alert.timestamp | date:'M/d/yyyy' }}</td>
-          <td class="table-data">{{ event.Alert.timestamp | date:'HH:mm:ss' }}</td>
+            [ngClass]="{'event-debug': event.severity==1,'event-information': event.severity==2,'event-warning': event.severity==3,'event-error': event.severity==4,'event-disaster': event.severity==5}">
+            {{ event.timestamp | date:'M/d/yyyy' }}</td>
+          <td class="table-data">{{ event.timestamp | date:'HH:mm:ss' }}</td>
           <td class="table-data">
             <strong>
-              <div *ngIf="event.Alert.severity == 1">
+              <div *ngIf="event.severity == 1">
                 <p style="color: var(--events_debug);">debug</p>
               </div>
-              <div *ngIf="event.Alert.severity == 2">
+              <div *ngIf="event.severity == 2">
                 <p style="color: var(--events_information);">information</p>
               </div>
-              <div *ngIf="event.Alert.severity == 3">
+              <div *ngIf="event.severity == 3">
                 <p style="color: var(--events_warning);">warning</p>
               </div>
-              <div *ngIf="event.Alert.severity == 4">
+              <div *ngIf="event.severity == 4">
                 <p style="color: var(--events_error);">error</p>
               </div>
-              <div *ngIf="event.Alert.severity == 5">
+              <div *ngIf="event.severity == 5">
                 <p style="color: var(--events_disaster);">disaster</p>
               </div>
             </strong>
@@ -61,7 +61,7 @@
               <!-- | slice : 0: event.device.length - 14 -->
             </a>
           </td>
-          <td class="table-data">{{ event.Alert.problem }}</td>
+          <td class="table-data">{{ event.problem }}</td>
         </tr>
       </tbody>
     </table>
