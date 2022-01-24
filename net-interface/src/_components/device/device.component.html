@@ -6,8 +6,8 @@
         <div class="column is-four-fifths">
           <div class="field" *ngFor="let category of categories; let i=index" id="form-elements">
             <label class="checkbox">
-              <input type="checkbox" [value]="category" (change)="onCheckboxChange($event)">
-              {{ category }}
+              <input type="checkbox" [value]="category.id" (change)="onCheckboxChange($event)">
+              {{ category.category }}
             </label>
           </div>
         </div>
@@ -17,6 +17,216 @@
         </div>
       </div>
     </form>
+  </div>
+  <div class="columns" *ngIf="totalPages>1">
+    <nav class="pagination is-rounded column" role="navigation" aria-label="pagination"
+      *ngIf="((devices | keyvalue)?.length) && (pageCount>1)" style="text-align: left;">
+      <a class="pagination-previous" (click)="setPageCount(-1)">Previous</a>
+    </nav>
+    <nav class="pagination is-rounded column" role="navigation" aria-label="pagination"
+      *ngIf="((devices | keyvalue)?.length) && (pageCount == 1)" style="text-align: left;">
+      <a class="pagination-previous" disabled="disabled">Previous</a>
+    </nav>
+    <nav class="pagination is-rounded column is-two-thirds" role="navigation" aria-label="pagination"
+      *ngIf="(devices | keyvalue)?.length">
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;" *ngIf="pageCount == 1">
+        <span>
+          <li><a class="pagination-link is-current" aria-current="page">1</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link" (click)="setPageCount(1)">2</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(2)">3</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(3)">4</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(4)">5</a></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(5)">6</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;" *ngIf="pageCount == 2">
+        <span>
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link is-current" aria-current="page">2</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(1)">3</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(2)">4</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(3)">5</a></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(4)">6</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;" *ngIf="pageCount == 3">
+        <span>
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">2</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link is-current" aria-current="page">3</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(1)">4</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(2)">5</a></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(3)">6</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;"
+        *ngIf="(pageCount > 3) && (pageCount < totalPages-2)">
+        <span>
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="(totalPages==7) || ((totalPages==8) && (pageCount==6))">
+          <li><a class="pagination-link" (click)="setPageCount(-2)">{{ pageCount-2 }}</a></li>
+        </span>
+        <span *ngIf="(totalPages>8) || ((pageCount>3) && (totalPages==8))">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ pageCount-1 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link is-current" aria-current="page">{{ pageCount }}</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(1)">{{ pageCount+1 }}</a></li>
+        </span>
+        <span *ngIf="totalPages==7">
+          <li><a class="pagination-link" (click)="setPageCount(2)">{{ pageCount+2 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span>
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;"
+        *ngIf="(pageCount == totalPages-2) && (pageCount>3)">
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-5 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-4 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-3 }}</a></li>
+        </span>
+        <span>
+          <li><a class="pagination-link is-current" aria-current="page">{{ totalPages-2 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(1)">{{ totalPages-1 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;"
+        *ngIf="(pageCount == totalPages-1) && (pageCount>3)">
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-5 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-4 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-3 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-2 }}</a></li>
+        </span>
+        <span>
+          <li><a class="pagination-link is-current" aria-current="page">{{ totalPages-1 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;"
+        *ngIf="(pageCount == totalPages) && (pageCount>3)">
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(-4)">{{ totalPages-5 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(-4)">{{ totalPages-4 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(-3)">{{ totalPages-3 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(-2)">{{ totalPages-2 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-1 }}</a></li>
+        </span>
+        <span>
+          <li><a class="pagination-link is-current" aria-current="page">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+    </nav>
+    <nav class="pagination is-rounded column" role="navigation" aria-label="pagination"
+      *ngIf="((devices | keyvalue)?.length) && (pageCount<totalPages)" style="text-align: right;">
+      <a class="pagination-next" *ngIf="pageCount<totalPages" (click)="setPageCount(1)">Next</a>
+    </nav>
+    <nav class="pagination is-rounded column" role="navigation" aria-label="pagination"
+      *ngIf="((devices | keyvalue)?.length) && (pageCount==totalPages)" style="text-align: right;">
+      <a class="pagination-next" disabled="disabled">Next</a>
+    </nav>
   </div>
   <div class="flex-container">
     <div *ngFor="let device of devices">
