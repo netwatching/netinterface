@@ -1,141 +1,3 @@
-<!-- <app-nav-bar></app-nav-bar>
-<div class="container">
-  <div class="box" id="filter">
-    <form [formGroup]="severityForm" (ngSubmit)="submitForm()" novalidate>
-      <div class="columns">
-        <div class="column is-four-fifths">
-          <div class="field" *ngFor="let rank of severityRanks; let i=index" id="form-elements">
-            <label class="checkbox">
-              <input type="checkbox" [value]="rank" (change)="onCheckboxChange($event)">
-              {{ rank }}
-            </label>
-          </div>
-        </div>
-        <div class="column"></div>
-        <div class="column">
-          <input type="submit" value="filter" class="button is-link" id="button">
-        </div>
-      </div>
-    </form>
-  </div>
-  <div *ngFor="let event of events">
-    <div class="box my-5 device-box"
-      [ngClass]="{'event-debug': event.severity==1,'event-information': event.severity==2,'event-warning': event.severity==3,'event-error': event.severity==4,'event-disaster': event.severity==5}">
-      <table class="table" style="width: 100%;">
-        <thead>
-          <tr>
-            <th style="width: 10%;">severity</th>
-            <th style="width: 17%;">time</th>
-            <th style="width: 8%;">device</th>
-            <th style="width: 65%;">info</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <strong>
-                <div *ngIf="event.severity == 1">
-                  <p style="color: var(--events_debug);">debug</p>
-                </div>
-                <div *ngIf="event.severity == 2">
-                  <p style="color: var(--events_information);">information</p>
-                </div>
-                <div *ngIf="event.severity == 3">
-                  <p style="color: var(--events_warning);">warning</p>
-                </div>
-                <div *ngIf="event.severity == 4">
-                  <p style="color: var(--events_error);">error</p>
-                </div>
-                <div *ngIf="event.severity == 5">
-                  <p style="color: var(--events_disaster);">disaster</p>
-                </div>
-              </strong>
-            </td>
-            <td>{{ event.timestamp | date:'medium' }}</td>
-            <td>{{ event.device_id }}</td>
-            <td>{{ event.problem }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<app-footer></app-footer> -->
-
-
-
-
-<!-- <app-nav-bar></app-nav-bar>
-<div class="container">
-  <div class="box" id="filter">
-    <form [formGroup]="severityForm" (ngSubmit)="submitForm()" novalidate>
-      <div class="columns">
-        <div class="column is-four-fifths">
-          <div class="field" *ngFor="let rank of severityRanks; let i=index" id="form-elements">
-            <label class="checkbox">
-              <input type="checkbox" [value]="rank" (change)="onCheckboxChange($event)">
-              {{ rank }}
-            </label>
-          </div>
-        </div>
-        <div class="column"></div>
-        <div class="column">
-          <input type="submit" value="filter" class="button is-link" id="button">
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="box my-5 device-box" style="border-left: 10px;">
-    <table class="table" style="width: 100%;">
-      <thead>
-        <tr>
-          <th style="width: 10%;">severity</th>
-          <th style="width: 17%;">time</th>
-          <th style="width: 8%;">device</th>
-          <th style="width: 65%;">info</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div *ngFor="let event of events">
-    <div class="box my-5 device-box"
-      [ngClass]="{'event-debug': event.severity==1,'event-information': event.severity==2,'event-warning': event.severity==3,'event-error': event.severity==4,'event-disaster': event.severity==5}">
-
-      <table class="table" style="width: 100%;">
-        <tbody>
-          <tr>
-            <td style="width: 10%;">
-              <strong>
-                <div *ngIf="event.severity == 1">
-                  <p style="color: var(--events_debug);">debug</p>
-                </div>
-                <div *ngIf="event.severity == 2">
-                  <p style="color: var(--events_information);">information</p>
-                </div>
-                <div *ngIf="event.severity == 3">
-                  <p style="color: var(--events_warning);">warning</p>
-                </div>
-                <div *ngIf="event.severity == 4">
-                  <p style="color: var(--events_error);">error</p>
-                </div>
-                <div *ngIf="event.severity == 5">
-                  <p style="color: var(--events_disaster);">disaster</p>
-                </div>
-              </strong>
-            </td>
-            <td style="width: 17%;">{{ event.timestamp | date:'medium' }}</td>
-            <td style="width: 8%;">{{ event.device_id }}</td>
-            <td style="width: 65%;">{{ event.problem }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<app-footer></app-footer> -->
-
-
-
 <app-nav-bar></app-nav-bar>
 <div class="container">
   <div class="box" id="filter">
@@ -144,32 +6,252 @@
         <div class="column is-four-fifths">
           <div class="field" *ngFor="let rank of severityRanks; let i=index" id="form-elements">
             <label class="checkbox">
-              <input type="checkbox" [value]="rank" (change)="onCheckboxChange($event)">
-              {{ rank }}
+              <input type="checkbox" [value]="rank.value" (change)="onCheckboxChange($event)">
+              {{ rank.name }}
             </label>
           </div>
         </div>
         <div class="column"></div>
         <div class="column">
-          <input type="submit" value="filter" class="button is-link" id="button">
+          <input type="submit" value="Filter" class="button is-link" id="button">
         </div>
       </div>
     </form>
   </div>
-  <div class="box">
+  <div class="columns" *ngIf="totalPages>1">
+    <nav class="pagination is-rounded column" role="navigation" aria-label="pagination"
+      *ngIf="((events | keyvalue)?.length) && (pageCount>1)" style="text-align: left;">
+      <a class="pagination-previous" (click)="setPageCount(-1)">Previous</a>
+    </nav>
+    <nav class="pagination is-rounded column" role="navigation" aria-label="pagination"
+      *ngIf="((events | keyvalue)?.length) && (pageCount == 1)" style="text-align: left;">
+      <a class="pagination-previous" disabled="disabled">Previous</a>
+    </nav>
+    <nav class="pagination is-rounded column is-two-thirds" role="navigation" aria-label="pagination"
+      *ngIf="(events | keyvalue)?.length">
+
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;" *ngIf="pageCount == 1">
+        <span>
+          <li><a class="pagination-link is-current" aria-current="page">1</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link" (click)="setPageCount(1)">2</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(2)">3</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(3)">4</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(4)">5</a></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(5)">6</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;" *ngIf="pageCount == 2">
+        <span>
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link is-current" aria-current="page">2</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(1)">3</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(2)">4</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(3)">5</a></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(4)">6</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;" *ngIf="pageCount == 3">
+        <span>
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">2</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link is-current" aria-current="page">3</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(1)">4</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(2)">5</a></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(3)">6</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;"
+        *ngIf="(pageCount > 3) && (pageCount < totalPages-2)">
+        <span>
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="(totalPages==7) || ((totalPages==8) && (pageCount==6))">
+          <li><a class="pagination-link" (click)="setPageCount(-2)">{{ pageCount-2 }}</a></li>
+        </span>
+        <span *ngIf="(totalPages>8) || ((pageCount>3) && (totalPages==8))">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ pageCount-1 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link is-current" aria-current="page">{{ pageCount }}</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(1)">{{ pageCount+1 }}</a></li>
+        </span>
+        <span *ngIf="totalPages==7">
+          <li><a class="pagination-link" (click)="setPageCount(2)">{{ pageCount+2 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span>
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;"
+        *ngIf="(pageCount == totalPages-2) && (pageCount>3)">
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-5 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-4 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-3 }}</a></li>
+        </span>
+        <span>
+          <li><a class="pagination-link is-current" aria-current="page">{{ totalPages-2 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(1)">{{ totalPages-1 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;"
+        *ngIf="(pageCount == totalPages-1) && (pageCount>3)">
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-5 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-4 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-3 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-2 }}</a></li>
+        </span>
+        <span>
+          <li><a class="pagination-link is-current" aria-current="page">{{ totalPages-1 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link" (click)="gotoLastPage()">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+
+      <ul class="pagination-list" style="width: max-content; margin: 0 auto;"
+        *ngIf="(pageCount == totalPages) && (pageCount>3)">
+        <span *ngIf="totalPages>5">
+          <li><a class="pagination-link" (click)="gotoFirstPage()">1</a></li>
+        </span>
+        <span *ngIf="totalPages>7">
+          <li><span class="pagination-ellipsis">&hellip;</span></li>
+        </span>
+        <span *ngIf="totalPages == 7">
+          <li><a class="pagination-link" (click)="setPageCount(-4)">{{ totalPages-5 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>4">
+          <li><a class="pagination-link" (click)="setPageCount(-4)">{{ totalPages-4 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>3">
+          <li><a class="pagination-link" (click)="setPageCount(-3)">{{ totalPages-3 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>2">
+          <li><a class="pagination-link" (click)="setPageCount(-2)">{{ totalPages-2 }}</a></li>
+        </span>
+        <span *ngIf="totalPages>1">
+          <li><a class="pagination-link" (click)="setPageCount(-1)">{{ totalPages-1 }}</a></li>
+        </span>
+        <span>
+          <li><a class="pagination-link is-current" aria-current="page">{{ totalPages }}</a></li>
+        </span>
+      </ul>
+
+    </nav>
+    <nav class="pagination is-rounded column" role="navigation" aria-label="pagination"
+      *ngIf="((events | keyvalue)?.length) && (pageCount<totalPages)" style="text-align: right;">
+      <a class="pagination-next" *ngIf="pageCount<totalPages" (click)="setPageCount(1)">Next</a>
+    </nav>
+    <nav class="pagination is-rounded column" role="navigation" aria-label="pagination"
+      *ngIf="((events | keyvalue)?.length) && (pageCount==totalPages)" style="text-align: right;">
+      <a class="pagination-next" disabled="disabled">Next</a>
+    </nav>
+  </div>
+  <div class="box" *ngIf="(events | keyvalue)?.length">
     <table class="table">
       <thead>
         <tr>
-          <th class="event-heading" style="width: 8%;">date</th>
-          <th style="width: 9%;">time</th>
-          <th style="width: 8%;">severity</th>
-          <th style="width: 20%;">device</th>
-          <th style="width: 55%;">info</th>
+          <th class="event-heading" style="width: 8%;">Date</th>
+          <th style="width: 9%;">Time</th>
+          <th style="width: 8%;">Severity</th>
+          <th style="width: 20%;">Device</th>
+          <th style="width: 55%;">Info</th>
         </tr>
       </thead>
       <tbody *ngFor="let event of events">
         <tr class="table-row">
-          <td class="table-data" [ngClass]="{'event-debug': event.severity==1,'event-information': event.severity==2,'event-warning': event.severity==3,'event-error': event.severity==4,'event-disaster': event.severity==5}">{{ event.timestamp | date:'M/d/yyyy' }}</td>
+          <td class="table-data"
+            [ngClass]="{'event-debug': event.severity==1,'event-information': event.severity==2,'event-warning': event.severity==3,'event-error': event.severity==4,'event-disaster': event.severity==5}">
+            {{ event.timestamp | date:'M/d/yyyy' }}</td>
           <td class="table-data">{{ event.timestamp | date:'HH:mm:ss' }}</td>
           <td class="table-data">
             <strong>
@@ -191,8 +273,9 @@
             </strong>
           </td>
           <td class="table-data">
-            <a href="/devices/{{ event.device_id }}" style="color: black;">
-                {{ event.device | slice : 0: event.device.length - 14 }}
+            <a href="/devices/{{ event.device_id }}" class="hyperlink">
+              {{ event.device }}
+              <!-- | slice : 0: event.device.length - 14 -->
             </a>
           </td>
           <td class="table-data">{{ event.problem }}</td>
@@ -200,21 +283,5 @@
       </tbody>
     </table>
   </div>
-
-
-  <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
-    <a class="pagination-previous">Previous</a>
-    <a class="pagination-next">Next page</a>
-    <ul class="pagination-list">
-      <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-      <li><span class="pagination-ellipsis">&hellip;</span></li>
-      <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-      <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-      <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-      <li><span class="pagination-ellipsis">&hellip;</span></li>
-      <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-    </ul>
-  </nav>
-
 </div>
 <app-footer></app-footer>

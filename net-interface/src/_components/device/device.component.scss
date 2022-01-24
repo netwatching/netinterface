@@ -1,0 +1,20 @@
+#form-elements {
+    display: inline;
+    margin-right: 2%;
+  }  
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    width: 100%;
+  }
+  
+  .table-data{
+      vertical-align: middle;
+  }
+  
+  .table-row:hover{
+      background-color: rgb(240, 240, 240);
+  }
+
+  [data-href] { cursor: pointer; }

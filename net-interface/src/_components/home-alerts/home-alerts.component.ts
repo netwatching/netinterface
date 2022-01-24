@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Event } from '../../_interfaces/event';
+import { EventData } from '../../_interfaces/event-data';
 import { CentralApiService } from '../../_services/central-api.service';
 
 @Component({
@@ -8,8 +9,10 @@ import { CentralApiService } from '../../_services/central-api.service';
   templateUrl: './home-alerts.component.html',
   styleUrls: ['./home-alerts.component.css']
 })
+
 export class HomeAlertsComponent implements OnInit {
   alerts!: Array < Event >;
+  alertData!: EventData;
   errorMessage: string | undefined;
 
   constructor(
@@ -25,9 +28,9 @@ export class HomeAlertsComponent implements OnInit {
   getEvents() {
     let size = 5;
 
-    this.central.getEvents().subscribe((alerts) => {
-      this.alerts = alerts.slice(0, size);
-      console.log(alerts)
+    this.central.getEvents(1, size).subscribe((alertData) => {
+      this.alerts = alertData.alerts;
+      console.log(this.alerts)
     },
     (error) => {
         if (error.status == 404) {

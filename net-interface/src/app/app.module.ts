@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './../_components/nav-bar/nav-bar.component';
 import { FooterComponent } from './../_components/footer/footer.component';
-import { AlertsComponent } from 'src/_components/alerts/alerts.component';
+import { AlertsComponent } from './../_components/alerts/alerts.component';
 import { DeviceComponent } from './../_components/device/device.component';
 import { DeviceDetailsComponent } from './../_components/device-details/device-details.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HomeComponent } from 'src/_components/home/home.component';
+import { HomeComponent } from './../_components/home/home.component';
 import { IPublicClientApplication,
   PublicClientApplication,
   BrowserCacheLocation } from '@azure/msal-browser';
@@ -18,12 +18,17 @@ import { MsalModule,
   MSAL_INSTANCE } from '@azure/msal-angular';
 import { OAuthSettings } from '../_interfaces/oauth';
 import { JwtInterceptor } from '../_interceptors/jwt.interceptor';
-import { EventsComponent } from 'src/_components/events/events.component';
+import { EventsComponent } from './../_components/events/events.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeDevicesComponent } from './../_components/home-devices/home-devices.component';
 import { HomeAlertsComponent } from './../_components/home-alerts/home-alerts.component';
 import { HomeChartsComponent } from './../_components/home-charts/home-charts.component';
 import { DeviceDetailsSwitchComponent } from './../_components/device-details-switch/device-details-switch.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { NgxEchartsModule } from 'ngx-echarts';
 
 
@@ -57,8 +62,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HomeDevicesComponent,
     HomeAlertsComponent,
     HomeChartsComponent,
-    DeviceDetailsSwitchComponent
-
+    DeviceDetailsSwitchComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,9 +72,17 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     FormsModule,
     MsalModule,
     ReactiveFormsModule,
+    MatPaginatorModule,
+    MatChipsModule,
+    MatTableModule,
+    MatFormFieldModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })
+  ],
+  exports: [
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

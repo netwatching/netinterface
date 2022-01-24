@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Events } from '../../_interfaces/events';
-import { Device } from 'src/_interfaces/device';
+import { Event } from '../../_interfaces/event';
+import { EventData } from '../../_interfaces/event-data';
+import { Device } from '../../_interfaces/device';
 import { CentralApiService } from '../../_services/central-api.service';
 import LinearGradient from 'zrender/lib/graphic/LinearGradient';
 
@@ -75,9 +76,10 @@ export class HomeChartsComponent implements OnInit {
         this.errorMessage = error.message;
     });
 
-    this.central.getEvents().subscribe((alerts) => {
+    this.central.getAllEvents().subscribe((alertData) => {
       let countsSeverities = {};
       let severities = []
+      let alerts = alertData.alerts;
       for (let a of alerts){
         severities.push(a.severity)
       }

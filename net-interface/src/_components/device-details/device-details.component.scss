@@ -1,4 +1,37 @@
-.headline{
-    font-size: 120%;
-    font-weight: bold;
+.event-heading {
+  border-left: 5px solid transparent;
+}
+
+.event-debug {
+  border-left: var(--events_debug) 5px solid;
+}
+
+.event-information {
+  border-left: var(--events_information) 5px solid;
+}
+
+.event-warning {
+  border-left: var(--events_warning) 5px solid;
+}
+
+.event-error {
+  border-left: var(--events_error) 5px solid;
+}
+
+.event-disaster {
+  border-left: var(--events_disaster) 5px solid;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  width: 100%;
+}
+
+.table-data {
+  vertical-align: middle;
+}
+
+.table-row:hover {
+  background-color: rgb(240, 240, 240);
 }

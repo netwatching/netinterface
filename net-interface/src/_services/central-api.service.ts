@@ -7,6 +7,8 @@ import { Device } from '../_interfaces/device';
 import { Feature } from '../_interfaces/feature';
 import { Jwt } from '../_interfaces/jwt';
 import { Event } from 'src/_interfaces/event';
+import { EventData } from 'src/_interfaces/event-data';
+
 
 @Injectable({
   providedIn: 'root'
@@ -44,23 +46,37 @@ export class CentralApiService {
       );
   }
 
-  public getEvents(): Observable < Array < Event >> {
+  public getEventsByDevice(page: number, amount: number, deviceId: string): Observable < EventData > {
     return this.httpClient
-      .get < Array < Event >> (`${this.BASE_URL}/alerts`).pipe(
+      .get < EventData > (`${this.BASE_URL}/devices/${deviceId}/alerts/?page=${page}&amount=${amount}`).pipe(
         retry(1)
       );
   }
 
-  public getEventsById(eventId: string): Observable < Event > {
+  public getEventsBySeverityByDevice(page: number, amount: number, severity: string, deviceId: string): Observable < EventData > {
     return this.httpClient
-      .get < Event > (`${this.BASE_URL}/alerts/${eventId}/`).pipe(
+      .get < EventData > (`${this.BASE_URL}/devices/${deviceId}/alerts/?page=${page}&amount=${amount}&severity=${severity}`).pipe(
         retry(1)
       );
   }
 
-  public getEventsByMinSeverity(minSeverity: string): Observable < Array < Event >> {
+  public getEvents(page: number, amount: number): Observable < EventData > {
     return this.httpClient
-      .get < Array < Event >> (`${this.BASE_URL}/alerts/?minSeverity=${minSeverity}`).pipe(
+      .get < EventData > (`${this.BASE_URL}/alerts/?page=${page}&amount=${amount}`).pipe(
+        retry(1)
+      );
+  }
+
+  public getAllEvents(): Observable < EventData > {
+    return this.httpClient
+      .get < EventData > (`${this.BASE_URL}/alerts`).pipe(
+        retry(1)
+      );
+  }
+
+  public getEventsBySeverity(page: number, amount: number, severity: string): Observable < EventData > {
+    return this.httpClient
+      .get < EventData > (`${this.BASE_URL}/alerts/?page=${page}&amount=${amount}&severity=${severity}`).pipe(
         retry(1)
       );
   }

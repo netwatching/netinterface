@@ -1,8 +1,8 @@
 export interface System {
-    hostname: string;
-    object_id: string;
+    name: string;
     description: string;
     contact: string;
-    name: string;
+    location: string;
     uptime: number;
+    // hostname: string;
 }
