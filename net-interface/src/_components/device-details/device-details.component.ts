@@ -6,6 +6,7 @@ import { CentralApiService } from '../../_services/central-api.service';
 import { Observable } from 'rxjs';
 import { EventData } from 'src/_interfaces/event-data';
 import { Event } from 'src/_interfaces/event';
+import { NetworkInterface } from 'src/_interfaces/network-interface';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class DeviceDetailsComponent implements OnInit {
   device!: Device;
   deviceId!: string;
   features!: Feature;
+  interfaces!: Array < NetworkInterface >;
   errorMessage: string | undefined;
   date!: Date;
   upSince!: string;
@@ -36,7 +38,19 @@ export class DeviceDetailsComponent implements OnInit {
     });
   }
 
-  
+  compareIfIndex( a, b ) {
+    let aIfIndex = parseInt(a.index)
+    let bIfIndex = parseInt(b.index)
+
+    if ( aIfIndex < bIfIndex ){
+      return -1;
+    }
+    if ( aIfIndex > bIfIndex){
+      return 1;
+    }
+    return 0;
+  }
+
   ngOnInit() {
     this.getDevice()
     this.getDeviceFeatures()
@@ -59,6 +73,8 @@ export class DeviceDetailsComponent implements OnInit {
   getDeviceFeatures() {
     this.central.getFeaturesByDevice(this.deviceId).subscribe((features) => {
       this.features = features;
+      console.log(features.interfaces.sort(this.compareIfIndex))
+      this.interfaces = features.interfaces.sort(this.compareIfIndex);
       this.calcUpTime()
       },
       (error) => {

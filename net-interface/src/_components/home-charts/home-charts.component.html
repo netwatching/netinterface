@@ -1,8 +1,8 @@
 <div class="home-container-scroll">
-  <div class="box my-5 chart-box">
+  <div *ngIf="showCategoryChart" class="box my-5 chart-box">
     <div echarts [options]="categoryChart" class="chart-div"></div>
   </div>
-  <div class="box my-5 chart-box">
+  <div *ngIf="showSeverityChart" class="box my-5 chart-box">
     <div echarts [options]="eventsChart" class="chart-div"
       (chartInit)="onChartEvent($event, 'chartInit')"
       (chartClick)="onChartEvent($event, 'chartClick')"

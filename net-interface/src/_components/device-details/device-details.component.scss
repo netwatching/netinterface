@@ -35,3 +35,38 @@
 .table-row:hover {
   background-color: rgb(240, 240, 240);
 }
+
+.sw-port-admin-up{
+  border-left: rgb(66, 66, 66) 5px solid;
+}
+
+.sw-port-operational-down{
+  border-left: rgb(150, 150, 150) 5px solid;
+}
+
+.sw-port-admin-down{
+  border-left: rgb(202, 45, 45) 5px solid;
+}
+
+.sw-port-operational-up{
+  border-left: rgb(99, 206, 0) 5px solid;
+}
+
+.sw-port-100mbps{
+  border-left: rgb(236, 187, 81) 5px solid;
+}
+
+.sw-port-1000mbps{
+  border-left: rgb(95, 179, 0) 5px solid;
+}
+
+.flex-container{
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  align-items: start;
+}
+
+.flex-item{
+  width: 20em;
+}

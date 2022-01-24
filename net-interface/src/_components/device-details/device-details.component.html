@@ -10,11 +10,14 @@
   </div>
   <div class="box" *ngIf="(features.ipAddresses)?.length">
     <h2 class="sub-headline">IP Addresses</h2>
-    <div *ngFor="let ip of features.ipAddresses">
-      <p>IP Address: {{ ip.address }}</p>
-      <!-- <p *ngIf="features.system.hostname">hostname: {{ features.system.hostname }}</p> -->
-      <p>interface: {{ ip.interface_index }}</p>
-      <p>netmask: {{ ip.netmask }}</p>
+    <div class="flex-container">
+      <div *ngFor="let ip of features.ipAddresses">
+        <div class="box flex-item mx-2 my-3">
+          <p><b>IP Address:</b> {{ ip.address }}</p>
+          <p><b>Interface:</b> {{ ip.interface_index }}</p>
+          <p><b>Netmask:</b> {{ ip.netmask }}</p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -70,7 +73,7 @@
 
   <div class="box" *ngIf="(features.interfaces | keyvalue)?.length">
     <h2 class="sub-headline" style="margin-bottom: 1%">Interfaces</h2>
-    <app-device-details-switch></app-device-details-switch>
+    <app-device-details-switch *ngIf="device.category == 'Switch'"></app-device-details-switch>
     <table class="table">
       <thead>
         <tr>
@@ -84,7 +87,7 @@
       </thead>
       <tbody *ngFor="let interface of features.interfaces">
         <tr class="table-row" *ngIf="(interface | keyvalue)?.length">
-          <td class="table-data">{{ interface.index }}</td>
+          <td class="table-data" [ngClass]="{'sw-port-admin-up': interface.admin_status == 'up','sw-port-admin-down': interface.admin_status == 'down','sw-port-operational-up': interface.operating_status == 'up','sw-port-operational-down': interface.operating_status == 'down','sw-port-100mbps': interface.speed == 100000000,'sw-port-1000mbps': interface.speed == 1000000000}">{{ interface.index }}</td>
           <td class="table-data">{{ interface.description }}</td>
           <td class="table-data">{{ interface.type }}</td>
           <td class="table-data">{{ interface.mac_address }}</td>

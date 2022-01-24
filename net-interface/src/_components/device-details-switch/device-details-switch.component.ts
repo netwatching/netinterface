@@ -33,8 +33,8 @@ export class DeviceDetailsSwitchComponent implements OnInit {
   }
 
   compareIfIndex( a, b ) {
-    let aIfIndex = parseInt(a.ifIndex)
-    let bIfIndex = parseInt(b.ifIndex)
+    let aIfIndex = parseInt(a.index)
+    let bIfIndex = parseInt(b.index)
 
     if ( aIfIndex < bIfIndex ){
       return -1;

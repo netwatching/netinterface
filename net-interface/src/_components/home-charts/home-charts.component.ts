@@ -15,6 +15,8 @@ export class HomeChartsComponent implements OnInit {
   errorMessage: string | undefined;
   categoryChart: any;
   eventsChart: any;
+  showCategoryChart: boolean = false;
+  showSeverityChart: boolean = false;
 
   constructor(
     private central: CentralApiService,
@@ -41,6 +43,10 @@ export class HomeChartsComponent implements OnInit {
       }
       for (let y in xAxisDataDeviceCateories){
         dataDeviceCategories.push({value: countsCategories[xAxisDataDeviceCateories[y]], name: xAxisDataDeviceCateories[y]})
+      }
+
+      if (dataDeviceCategories.length >= 0){
+        this.showCategoryChart = true;
       }
 
       this.categoryChart = {
@@ -95,6 +101,10 @@ export class HomeChartsComponent implements OnInit {
       const dataShadow = [];
       for (let i = 0; i < xAxisDataEventSeverities.length; i++) {
         dataShadow.push(yMax);
+      }
+
+      if (data.length >= 0){
+        this.showSeverityChart = true;
       }
 
       this.eventsChart = {
