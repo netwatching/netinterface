@@ -18,3 +18,14 @@
   }
 
   [data-href] { cursor: pointer; }
+
+.flex-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.flex-item{
+  width: 22em;
+}

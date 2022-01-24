@@ -18,55 +18,18 @@
       </div>
     </form>
   </div>
-  <div class="box">
-    <table class="table">
-      <thead>
-        <tr>
-          <th style="width: 30%;">Device</th>
-          <th style="width: 15%;">Id</th>
-          <th style="width: 55%;">Category</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let device of devices">
-        <tr class="table-row" [routerLink]="['/devices/', device.id]">
-          <td><a class="hyperlink">{{ device.device }}</a></td>
-          <td>{{ device.id }}</td>
-          <td>{{ device.category }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="flex-container">
+    <div *ngFor="let device of devices">
+      <a href="/devices/{{ device.id }}">
+        <div class="box my-5 mx-5 flex-item">
+          <h4 class="is-size-4 has-text-weight-bold">{{ device.device }}</h4>
+          <p>
+            <span class="has-text-weight-semibold">Category: </span><span
+              class="tag is-info"><b>{{ device.category }}</b></span>
+          </p>
+        </div>
+      </a>
+    </div>
   </div>
-  <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
-    <a class="pagination-previous">Previous</a>
-    <a class="pagination-next">Next page</a>
-    <ul class="pagination-list">
-      <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-      <li><span class="pagination-ellipsis">&hellip;</span></li>
-      <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-      <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-      <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-      <li><span class="pagination-ellipsis">&hellip;</span></li>
-      <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-    </ul>
-  </nav>
 </div>
 <app-footer></app-footer>
-
-
-<!-- Alternative List implementation -->
-
-<!-- <app-nav-bar></app-nav-bar>
-<div class="container">
-  <div *ngFor="let device of devices">
-    <a href="/devices/{{ device.id }}">
-      <div class="box" style="margin-bottom: 2%;">
-        <h2>
-          Device: {{ device.device }}
-        </h2>
-        <p>Id: {{ device.id }}</p>
-        <p>Category Id: {{ device.category_id }}</p>
-      </div>
-    </a>
-  </div>
-</div>
-<app-footer></app-footer> -->

@@ -33,7 +33,7 @@ export class DeviceComponent implements OnInit {
   }
 
   getDevices() {
-    this.central.getDevices(1, 10).subscribe((devices) => {
+    this.central.getAllDevices().subscribe((devices) => {
             this.devices = devices.devices;
         },
         (error) => {
