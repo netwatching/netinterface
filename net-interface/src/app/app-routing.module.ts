@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AuthService } from '../_services/auth.service';
 import { EventsComponent } from 'src/_components/events/events.component';
 import { AuthGuard } from './auth.guard';
+import { ErrorComponent } from 'src/_components/error/error.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent, canActivate: [AuthGuard]},
   { path: 'events/:alertId', component: EventsComponent, canActivate: [AuthGuard] },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '**', component: ErrorComponent},
 ];
 
 @NgModule({

@@ -24,8 +24,8 @@ export class HomeDevicesComponent implements OnInit {
 
   getDevices() {
     let size = 8;
-    this.central.getDevices().subscribe((devices) => {
-      this.devices = devices.slice(0, size);
+    this.central.getDevices(1, size).subscribe((devices) => {
+      this.devices = devices.devices;
     },
     (error) => {
         if (error.status == 404) {

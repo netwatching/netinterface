@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 import { Device } from '../_interfaces/device';
 import { Feature } from '../_interfaces/feature';
 import { Jwt } from '../_interfaces/jwt';
-import { Event } from 'src/_interfaces/event';
-import { EventData } from 'src/_interfaces/event-data';
+import { Event } from '../_interfaces/event';
+import { EventData } from '../_interfaces/event-data';
+import { DeviceData } from 'src/_interfaces/device-data';
 
 
 @Injectable({
@@ -25,9 +26,16 @@ export class CentralApiService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public getDevices(): Observable < Array < Device >> {
+  public getDevices(page: number, amount: number): Observable < DeviceData > {
     return this.httpClient
-      .get < Array < Device >> (`${this.BASE_URL}/devices`).pipe(
+      .get < DeviceData > (`${this.BASE_URL}/devices/?page=${page}&amount=${amount}`).pipe(
+        retry(3)
+      );
+  }
+
+  public getAllDevices(): Observable < DeviceData > {
+    return this.httpClient
+      .get < DeviceData > (`${this.BASE_URL}/devices`).pipe(
         retry(3)
       );
   }

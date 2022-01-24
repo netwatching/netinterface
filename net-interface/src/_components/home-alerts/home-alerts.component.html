@@ -1,20 +1,18 @@
 <div class="home-container-scroll">
   <div *ngFor="let alert of alerts">
-    <a href="/events/{{ alert.device_id }}">
-      <div class="box my-5 device-box" [ngClass]="{'event-debug': alert.severity==1,'event-information': alert.severity==2,'event-warning': alert.severity==3,'event-error': alert.severity==4,'event-disaster': alert.severity==5}">
-        <h4 class="is-size-4 has-text-weight-bold">{{ alert.device }}</h4>
-        <p>
-          <span class="has-text-weight-semibold">Timestamp: </span>{{ alert.timestamp | date:'M/d/yyyy HH:mm:ss' }}<br>
-          <span class="has-text-weight-semibold">Info: </span>{{ alert.problem }}<br>
-          <span class="has-text-weight-semibold">Severity: </span>
-          <span *ngIf="alert.severity == 1" class="tag is-info" style="background: var(--events_debug);"><b>{{ alert.severity }} - debug</b></span>
-          <span *ngIf="alert.severity == 2" class="tag is-info" style="background: var(--events_information);"><b>{{ alert.severity }} - information</b></span>
-          <span *ngIf="alert.severity == 3" class="tag is-info" style="background: var(--events_warning);"><b>{{ alert.severity }} - warning</b></span>
-          <span *ngIf="alert.severity == 4" class="tag is-info" style="background: var(--events_error);"><b>{{ alert.severity }} - error</b></span>
-          <span *ngIf="alert.severity == 5" class="tag is-info" style="background: var(--events_disaster);"><b>{{ alert.severity }} - disaster</b></span>
-        </p>
-      </div>
-    </a>
+    <div class="box my-5 device-box" [ngClass]="{'event-debug': alert.severity==1,'event-information': alert.severity==2,'event-warning': alert.severity==3,'event-error': alert.severity==4,'event-disaster': alert.severity==5}">
+      <h4 class="is-size-4 has-text-weight-bold">{{ alert.device }}</h4>
+      <p>
+        <span class="has-text-weight-semibold">Timestamp: </span>{{ alert.timestamp | date:'M/d/yyyy HH:mm:ss' }}<br>
+        <span class="has-text-weight-semibold">Info: </span>{{ alert.problem }}<br>
+        <span class="has-text-weight-semibold">Severity: </span>
+        <span *ngIf="alert.severity == 1" class="tag is-info" style="background: var(--events_debug);"><b>{{ alert.severity }} - debug</b></span>
+        <span *ngIf="alert.severity == 2" class="tag is-info" style="background: var(--events_information);"><b>{{ alert.severity }} - information</b></span>
+        <span *ngIf="alert.severity == 3" class="tag is-info" style="background: var(--events_warning);"><b>{{ alert.severity }} - warning</b></span>
+        <span *ngIf="alert.severity == 4" class="tag is-info" style="background: var(--events_error);"><b>{{ alert.severity }} - error</b></span>
+        <span *ngIf="alert.severity == 5" class="tag is-info" style="background: var(--events_disaster);"><b>{{ alert.severity }} - disaster</b></span>
+      </p>
+    </div>
   </div>
   <div class="has-text-centered mb-5">
     <a href="/events" class="button is-primary" style="background-color: #ff0000;">

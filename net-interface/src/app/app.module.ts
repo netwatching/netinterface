@@ -30,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { ErrorComponent } from 'src/_components/error/error.component';
 
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
@@ -63,6 +64,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HomeAlertsComponent,
     HomeChartsComponent,
     DeviceDetailsSwitchComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

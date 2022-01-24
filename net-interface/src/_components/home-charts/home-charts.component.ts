@@ -27,9 +27,10 @@ export class HomeChartsComponent implements OnInit {
     const xAxisDataEventSeverities = [];
     const data = [];
 
-    this.central.getDevices().subscribe((devices) => {
+    this.central.getAllDevices().subscribe((devicesData) => {
       let countsCategories = {};
       let categories = []
+      let devices = devicesData.devices;
       for (let d of devices){
         categories.push(d.category)
       }
