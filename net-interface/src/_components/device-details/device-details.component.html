@@ -21,7 +21,6 @@
     </div>
   </div>
 
-
   <div class="box" *ngIf="(events | keyvalue)?.length">
     <table class="table">
       <thead>
@@ -87,7 +86,7 @@
       </thead>
       <tbody *ngFor="let interface of features.interfaces">
         <tr class="table-row" *ngIf="(interface | keyvalue)?.length">
-          <td class="table-data" [ngClass]="{'sw-port-admin-up': interface.admin_status == 'up','sw-port-admin-down': interface.admin_status == 'down','sw-port-operational-up': interface.operating_status == 'up','sw-port-operational-down': interface.operating_status == 'down','sw-port-100mbps': interface.speed == 100000000,'sw-port-1000mbps': interface.speed == 1000000000}">{{ interface.index }}</td>
+          <td class="table-data" [ngClass]="{'sw-port-admin-up': interface.admin_status == 'up','sw-port-admin-down': interface.admin_status == 'down','sw-port-operational-up': interface.operating_status == 'up','sw-port-operational-down': interface.operating_status == 'down','sw-port-100mbps': interface.speed >= 100000000,'sw-port-1000mbps': interface.speed >= 1000000000}">{{ interface.index }}</td>
           <td class="table-data">{{ interface.description }}</td>
           <td class="table-data">{{ interface.type }}</td>
           <td class="table-data">{{ interface.mac_address }}</td>
