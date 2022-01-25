@@ -31,6 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ErrorComponent } from 'src/_components/error/error.component';
+import { NgxTippyModule } from 'ngx-tippy-wrapper';
 
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
@@ -78,6 +79,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     MatChipsModule,
     MatTableModule,
     MatFormFieldModule,
+    NgxTippyModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })

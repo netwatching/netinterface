@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Feature } from '../../_interfaces/feature';
 import { CentralApiService } from '../../_services/central-api.service';
 import { Switch } from '../../_interfaces/switch';
-import { count } from 'console';
+import { NetworkInterface } from 'src/_interfaces/network-interface';
 
 @Component({
   selector: 'app-device-details-switch',
@@ -17,6 +17,9 @@ export class DeviceDetailsSwitchComponent implements OnInit {
   features!: Feature;
   errorMessage: string | undefined;
   switch!: Array < Switch >;
+
+  showSwInterfaceModal: boolean = false;
+  swInterfaceModalData!:  NetworkInterface;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -48,6 +51,26 @@ export class DeviceDetailsSwitchComponent implements OnInit {
   ngOnInit() {
     this.getDevice()
     this.getDeviceFeatures()
+  }
+
+  swPortClicked(portIndex:number){
+    console.log('Port ' + portIndex.toString() + ' clicked!')
+    this.getInterfaceByIndex(portIndex);
+    this.showSwInterfaceModal = true;
+  }
+
+  closeModal(){
+    this.showSwInterfaceModal = false;
+  }
+
+
+  getInterfaceByIndex(portIndex:number){
+    for (let i of this.features.interfaces){
+      if (i.index === portIndex){
+        this.swInterfaceModalData = i;
+        console.log(i)
+      }
+    }
   }
 
   getDevice() {
@@ -108,7 +131,6 @@ export class DeviceDetailsSwitchComponent implements OnInit {
         }
       }
       this.switch = sw;
-      console.log(this.switch)
     },
     (error) => {
       if (error.status == 404) {

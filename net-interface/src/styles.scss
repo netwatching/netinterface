@@ -39,6 +39,7 @@ $blue: #ff0000;
 
 // // 6. Import the rest of Bulma
 @import "~bulma";
+@import 'tippy.js/dist/tippy.css';
 
 // body {
 //   min-height: 80vh;
@@ -62,7 +63,8 @@ $blue: #ff0000;
   --sw-port-operational-down: rgb(150, 150, 150);
   --sw-port-admin-down: rgb(202, 45, 45);
   --sw-port-operational-up: rgb(99, 206, 0);
-  --sw-port-100mbps: rgb(236, 187, 81);
+  --sw-port-10mbps: rgb(247, 234, 59);
+  --sw-port-100mbps: rgb(236, 170, 26);
   --sw-port-1000mbps: rgb(95, 179, 0);
 
 }

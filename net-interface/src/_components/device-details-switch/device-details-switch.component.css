@@ -33,8 +33,12 @@
   fill: var(--sw-port-operational-up);
 }
 
+.sw-port-10mbps{
+  fill: var(--sw-port-10mbps);
+}
+
 .sw-port-100mbps{
-  fill: var(--sw-port--100mbps);
+  fill: var(--sw-port-100mbps);
 }
 
 .sw-port-1000mbps{
