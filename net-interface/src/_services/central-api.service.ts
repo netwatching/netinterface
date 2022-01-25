@@ -9,6 +9,7 @@ import { Jwt } from '../_interfaces/jwt';
 import { Event } from '../_interfaces/event';
 import { EventData } from '../_interfaces/event-data';
 import { DeviceData } from 'src/_interfaces/device-data';
+import { Category } from 'src/_interfaces/category';
 
 
 @Injectable({
@@ -16,8 +17,8 @@ import { DeviceData } from 'src/_interfaces/device-data';
 })
 export class CentralApiService {
 
-  private BASE_URL = 'http://palguin.htl-vil.local:8080/api'
-  // private BASE_URL = 'https://palguin.htl-vil.local:8443/api'
+  // private BASE_URL = 'http://palguin.htl-vil.local:8080/api'
+  private BASE_URL = 'https://palguin.htl-vil.local:8443/api'
   private headers = new HttpHeaders().set("Accept", "application/j").set('Content-Type', 'text/plain; charset=utf-8');
   private httpOptions: object = {
     headers: this.headers,
@@ -29,6 +30,13 @@ export class CentralApiService {
   public getDevices(page: number, amount: number): Observable < DeviceData > {
     return this.httpClient
       .get < DeviceData > (`${this.BASE_URL}/devices/?page=${page}&amount=${amount}`).pipe(
+        retry(3)
+      );
+  }
+
+  public getDevicesByCategory(page: number, amount: number, category: string): Observable < DeviceData > {
+    return this.httpClient
+      .get < DeviceData > (`${this.BASE_URL}/devices/?page=${page}&amount=${amount}&category=${category}`).pipe(
         retry(3)
       );
   }
@@ -100,6 +108,13 @@ export class CentralApiService {
     return this.httpClient
       .post < Jwt > (`${this.BASE_URL}/request`, "").pipe(
         retry(1)
+      );
+  }
+
+  public getCategories(): Observable<Array<Category>> {
+    return this.httpClient
+      .get <Array<Category>> (`${this.BASE_URL}/categories`).pipe(
+        retry(3)
       );
   }
 }

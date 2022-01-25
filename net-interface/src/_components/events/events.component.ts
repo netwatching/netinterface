@@ -60,7 +60,7 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getEvents(1, this.alertsPerPage)
+    this.getEvents(1, this.alertsPerPage);
     this.firstCall = true;
   }
 
