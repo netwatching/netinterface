@@ -1,4 +1,4 @@
-<figure id="switch" class="has-text-centered">
+<figure id="switch" class="has-text-centered mb-2">
   <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
     <!--Switch Left - Start -->
     <svg viewBox="0 0 255 422" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" class="sw-component">
@@ -25,11 +25,9 @@
     </svg>
     <!--Switch Left - End -->
     <!--Switch Modlues - Start-->
-
     <span *ngFor="let s of switch">
       <!--check if 1 or 2 Port-->
       <span *ngIf="s.isTwoPort">
-
         <svg viewBox="0 0 121 422" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" class="sw-component">
           <g id="switch-module-2p">
             <rect id="sw-bg-module-2port" x="-0" y="0" width="120.833" height="421.982" style="fill:url(#_SwModule2PortLinear);"/>
@@ -44,10 +42,8 @@
             </linearGradient>
           </defs>
         </svg>
-
       </span>
       <span *ngIf="!s.isTwoPort">
-
         <svg viewBox="0 0 121 422" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" class="sw-component">
           <g id="switch-module-1p">
             <rect x="-0" y="0" width="120.833" height="421.982" style="fill:url(#_SwModule1PortLinear);"/>
@@ -61,10 +57,8 @@
             </linearGradient>
           </defs>
         </svg>
-
       </span>
     </span>
-
     <!--Switch Modlues - End-->
     <!--Switch Right - Start -->
     <svg viewBox="0 0 251 422" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" class="sw-component">
