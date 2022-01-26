@@ -1,7 +1,11 @@
-#switch{
+.switch{
   height: 6vw;
   width: 100%;
 
+}
+
+.switch-legend{
+  width: 55%;
 }
 
 .sw-component {
@@ -43,4 +47,8 @@
 
 .sw-port-1000mbps{
   fill: var(--sw-port-1000mbps);
+}
+
+.sw-port-1000mbps-plus{
+  fill: var(--sw-port-1000mpbs-plus);
 }
