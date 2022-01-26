@@ -242,9 +242,9 @@
         <tr>
           <th class="event-heading" style="width: 8%;">Date</th>
           <th style="width: 9%;">Time</th>
-          <th style="width: 8%;">Severity</th>
-          <th style="width: 20%;">Device</th>
-          <th style="width: 55%;">Info</th>
+          <th style="width: 12%;">Severity</th>
+          <th style="width: 19%;">Device</th>
+          <th style="width: 52%;">Info</th>
         </tr>
       </thead>
       <tbody *ngFor="let event of events">
@@ -256,19 +256,19 @@
           <td class="table-data">
             <strong>
               <div *ngIf="event.severity == 1">
-                <p style="color: var(--events_debug);">debug</p>
+                <p style="color: var(--events_debug);">1 - debug</p>
               </div>
               <div *ngIf="event.severity == 2">
-                <p style="color: var(--events_information);">information</p>
+                <p style="color: var(--events_information);">2 - information</p>
               </div>
               <div *ngIf="event.severity == 3">
-                <p style="color: var(--events_warning);">warning</p>
+                <p style="color: var(--events_warning);">3 - warning</p>
               </div>
               <div *ngIf="event.severity == 4">
-                <p style="color: var(--events_error);">error</p>
+                <p style="color: var(--events_error);">4 - error</p>
               </div>
               <div *ngIf="event.severity == 5">
-                <p style="color: var(--events_disaster);">disaster</p>
+                <p style="color: var(--events_disaster);">5 - disaster</p>
               </div>
             </strong>
           </td>
