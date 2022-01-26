@@ -101,33 +101,41 @@ export class DeviceDetailsSwitchComponent implements OnInit {
         let int1 = null;
         let c = 0;
         for (let i of interfaces){
-          if (c % 2 == 0) { int1 = i; }
-          if (c % 2 == 1) {
-            sw.push({
-              isTwoPort: true,
-              int1: int1,
-              int2: i
-            });
-            int1 = null;
+          if (i.type != 'ieee8023adLag'){
+            if (c % 2 == 0) {
+              int1 = i;
+            }
+            if (c % 2 == 1) {
+              sw.push({
+                isTwoPort: true,
+                int1: int1,
+                int2: i
+              });
+              int1 = null;
+            }
+            c += 1;
           }
-          c += 1;
         }
 
         if (interfaces.length % 2 == 1){
           let i = interfaces[interfaces.length - 1]
-          sw.push({
-            isTwoPort: false,
-            int1: i,
-            int2: null
-          });
+          if (i.type != 'ieee8023adLag'){
+            sw.push({
+              isTwoPort: false,
+              int1: i,
+              int2: null
+            });
+          }
         }
       } else {
         for (let i of interfaces){
-          sw.push({
-            isTwoPort: false,
-            int1: i,
-            int2: null
-          });
+          if (i.type != 'ieee8023adLag'){
+            sw.push({
+              isTwoPort: false,
+              int1: i,
+              int2: null
+            });
+          }
         }
       }
       this.switch = sw;
