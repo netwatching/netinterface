@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeviceAndAppManagementRoleAssignment } from '@microsoft/microsoft-graph-types';
 import { Device } from 'src/_interfaces/device';
 import { DeviceData } from 'src/_interfaces/device-data';
 import { CentralApiService } from '../../_services/central-api.service';
 import { Category } from 'src/_interfaces/category';
-
 
 @Component({
   selector: 'app-device',
@@ -21,12 +20,22 @@ export class DeviceComponent implements OnInit {
   errorMessage: string | undefined;
   categoryForm: FormGroup;
 
-  categories!: Array < Category >;
+  categories!: Array < Category > ;
 
   pageCount: number | undefined = 1;
   totalPages: number | undefined = 0;
   devicesPerPage: number | undefined = 18;
   selectedCategories: string | undefined;
+
+  showAddDeviceDialog = false;
+
+  addDeviceForm: FormGroup;
+  addDeviceDialogIsOpened = false;
+  showAddDeviceSuccessDialog = false;
+  showAddDeviceErrorDialog = false;
+  name: string;
+  category: string;
+  ip: string;
 
   constructor(
     private central: CentralApiService,
@@ -143,6 +152,89 @@ export class DeviceComponent implements OnInit {
   setPageCount(num: number) {
     this.pageCount += num;
     this.setPage(this.pageCount)
+  }
+
+  // openAddDeviceDialog() {
+  //   this.processAddDeviceFormProperties()
+  //   this.addDeviceForm.patchValue({
+  //     name: this.name,
+  //     ip: this.ip,
+  //     category: this.category,
+  //   })
+  //   this.addDeviceDialogIsOpened = true;
+  // }
+
+  // closeAddDeviceDialog() {
+  //   this.addDeviceDialogIsOpened = false;
+  // }
+
+  // openAddDeviceSuccessDialog() {
+  //   this.showAddDeviceSuccessDialog = true;
+  // }
+
+  // closeAddDeviceSuccessDialog() {
+  //   window.location.reload();
+  //   this.showAddDeviceSuccessDialog = false;
+  // }
+
+  // openAddDeviceErrorDialog(errorMessage) {
+  //   this.showAddDeviceErrorDialog = true;
+  //   this.errorMessage = errorMessage;
+  // }
+
+  // closeAddDeviceErrorDialog() {
+  //   window.location.reload();
+  //   this.showAddDeviceErrorDialog = false;
+  // }
+
+  // processAddDeviceFormProperties() {
+  //   this.addDeviceForm = new FormGroup({
+  //     name: new FormControl('', Validators.maxLength(500)),
+  //     category: new FormControl('', Validators.maxLength(500)),
+  //     ip: new FormControl('', Validators.maxLength(500))
+  //   });
+  // }
+
+  // onAddDeviceFormSubmit() {
+  //   if (this.addDeviceForm.valid) {
+  //     const requestBody: any = {};
+  //     requestBody['device'] = this.addDeviceForm.get('name').value;
+  //     requestBody['category'] = this.addDeviceForm.get('categoty').value;
+  //     requestBody['ip'] = this.addDeviceForm.get('ip').value;
+
+  //     //request here
+  //   }
+  //   for (const name in this.addDeviceForm.controls) {
+  //     if (document.getElementById(name)) {
+  //       const element = document.getElementById(name);
+  //       if (this.addDeviceForm.controls[name].invalid) {
+  //         element.style.borderColor = 'red';
+  //       } else {
+  //         element.style.borderColor = '#ced4da';
+  //       }
+  //     }
+  //   }
+  // }
+
+
+
+  openAddDeviceDialog() {
+    this.showAddDeviceDialog = true;
+  }
+
+  closeAddDeviceDialog() {
+    this.showAddDeviceDialog = false;
+  }
+
+  addDevice(){
+    
+  }
+
+  submitAddDeviceForm(){
+    const requestBody: any = {};
+    requestBody['device'] = this.addDeviceForm.get('name').value;
+    requestBody['category'] = this.addDeviceForm.get('categoty').value;
+    requestBody['ip'] = this.addDeviceForm.get('ip').value;
   }
 
 }

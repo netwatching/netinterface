@@ -32,6 +32,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ErrorComponent } from 'src/_components/error/error.component';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
+import { DialogModule } from '@progress/kendo-angular-dialog';
 
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
@@ -65,7 +66,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HomeAlertsComponent,
     HomeChartsComponent,
     DeviceDetailsSwitchComponent,
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +83,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NgxTippyModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
-    })
+    }),
+    DialogModule
   ],
   exports: [
     MatInputModule,

@@ -1,5 +1,15 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
+  <div class="box">
+    <div class="buttons">
+      <a class="button is-primary" style="background-color: #ff0000;" (click)="openAddDeviceDialog()">
+        <strong>Add new device</strong>
+      </a>
+      <a class="button is-primary" style="background-color: #ff0000;">
+        <strong>Add new category</strong>
+      </a>
+    </div>
+  </div>
   <div class="box" id="filter">
     <form [formGroup]="categoryForm" (ngSubmit)="submitForm()" novalidate>
       <div class="columns">
@@ -243,3 +253,54 @@
   </div>
 </div>
 <app-footer></app-footer>
+
+<span *ngIf="showAddDeviceDialog">
+  <div class="modal" [ngClass]="{'is-active': showAddDeviceDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Add new device</p>
+        <button (click)="closeAddDeviceDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+
+
+        <div class="field">
+          <label class="label">Device Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Device Name">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">IP-Address</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="IP-Address">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Category</label>
+          <div class="control">
+            <div class="select">
+              <select>
+                <option *ngFor="let category of categories; let i=index" id="form-elements">{{ category.category }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons" style="text-align: center !important;">
+          <a class="button is-primary" style="background-color: #ff0000;" (click)="submitAddDeviceForm()">
+            <strong>Add new device</strong>
+          </a>
+          <a class="button mx-auto" (click)="closeAddDeviceDialog()">
+            <strong>Close</strong>
+          </a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</span>
