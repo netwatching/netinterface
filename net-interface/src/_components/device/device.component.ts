@@ -33,7 +33,7 @@ export class DeviceComponent implements OnInit {
   addDeviceDialogIsOpened = false;
   showAddDeviceSuccessDialog = false;
   showAddDeviceErrorDialog = false;
-  name: string;
+  device: string;
   category: string;
   ip: string;
 
@@ -99,7 +99,7 @@ export class DeviceComponent implements OnInit {
     );
   }
 
-  submitForm() {
+  submitFilterForm() {
     let selectedCategories: string = "";
     this.categoryForm.value["checkArray"].forEach(function (value) {
       selectedCategories += value + "_";
@@ -154,15 +154,7 @@ export class DeviceComponent implements OnInit {
     this.setPage(this.pageCount)
   }
 
-  // openAddDeviceDialog() {
-  //   this.processAddDeviceFormProperties()
-  //   this.addDeviceForm.patchValue({
-  //     name: this.name,
-  //     ip: this.ip,
-  //     category: this.category,
-  //   })
-  //   this.addDeviceDialogIsOpened = true;
-  // }
+
 
   // closeAddDeviceDialog() {
   //   this.addDeviceDialogIsOpened = false;
@@ -187,13 +179,7 @@ export class DeviceComponent implements OnInit {
   //   this.showAddDeviceErrorDialog = false;
   // }
 
-  // processAddDeviceFormProperties() {
-  //   this.addDeviceForm = new FormGroup({
-  //     name: new FormControl('', Validators.maxLength(500)),
-  //     category: new FormControl('', Validators.maxLength(500)),
-  //     ip: new FormControl('', Validators.maxLength(500))
-  //   });
-  // }
+
 
   // onAddDeviceFormSubmit() {
   //   if (this.addDeviceForm.valid) {
@@ -216,9 +202,21 @@ export class DeviceComponent implements OnInit {
   //   }
   // }
 
-
+  processAddDeviceFormProperties() {
+    this.addDeviceForm = new FormGroup({
+      device: new FormControl(''),
+      ip: new FormControl(''),
+      category: new FormControl(''),
+    });
+  }
 
   openAddDeviceDialog() {
+    this.processAddDeviceFormProperties()
+    this.addDeviceForm.patchValue({
+      device: this.device,
+      ip: this.ip,
+      category: this.category,
+    })
     this.showAddDeviceDialog = true;
   }
 
@@ -226,15 +224,13 @@ export class DeviceComponent implements OnInit {
     this.showAddDeviceDialog = false;
   }
 
-  addDevice(){
-    
-  }
-
   submitAddDeviceForm(){
     const requestBody: any = {};
-    requestBody['device'] = this.addDeviceForm.get('name').value;
-    requestBody['category'] = this.addDeviceForm.get('categoty').value;
+    requestBody['device'] = this.addDeviceForm.get('device').value;
     requestBody['ip'] = this.addDeviceForm.get('ip').value;
+    requestBody['category'] = this.addDeviceForm.get('category').value;
+    console.log(requestBody)
+    this.central.addDevice(requestBody);
   }
 
 }

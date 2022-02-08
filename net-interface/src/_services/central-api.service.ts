@@ -49,6 +49,13 @@ export class CentralApiService {
       );
   }
 
+  public addDevice(body: object) {
+    return this.httpClient
+      .post (`${this.BASE_URL}/devices`, body).pipe(
+        retry(1)
+      );
+  }
+
   public getDeviceById(deviceId: string): Observable < Device > {
     return this.httpClient
       .get < Device > (`${this.BASE_URL}/devices/${deviceId}`).pipe(
