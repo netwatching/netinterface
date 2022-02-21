@@ -1,7 +1,7 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
   <div class="box" id="filter">
-    <a class="button is-primary" style="background-color: #ff0000; margin-bottom: 1%;"
+    <a class="button is-primary is-rounded" style="background-color: #ff0000; margin-bottom: 1%;"
       (click)="openAddCategoryDialog()">
       <fa-icon [icon]="faPlus"></fa-icon>
     </a>
@@ -14,7 +14,7 @@
               {{ category.category }}
             </label>
             <a style="margin-left: 1%;">
-              <fa-icon [icon]="faTrash"></fa-icon>
+              <fa-icon [icon]="faTrash" style="color: grey;"></fa-icon>
             </a>
           </div>
         </div>
@@ -236,7 +236,7 @@
         <a class="pagination-next" disabled="disabled">Next</a>
       </nav>
     </div>
-    <a class="button is-primary" style="background-color: #ff0000;" (click)="openAddDeviceDialog()">
+    <a class="button is-rounded is-primary" style="background-color: #ff0000;" (click)="openAddDeviceDialog()">
       <fa-icon [icon]="faPlus"></fa-icon>
     </a>
     <div class="flex-container">
@@ -249,7 +249,7 @@
                 class="tag is-info"><b>{{ device.category }}</b></span>
             </p>
             <a style="margin-bottom: 2%;">
-              <fa-icon [icon]="faTrash"></fa-icon>
+              <fa-icon [icon]="faTrash" style="color: grey;"></fa-icon>
             </a>
           </div>
         </a>
