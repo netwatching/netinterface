@@ -6,6 +6,7 @@ import { Device } from 'src/_interfaces/device';
 import { DeviceData } from 'src/_interfaces/device-data';
 import { CentralApiService } from '../../_services/central-api.service';
 import { Category } from 'src/_interfaces/category';
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-device',
@@ -42,6 +43,10 @@ export class DeviceComponent implements OnInit {
   showAddCategorySuccessDialog = false;
   showAddCategoryErrorDialog = false;
   categoryname: string;
+
+  // icons
+  faTrash = faTrash;
+  faPlus = faPlus;
 
   constructor(
     private central: CentralApiService,
@@ -121,7 +126,7 @@ export class DeviceComponent implements OnInit {
       },
       err => {
         this.closeAddDeviceDialog();
-        this.openAddDeviceErrorDialog();
+        this.openAddDeviceErrorDialog(err.status);
       });
   }
 
@@ -133,7 +138,7 @@ export class DeviceComponent implements OnInit {
     },
     err => {
       this.closeAddCategoryDialog();
-      this.openAddCategoryErrorDialog();
+      this.openAddCategoryErrorDialog(err.status);
     });
   }
 
@@ -216,8 +221,9 @@ export class DeviceComponent implements OnInit {
     this.showAddCategorySuccessDialog = true;
   }
 
-  openAddCategoryErrorDialog() {
+  openAddCategoryErrorDialog(errorMessage) {
     this.showAddCategoryErrorDialog = true;
+    this.errorMessage = errorMessage;
   }
 
   closeAddCategoryDialog() {
@@ -263,8 +269,9 @@ export class DeviceComponent implements OnInit {
     this.showAddDeviceSuccessDialog = true;
   }
 
-  openAddDeviceErrorDialog() {
+  openAddDeviceErrorDialog(errorMessage) {
     this.showAddDeviceErrorDialog = true;
+    this.errorMessage = errorMessage;
   }
 
   closeAddDeviceDialog() {

@@ -33,6 +33,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { ErrorComponent } from 'src/_components/error/error.component';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { DialogModule } from '@progress/kendo-angular-dialog';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
@@ -84,7 +85,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),
-    DialogModule
+    DialogModule,
+    FontAwesomeModule
   ],
   exports: [
     MatInputModule,
