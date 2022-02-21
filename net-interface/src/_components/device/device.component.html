@@ -5,7 +5,7 @@
       <a class="button is-primary" style="background-color: #ff0000;" (click)="openAddDeviceDialog()">
         <strong>Add new device</strong>
       </a>
-      <a class="button is-primary" style="background-color: #ff0000;">
+      <a class="button is-primary" style="background-color: #ff0000;" (click)="openAddCategoryDialog()">
         <strong>Add new category</strong>
       </a>
     </div>
@@ -254,6 +254,8 @@
 </div>
 <app-footer></app-footer>
 
+<!-- Add device pop-up -->
+
 <span *ngIf="showAddDeviceDialog">
   <div class="modal" [ngClass]="{'is-active': showAddDeviceDialog}">
     <div class="modal-background"></div>
@@ -263,10 +265,9 @@
         <button (click)="closeAddDeviceDialog()" class="delete" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
-
         <form [formGroup]="addDeviceForm" novalidate>
           <div class="field">
-            <label class="label">Device Name</label>
+            <label class="label">Device name</label>
             <div class="control">
               <input class="input" type="text" placeholder="Device Name" formControlName="device">
             </div>
@@ -282,14 +283,14 @@
             <div class="control">
               <div class="select">
                 <select formControlName="category">
-                  <option *ngFor="let category of categories; let i=index" id="form-elements" [value]="category.id">{{ category.category }}
+                  <option *ngFor="let category of categories; let i=index" id="form-elements" [value]="category.id">
+                    {{ category.category }}
                   </option>
                 </select>
               </div>
             </div>
           </div>
         </form>
-
       </section>
       <footer class="modal-card-foot">
         <div class="buttons" style="text-align: center !important;">
@@ -300,6 +301,113 @@
             <strong>Close</strong>
           </a>
         </div>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showAddDeviceSuccessDialog">
+  <div class="modal" [ngClass]="{'is-active': showAddDeviceSuccessDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">SUCCESS</p>
+        <button (click)="closeAddDeviceSuccessDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        The new device was added sucessfully!
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeAddDeviceSuccessDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showAddDeviceErrorDialog">
+  <div class="modal" [ngClass]="{'is-active': showAddDeviceErrorDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">ERROR</p>
+        <button (click)="closeAddDeviceErrorDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        An unexpected internal API error occured! The new device could not be added. Please try again later.
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeAddDeviceErrorDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span>
+
+
+<!-- Add category pop-up -->
+
+<span *ngIf="showAddCategoryDialog">
+  <div class="modal" [ngClass]="{'is-active': showAddCategoryDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Add new category</p>
+        <button (click)="closeAddCategoryDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <form [formGroup]="addCategoryForm" novalidate>
+          <div class="field">
+            <label class="label">Category name</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Category name" formControlName="category">
+            </div>
+          </div>
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons" style="text-align: center !important;">
+          <a class="button is-primary" style="background-color: #ff0000;" (click)="submitAddCategoryForm()">
+            <strong>Add new category</strong>
+          </a>
+          <a class="button mx-auto" (click)="closeAddCategoryDialog()">
+            <strong>Close</strong>
+          </a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showAddCategorySuccessDialog">
+  <div class="modal" [ngClass]="{'is-active': showAddCategorySuccessDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">SUCCESS</p>
+        <button (click)="closeAddCategorySuccessDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        The new category was added sucessfully!
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeAddCategorySuccessDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showAddCategoryErrorDialog">
+  <div class="modal" [ngClass]="{'is-active': showAddCategoryErrorDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">ERROR</p>
+        <button (click)="closeAddCategoryErrorDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        An unexpected internal API error occured! The new category could not be added. Please try again later.
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeAddCategoryErrorDialog()" class="button mx-auto">close</button>
       </footer>
     </div>
   </div>

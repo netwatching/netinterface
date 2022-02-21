@@ -49,11 +49,11 @@ export class CentralApiService {
       );
   }
 
-  public addDevice(body: object) {
-    return this.httpClient
-      .post (`${this.BASE_URL}/devices`, body).pipe(
-        retry(1)
-      );
+  public async addDevice(body: object): Promise<object> {
+    return await this.httpClient
+        .post<object>(`${this.BASE_URL}/devices`, body).pipe(
+            retry(5)
+        ).toPromise();
   }
 
   public getDeviceById(deviceId: string): Observable < Device > {
@@ -125,4 +125,12 @@ export class CentralApiService {
         retry(3)
       );
   }
+
+  public async addCategory(body: object): Promise<object> {
+    return await this.httpClient
+        .post<object>(`${this.BASE_URL}/categories`, body).pipe(
+            retry(5)
+        ).toPromise();
+  }
+  
 }

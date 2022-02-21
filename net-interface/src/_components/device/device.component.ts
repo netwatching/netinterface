@@ -18,8 +18,8 @@ export class DeviceComponent implements OnInit {
   devices!: Array < Device > ;
   deviceData!: DeviceData;
   errorMessage: string | undefined;
-  categoryForm: FormGroup;
 
+  categoryForm: FormGroup;
   categories!: Array < Category > ;
 
   pageCount: number | undefined = 1;
@@ -28,7 +28,6 @@ export class DeviceComponent implements OnInit {
   selectedCategories: string | undefined;
 
   showAddDeviceDialog = false;
-
   addDeviceForm: FormGroup;
   addDeviceDialogIsOpened = false;
   showAddDeviceSuccessDialog = false;
@@ -36,6 +35,13 @@ export class DeviceComponent implements OnInit {
   device: string;
   category: string;
   ip: string;
+
+  showAddCategoryDialog = false;
+  addCategoryForm: FormGroup;
+  addCategoryDialogIsOpened = false;
+  showAddCategorySuccessDialog = false;
+  showAddCategoryErrorDialog = false;
+  categoryname: string;
 
   constructor(
     private central: CentralApiService,
@@ -52,6 +58,14 @@ export class DeviceComponent implements OnInit {
     this.getDevices(1, this.devicesPerPage);
     this.firstCall = true;
   }
+
+  refreshData(){
+    this.getCategories();
+    this.getDevices(1, this.devicesPerPage);
+    this.firstCall = true;
+  }
+
+  // API requests
 
   getDevices(page: number, amount: number) {
     this.central.getDevices(page, amount).subscribe((deviceData) => {
@@ -99,6 +113,32 @@ export class DeviceComponent implements OnInit {
     );
   }
 
+  addDevice(body) {
+    this.central.addDevice(body).then(() => {
+        this.closeAddDeviceDialog();
+        this.openAddDeviceSuccessDialog();
+        this.refreshData()
+      },
+      err => {
+        this.closeAddDeviceDialog();
+        this.openAddDeviceErrorDialog();
+      });
+  }
+
+  addCategory(body) {
+    this.central.addCategory(body).then(() => {
+      this.closeAddCategoryDialog();
+      this.openAddCategorySuccessDialog();
+      this.refreshData()
+    },
+    err => {
+      this.closeAddCategoryDialog();
+      this.openAddCategoryErrorDialog();
+    });
+  }
+
+  // filter by category
+
   submitFilterForm() {
     let selectedCategories: string = "";
     this.categoryForm.value["checkArray"].forEach(function (value) {
@@ -123,6 +163,8 @@ export class DeviceComponent implements OnInit {
       });
     }
   }
+
+  // pagination
 
   calcPageAmount(devicesPerPage: number) {
     this.totalPages = Math.round(this.deviceData.total / devicesPerPage);
@@ -154,53 +196,50 @@ export class DeviceComponent implements OnInit {
     this.setPage(this.pageCount)
   }
 
+  // add category functions
 
+  processAddCategoryFormProperties() {
+    this.addCategoryForm = new FormGroup({
+      category: new FormControl(''),
+    });
+  }
 
-  // closeAddDeviceDialog() {
-  //   this.addDeviceDialogIsOpened = false;
-  // }
+  openAddCategoryDialog() {
+    this.processAddCategoryFormProperties()
+    this.addCategoryForm.patchValue({
+      category: this.categoryname
+    })
+    this.showAddCategoryDialog = true;
+  }
 
-  // openAddDeviceSuccessDialog() {
-  //   this.showAddDeviceSuccessDialog = true;
-  // }
+  openAddCategorySuccessDialog() {
+    this.showAddCategorySuccessDialog = true;
+  }
 
-  // closeAddDeviceSuccessDialog() {
-  //   window.location.reload();
-  //   this.showAddDeviceSuccessDialog = false;
-  // }
+  openAddCategoryErrorDialog() {
+    this.showAddCategoryErrorDialog = true;
+  }
 
-  // openAddDeviceErrorDialog(errorMessage) {
-  //   this.showAddDeviceErrorDialog = true;
-  //   this.errorMessage = errorMessage;
-  // }
+  closeAddCategoryDialog() {
+    this.showAddCategoryDialog = false;
+  }
 
-  // closeAddDeviceErrorDialog() {
-  //   window.location.reload();
-  //   this.showAddDeviceErrorDialog = false;
-  // }
+  closeAddCategorySuccessDialog() {
+    this.showAddCategorySuccessDialog = false;
+  }
 
+  closeAddCategoryErrorDialog() {
+    this.showAddCategoryErrorDialog = false;
+  }
 
+  submitAddCategoryForm() {
+    const requestBody: any = {};
+    requestBody['category'] = this.addCategoryForm.get('category').value;
+    console.log(requestBody)
+    this.addCategory(requestBody);
+  }
 
-  // onAddDeviceFormSubmit() {
-  //   if (this.addDeviceForm.valid) {
-  //     const requestBody: any = {};
-  //     requestBody['device'] = this.addDeviceForm.get('name').value;
-  //     requestBody['category'] = this.addDeviceForm.get('categoty').value;
-  //     requestBody['ip'] = this.addDeviceForm.get('ip').value;
-
-  //     //request here
-  //   }
-  //   for (const name in this.addDeviceForm.controls) {
-  //     if (document.getElementById(name)) {
-  //       const element = document.getElementById(name);
-  //       if (this.addDeviceForm.controls[name].invalid) {
-  //         element.style.borderColor = 'red';
-  //       } else {
-  //         element.style.borderColor = '#ced4da';
-  //       }
-  //     }
-  //   }
-  // }
+  // add device functions
 
   processAddDeviceFormProperties() {
     this.addDeviceForm = new FormGroup({
@@ -220,17 +259,33 @@ export class DeviceComponent implements OnInit {
     this.showAddDeviceDialog = true;
   }
 
+  openAddDeviceSuccessDialog() {
+    this.showAddDeviceSuccessDialog = true;
+  }
+
+  openAddDeviceErrorDialog() {
+    this.showAddDeviceErrorDialog = true;
+  }
+
   closeAddDeviceDialog() {
     this.showAddDeviceDialog = false;
   }
 
-  submitAddDeviceForm(){
+  closeAddDeviceSuccessDialog() {
+    this.showAddDeviceSuccessDialog = false;
+  }
+
+  closeAddDeviceErrorDialog() {
+    this.showAddDeviceErrorDialog = false;
+  }
+
+  submitAddDeviceForm() {
     const requestBody: any = {};
     requestBody['device'] = this.addDeviceForm.get('device').value;
     requestBody['ip'] = this.addDeviceForm.get('ip').value;
     requestBody['category'] = this.addDeviceForm.get('category').value;
     console.log(requestBody)
-    this.central.addDevice(requestBody);
+    this.addDevice(requestBody);
   }
 
 }
