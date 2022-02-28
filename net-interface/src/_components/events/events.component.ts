@@ -122,6 +122,12 @@ export class EventsComponent implements OnInit {
     }
   }
 
+  clearFilter(){
+    this.gotoFirstPage();
+    this.getEvents(1, this.alertsPerPage);
+    this.firstCall = true;
+  }
+
   calcPageAmount(alertsPerPage: number) {
     this.totalPages = Math.round(this.eventData.total / alertsPerPage);
   }

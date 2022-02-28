@@ -1,10 +1,10 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
+  <a class="button is-primary is-rounded" style="background-color: #ff0000; margin-bottom: 1%;"
+    (click)="openAddCategoryDialog()">
+    <fa-icon [icon]="faPlus"></fa-icon> &nbsp; category
+  </a>
   <div class="box" id="filter">
-    <a class="button is-primary is-rounded" style="background-color: #ff0000; margin-bottom: 1%;"
-      (click)="openAddCategoryDialog()">
-      <fa-icon [icon]="faPlus"></fa-icon>
-    </a>
     <form [formGroup]="categoryForm" (ngSubmit)="submitFilterForm()" novalidate>
       <div class="columns">
         <div class="column is-four-fifths">
@@ -18,9 +18,9 @@
             </a>
           </div>
         </div>
-        <div class="column"></div>
         <div class="column">
-          <input type="submit" value="Filter" class="button is-link" id="button">
+          <input type="submit" value="Filter" class="button is-link" id="button">&nbsp;
+          <input type="button" value="Clear filter" class="button is-link" id="button" (click)="clearFilter(); categoryForm.reset();">
         </div>
       </div>
     </form>
@@ -237,7 +237,7 @@
       </nav>
     </div>
     <a class="button is-rounded is-primary" style="background-color: #ff0000;" (click)="openAddDeviceDialog()">
-      <fa-icon [icon]="faPlus"></fa-icon>
+      <fa-icon [icon]="faPlus"></fa-icon>&nbsp; device
     </a>
     <div class="flex-container">
       <div *ngFor="let device of devices">
@@ -338,8 +338,7 @@
         <button (click)="closeAddDeviceErrorDialog()" class="delete" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
-        An unknown error occurred while trying to add the new device! Please contact Peter Lassnig (5AHITN)
-        and mention the following error code: {{errorMessage}}
+        An unknown error occurred while trying to add the new device! API error code: {{errorMessage}}
       </section>
       <footer class="modal-card-foot">
         <button (click)="closeAddDeviceErrorDialog()" class="button mx-auto">close</button>
@@ -410,8 +409,7 @@
         <button (click)="closeAddCategoryErrorDialog()" class="delete" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
-        An unknown error occurred while trying to add the new category! Please contact Peter Lassnig (5AHITN) and
-        mention the following error code: {{errorMessage}}
+        An unknown error occurred while trying to add the new category! API error code: {{errorMessage}}
       </section>
       <footer class="modal-card-foot">
         <button (click)="closeAddCategoryErrorDialog()" class="button mx-auto">close</button>

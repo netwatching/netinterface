@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeviceAndAppManagementRoleAssignment } from '@microsoft/microsoft-graph-types';
 import { Device } from 'src/_interfaces/device';
@@ -167,6 +167,13 @@ export class DeviceComponent implements OnInit {
         i++;
       });
     }
+  }
+
+  clearFilter(){
+    this.gotoFirstPage();
+    // this.getCategories();
+    this.getDevices(1, this.devicesPerPage);
+    this.firstCall = true;
   }
 
   // pagination
