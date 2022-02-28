@@ -63,6 +63,20 @@ export class CentralApiService {
       );
   }
 
+  public deleteDeviceById(deviceId: string) {
+    return this.httpClient
+      .delete (`${this.BASE_URL}/devices/${deviceId}`).pipe(
+        retry(1)
+      );
+  }
+
+  public deleteCategotyById(categoryId: string) {
+    return this.httpClient
+      .delete (`${this.BASE_URL}/catrgory/${categoryId}`).pipe(
+        retry(1)
+      );
+  }
+
   public getFeaturesByDevice(deviceId: string): Observable < Feature > {
     return this.httpClient
       .get < Feature > (`${this.BASE_URL}/devices/${deviceId}/features`).pipe(

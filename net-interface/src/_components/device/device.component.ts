@@ -44,6 +44,11 @@ export class DeviceComponent implements OnInit {
   showAddCategoryErrorDialog = false;
   categoryname: string;
 
+  showDeleteCategoryDialog = false;
+  showDeleteDeviceDialog = false;
+  categoryName: string;
+  categoryId: string;
+
   // icons
   faTrash = faTrash;
   faPlus = faPlus;
@@ -176,6 +181,10 @@ export class DeviceComponent implements OnInit {
     this.firstCall = true;
   }
 
+  deleteCategory(id){
+    this.central.deleteCategotyById(id);
+  }
+
   // pagination
 
   calcPageAmount(devicesPerPage: number) {
@@ -300,6 +309,28 @@ export class DeviceComponent implements OnInit {
     requestBody['category'] = this.addDeviceForm.get('category').value;
     console.log(requestBody)
     this.addDevice(requestBody);
+  }
+
+  //delete category dialog
+
+  openDeleteCategoryDialog(name, id) {
+    this.categoryId = id;
+    this.categoryName = name;
+    this.showDeleteCategoryDialog = true;
+  }
+
+  closeDeleteCategoryDialog() {
+    this.showDeleteCategoryDialog = false;
+  }
+
+  //delete device dialog
+
+  openDeleteDeviceDialog() {
+    this.showDeleteDeviceDialog = true;
+  }
+
+  closeDeleteDeviceDialog() {
+    this.showDeleteDeviceDialog = false;
   }
 
 }
