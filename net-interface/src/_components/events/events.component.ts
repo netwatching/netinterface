@@ -64,6 +64,10 @@ export class EventsComponent implements OnInit {
     this.firstCall = true;
   }
 
+  refresh(){
+    window.location.reload();
+  }
+
   getEvents(page: number, amount: number) {
     this.central.getEvents(page, amount).subscribe((eventData) => {
         this.eventData = eventData;
