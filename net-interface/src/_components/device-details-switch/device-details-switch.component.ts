@@ -36,8 +36,8 @@ export class DeviceDetailsSwitchComponent implements OnInit {
   }
 
   compareIfIndex( a, b ) {
-    let aIfIndex = parseInt(a.index)
-    let bIfIndex = parseInt(b.index)
+    let aIfIndex = parseInt(a.index);
+    let bIfIndex = parseInt(b.index);
 
     if ( aIfIndex < bIfIndex ){
       return -1;
@@ -68,14 +68,14 @@ export class DeviceDetailsSwitchComponent implements OnInit {
     for (let i of this.features.interfaces){
       if (i.index === portIndex){
         this.swInterfaceModalData = i;
-        console.log(i)
+        console.log(i);
       }
     }
   }
 
   getDevice() {
     this.central.getDeviceById(this.deviceId).subscribe((device) => {
-            this.device = device
+            this.device = device;
         },
         (error) => {
             if (error.status == 404) {
@@ -92,9 +92,9 @@ export class DeviceDetailsSwitchComponent implements OnInit {
 
       let interfaces = [];
       for (let i of this.features.interfaces){
-        interfaces.push(i)
+        interfaces.push(i);
       }
-      interfaces = interfaces.sort(this.compareIfIndex)
+      interfaces = interfaces.sort(this.compareIfIndex);
 
       let sw: Switch[] = [];
       if (interfaces.length > 12){
