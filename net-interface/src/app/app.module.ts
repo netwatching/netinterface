@@ -69,7 +69,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     HomeChartsComponent,
     DeviceDetailsSwitchComponent,
     ErrorComponent,
-    NetworkComponent,
+    NetworkComponent
   ],
   imports: [
     BrowserModule,
