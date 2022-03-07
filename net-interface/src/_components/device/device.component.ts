@@ -36,6 +36,7 @@ export class DeviceComponent implements OnInit {
   device: string;
   category: string;
   ip: string;
+  newDeviceName: string;
 
   showAddCategoryDialog = false;
   addCategoryForm: FormGroup;
@@ -45,9 +46,15 @@ export class DeviceComponent implements OnInit {
   categoryname: string;
 
   showDeleteCategoryDialog = false;
+  showDeleteCategorySuccessDialog = false;
+  showDeleteCategoryErrorDialog = false;
   showDeleteDeviceDialog = false;
+  showDeleteDeviceSuccessDialog = false;
+  showDeleteDeviceErrorDialog = false;
   categoryName: string;
   categoryId: string;
+  deviceName: string;
+  deviceId: string;
 
   // icons
   faTrash = faTrash;
@@ -151,6 +158,30 @@ export class DeviceComponent implements OnInit {
     });
   }
 
+  deleteCategory(id){
+    this.central.deleteCategoryById(id).then(() => {
+      this.closeDeleteCategoryDialog();
+      this.openDeleteCategorySuccessDialog();
+      this.refreshData()
+    },
+    err => {
+      this.closeDeleteCategoryDialog();
+      this.openDeleteCategoryErrorDialog(err.status);
+    });
+  }
+
+  deleteDevice(id){
+    this.central.deleteDeviceById(id).then(() => {
+      this.closeDeleteDeviceDialog();
+      this.openDeleteDeviceSuccessDialog();
+      this.refreshData()
+    },
+    err => {
+      this.closeDeleteDeviceDialog();
+      this.openDeleteDeviceErrorDialog(err.status);
+    });
+  }
+
   // filter by category
 
   submitFilterForm() {
@@ -183,10 +214,6 @@ export class DeviceComponent implements OnInit {
     // this.getCategories();
     this.getDevices(1, this.devicesPerPage);
     this.firstCall = true;
-  }
-
-  deleteCategory(id){
-    this.central.deleteCategotyById(id);
   }
 
   // pagination
@@ -309,6 +336,7 @@ export class DeviceComponent implements OnInit {
   submitAddDeviceForm() {
     const requestBody: any = {};
     requestBody['device'] = this.addDeviceForm.get('device').value;
+    this.newDeviceName = this.addDeviceForm.get('device').value;
     requestBody['ip'] = this.addDeviceForm.get('ip').value;
     requestBody['category'] = this.addDeviceForm.get('category').value;
     console.log(requestBody)
@@ -327,14 +355,50 @@ export class DeviceComponent implements OnInit {
     this.showDeleteCategoryDialog = false;
   }
 
+  openDeleteCategoryErrorDialog(errorMessage){
+    this.showDeleteCategoryErrorDialog = true;
+    this.errorMessage = errorMessage;
+  }
+
+  closeDeleteCategoryErrorDialog(){
+    this.showDeleteCategoryErrorDialog = false;
+  }
+
+  openDeleteCategorySuccessDialog(){
+    this.showDeleteCategorySuccessDialog = true;
+  }
+
+  closeDeleteCategorySuccessDialog(){
+    this.showDeleteCategorySuccessDialog = false;
+  }
+
   //delete device dialog
 
-  openDeleteDeviceDialog() {
+  openDeleteDeviceDialog(name, id) {
+    this.deviceId = id;
+    this.deviceName = name;
     this.showDeleteDeviceDialog = true;
   }
 
   closeDeleteDeviceDialog() {
     this.showDeleteDeviceDialog = false;
+  }
+
+  openDeleteDeviceErrorDialog(errorMessage){
+    this.showDeleteDeviceErrorDialog = true;
+    this.errorMessage = errorMessage;
+  }
+
+  closeDeleteDeviceErrorDialog(){
+    this.showDeleteDeviceErrorDialog = false;
+  }
+
+  openDeleteDeviceSuccessDialog(){
+    this.showDeleteDeviceSuccessDialog = true;
+  }
+
+  closeDeleteDeviceSuccessDialog(){
+    this.showDeleteDeviceSuccessDialog = false;
   }
 
 }

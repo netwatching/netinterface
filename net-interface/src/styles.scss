@@ -73,8 +73,16 @@ $blue: #ff0000;
 }
 
 .hyperlink:hover {
-  color: rgb(82, 82, 82);
-  text-decoration: underline;
+  color: #ff0000;
+  text-decoration: none;
+}
+
+.trashcan{
+  color: grey;
+}
+
+.trashcan:hover{
+  color: #ff0000;
 }
 
 .headline {

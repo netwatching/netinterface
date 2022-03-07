@@ -68,7 +68,7 @@ export class CentralApiService {
       ).toPromise();
   }
 
-  public async deleteCategotyById(categoryId: string) {
+  public async deleteCategoryById(categoryId: string) {
     return await this.httpClient
       .delete(`${this.BASE_URL}/catrgory/${categoryId}`).pipe(
         retry(1)

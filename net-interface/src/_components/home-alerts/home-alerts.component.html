@@ -1,4 +1,5 @@
 <div class="home-container-scroll">
+  <h1 class="title is-2">Events</h1> 
   <div *ngIf="alerts.length > 0">
     <div *ngFor="let alert of alerts">
       <div class="box my-5 device-box" [ngClass]="{'event-debug': alert.severity==1,'event-information': alert.severity==2,'event-warning': alert.severity==3,'event-error': alert.severity==4,'event-disaster': alert.severity==5}">
