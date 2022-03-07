@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
@@ -11,7 +10,6 @@ import { Event } from '../_interfaces/event';
 import { EventData } from '../_interfaces/event-data';
 import { DeviceData } from 'src/_interfaces/device-data';
 import { Category } from 'src/_interfaces/category';
-
 
 @Injectable({
   providedIn: 'root'
@@ -49,11 +47,11 @@ export class CentralApiService {
       );
   }
 
-  public async addDevice(body: object): Promise<object> {
+  public async addDevice(body: object): Promise < object > {
     return await this.httpClient
-        .post<object>(`${this.BASE_URL}/devices`, body).pipe(
-            retry(5)
-        ).toPromise();
+      .post < object > (`${this.BASE_URL}/devices`, body).pipe(
+        retry(5)
+      ).toPromise();
   }
 
   public getDeviceById(deviceId: string): Observable < Device > {
@@ -63,18 +61,18 @@ export class CentralApiService {
       );
   }
 
-  public deleteDeviceById(deviceId: string) {
-    return this.httpClient
-      .delete (`${this.BASE_URL}/devices/${deviceId}`).pipe(
-        retry(1)
-      );
+  public async deleteDeviceById(deviceId: string) {
+    return await this.httpClient
+      .delete(`${this.BASE_URL}/devices/${deviceId}`).pipe(
+        retry(3)
+      ).toPromise();
   }
 
-  public deleteCategotyById(categoryId: string) {
-    return this.httpClient
-      .delete (`${this.BASE_URL}/catrgory/${categoryId}`).pipe(
+  public async deleteCategotyById(categoryId: string) {
+    return await this.httpClient
+      .delete(`${this.BASE_URL}/catrgory/${categoryId}`).pipe(
         retry(1)
-      );
+      ).toPromise();
   }
 
   public getFeaturesByDevice(deviceId: string): Observable < Feature > {
@@ -133,18 +131,18 @@ export class CentralApiService {
       );
   }
 
-  public getCategories(): Observable<Array<Category>> {
+  public getCategories(): Observable < Array < Category >> {
     return this.httpClient
-      .get <Array<Category>> (`${this.BASE_URL}/categories`).pipe(
+      .get < Array < Category >> (`${this.BASE_URL}/categories`).pipe(
         retry(3)
       );
   }
 
-  public async addCategory(body: object): Promise<object> {
+  public async addCategory(body: object): Promise < object > {
     return await this.httpClient
-        .post<object>(`${this.BASE_URL}/categories`, body).pipe(
-            retry(5)
-        ).toPromise();
+      .post < object > (`${this.BASE_URL}/categories`, body).pipe(
+        retry(5)
+      ).toPromise();
   }
-  
+
 }

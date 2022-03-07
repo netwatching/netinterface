@@ -69,6 +69,10 @@ export class DeviceComponent implements OnInit {
     this.firstCall = true;
   }
 
+  refresh(){
+    window.location.reload();
+  }
+
   refreshData(){
     this.getCategories();
     this.getDevices(1, this.devicesPerPage);
