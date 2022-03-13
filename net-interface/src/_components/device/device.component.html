@@ -246,7 +246,7 @@
         <div class="box my-5 mx-5 flex-item columns">
           <div class="column is-four-fifths">
             <a href="/devices/{{ device.id }}" class="hyperlink">
-              <h4 class="is-size-4 has-text-weight-bold">{{ device.device }}</h4>
+              <h4 class="is-size-4 has-text-weight-bold">{{ device.hostname }}</h4>
               <p>
                 <span class="has-text-weight-semibold">Category: </span><span
                   class="tag is-info"><b>{{ device.category }}</b></span>
@@ -257,7 +257,7 @@
           <div class="column">
             <a>
               <fa-icon [icon]="faTrash" class="trashcan" style="font-size: 150%;"
-                (click)="openDeleteDeviceDialog(device.device, device.id)">
+                (click)="openDeleteDeviceDialog(device.hostname, device.id)">
               </fa-icon>
             </a>
           </div>

@@ -87,6 +87,7 @@ export class HomeChartsComponent implements OnInit {
       let countsSeverities = {};
       let severities = []
       let alerts = alertData.alerts;
+      console.log(JSON.stringify(alertData))
       for (let a of alerts){
         severities.push(a.severity)
       }

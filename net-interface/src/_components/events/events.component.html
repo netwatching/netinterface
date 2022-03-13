@@ -245,7 +245,8 @@
           <th style="width: 9%;">Time</th>
           <th style="width: 12%;">Severity</th>
           <th style="width: 19%;">Device</th>
-          <th style="width: 52%;">Info</th>
+          <th style="width: 37%;">Info</th>
+          <th style="width: 15%;">Device ID</th>
         </tr>
       </thead>
       <tbody *ngFor="let event of events">
@@ -279,7 +280,13 @@
               <!-- | slice : 0: event.device.length - 14 -->
             </a>
           </td>
-          <td class="table-data">{{ event.problem }}</td>
+          <td class="table-data">{{ event.event }}</td>
+          <td class="table-data">
+            <a href="/devices/{{ event.device_id }}" class="hyperlink">
+              {{ event.device_id }}
+              <!-- | slice : 0: event.device.length - 14 -->
+            </a>
+          </td>
         </tr>
       </tbody>
     </table>

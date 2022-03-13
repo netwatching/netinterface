@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 import {json} from "d3";
 import data from './graph.json'
+import { ActivatedRoute, Router } from '@angular/router';
+import { CentralApiService } from '../../_services/central-api.service';
+import { Tree } from 'src/_interfaces/tree';
+import { Link } from 'src/_interfaces/links';
+import { Node } from 'src/_interfaces/nodes';
 
 @Component({
   selector: 'app-network',
@@ -13,21 +18,44 @@ export class NetworkComponent implements OnInit {
   private width: number;
   private height: number;
   public svg: any;
-  private links: any;
-  private nodes: any;
+  private tree: Tree;
+  private links: Link[];
+  private nodes: Node[];
+  //private links = data.links;
+  //private nodes = data.nodes;
+  private color: any;
+  errorMessage: string | undefined;
 
-  constructor() {
-    this.width = window.innerWidth / 2 - this.margin.left - this.margin.right;
-    this.height = window.innerHeight / 2 - this.margin.top - this.margin.bottom;
-    this.links = data.links;
-    this.nodes = data.nodes;
+  constructor(
+    private central: CentralApiService,
+    private router: Router
+  ) {
+    this.width = window.innerWidth / 1.5 - this.margin.left - this.margin.right;
+    this.height = window.innerHeight / 1.5 - this.margin.top - this.margin.bottom;
+    this.color = d3.scaleOrdinal(d3.schemeCategory10);
   }
 
   ngOnInit(): void {
-    this.buildSvg();
+    this.generateNetwork();
   }
 
-  private buildSvg() {
+  private generateNetwork() {
+    this.central.getTree().subscribe((tree) => {
+      this.tree = tree;
+      this.links = tree.links;
+      this.nodes = tree.nodes;
+      console.log(this.tree);
+      this.buildSVG();
+    },
+    (error) => {
+        if (error.status == 404) {
+            this.router.navigate(['']);
+        }
+        this.errorMessage = error.message;
+    });
+  }
+
+  private buildSVG() {
     this.svg = d3.select("#networkGraph")
                   .append("svg")
                   .attr("width", this.width)
@@ -35,12 +63,11 @@ export class NetworkComponent implements OnInit {
                   .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     const simulation = d3.forceSimulation(this.nodes)
-                          .force("link", d3.forceLink(this.links).id((d:any) => d.id))
-                          .force("charge", d3.forceManyBody())
-                          .force("center", d3.forceCenter(this.width / 2, this.height / 3));
+                  .force("link", d3.forceLink(this.links).id((d:any) => d.id))
+                  .force("charge", d3.forceManyBody())
+                  .force("center", d3.forceCenter(this.width / 2, this.height / 3));
 
     const drag = (simulation: d3.Simulation<any, undefined>) => {
-
       function dragstarted(event: { active: any; subject: { fx: any; x: any; fy: any; y: any; }; }) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
         event.subject.fx = event.subject.x;
@@ -58,10 +85,10 @@ export class NetworkComponent implements OnInit {
         event.subject.fy = null;
       }
 
-      return d3.drag()
-              .on("start", dragstarted)
-              .on("drag", dragged)
-              .on("end", dragended);
+    return d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended);
     }
 
     const link = this.svg.append("g")
@@ -83,10 +110,8 @@ export class NetworkComponent implements OnInit {
                           .text((d:any)=>d.id)
                           .attr("fill", (d: any) => {
                             const scale = d3.scaleOrdinal(d3.schemeCategory10);
-                            return (d: { group: string; }) => scale(d.group);
+                            return this.color(d.group);
                           })
-                          .attr("fill", "#43afb5")
-                          .style("fill-opacity","0.9")
                           .attr("stroke", "#555")
                           .attr("stroke-width", 3);
 

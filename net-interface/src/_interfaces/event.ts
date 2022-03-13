@@ -1,8 +1,8 @@
 export interface Event {
-  device: string;
+  event: string;
   timestamp: string;
-  device_id: number;
-  problem: string;
+  device: string;
+  device_id: string;
   id: number;
   severity: number;
 }

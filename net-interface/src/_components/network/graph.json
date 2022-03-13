@@ -1,21 +1,18 @@
 {
   "links": [
-    { "source": "A", "target": "B", "value": 35},
-    { "source": "A", "target": "C", "value": 35},
-    { "source": "B", "target": "D", "value": 20},
-    { "source": "B", "target": "E", "value": 20},
-    { "source": "C", "target": "F", "value": 20},
-    { "source": "C", "target": "G", "value": 20},
-    { "source": "F", "target": "H", "value": 10}
+    { "source": "A", "target": "B", "value": 50},
+    { "source": "A", "target": "C", "value": 50},
+    { "source": "B", "target": "D", "value": 50},
+    { "source": "B", "target": "E", "value": 50},
+    { "source": "C", "target": "F", "value": 50}
   ],
   "nodes": [
-    { "id": "A", "group": 1},
-    { "id": "B", "group": 2},
-    { "id": "C", "group": 2},
-    { "id": "D", "group": 3},
-    { "id": "E", "group": 3},
-    { "id": "F", "group": 3},
-    { "id": "G", "group": 3},
-    { "id": "H", "group": 3}
+    { "id": "A", "group": 1, "index": 0, "x": null, "y": null},
+    { "id": "B", "group": 2, "index": 1, "x": null, "y": null},
+    { "id": "C", "group": 2, "index": 2, "x": null, "y": null},
+    { "id": "D", "group": 3, "index": 3, "x": null, "y": null},
+    { "id": "E", "group": 3, "index": 4, "x": null, "y": null},
+    { "id": "F", "group": 3, "index": 5, "x": null, "y": null}
+
   ]
 }

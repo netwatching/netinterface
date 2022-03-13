@@ -1,12 +1,12 @@
 <div class="home-container-scroll">
-  <h1 class="title is-2">Events</h1> 
+  <h1 class="title is-2">Events</h1>
   <div *ngIf="alerts.length > 0">
     <div *ngFor="let alert of alerts">
       <div class="box my-5 device-box" [ngClass]="{'event-debug': alert.severity==1,'event-information': alert.severity==2,'event-warning': alert.severity==3,'event-error': alert.severity==4,'event-disaster': alert.severity==5}">
         <h4 class="is-size-4 has-text-weight-bold">{{ alert.device }}</h4>
         <p>
           <span class="has-text-weight-semibold">Timestamp: </span>{{ alert.timestamp | date:'M/d/yyyy HH:mm:ss' }}<br>
-          <span class="has-text-weight-semibold">Info: </span>{{ alert.problem }}<br>
+          <span class="has-text-weight-semibold">Info: </span>{{ alert.event }}<br>
           <span class="has-text-weight-semibold">Severity: </span>
           <span *ngIf="alert.severity == 1" class="tag is-info" style="background: var(--events_debug);"><b>{{ alert.severity }} - debug</b></span>
           <span *ngIf="alert.severity == 2" class="tag is-info" style="background: var(--events_information);"><b>{{ alert.severity }} - information</b></span>
