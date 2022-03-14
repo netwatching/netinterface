@@ -1,18 +1,9 @@
 {
   "links": [
-    { "source": "A", "target": "B", "value": 50},
-    { "source": "A", "target": "C", "value": 50},
-    { "source": "B", "target": "D", "value": 50},
-    { "source": "B", "target": "E", "value": 50},
-    { "source": "C", "target": "F", "value": 50}
+    { "source": "Alpha", "target": "Beta", "value": 50}
   ],
   "nodes": [
-    { "id": "A", "group": 1, "index": 0, "x": null, "y": null},
-    { "id": "B", "group": 2, "index": 1, "x": null, "y": null},
-    { "id": "C", "group": 2, "index": 2, "x": null, "y": null},
-    { "id": "D", "group": 3, "index": 3, "x": null, "y": null},
-    { "id": "E", "group": 3, "index": 4, "x": null, "y": null},
-    { "id": "F", "group": 3, "index": 5, "x": null, "y": null}
-
+    { "id": "Alpha", "group": 1, "index": 0, "x": null, "y": null, "device_id": "blabla"},
+    { "id": "Beta", "group": 2, "index": 1, "x": null, "y": null, "device_id": "blabla"}
   ]
 }

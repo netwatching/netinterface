@@ -21,10 +21,13 @@ export class NetworkComponent implements OnInit {
   private tree: Tree;
   private links: Link[];
   private nodes: Node[];
-  //private links = data.links;
+  // private links = data.links;
   //private nodes = data.nodes;
   private color: any;
   errorMessage: string | undefined;
+  clickedDeviceId!: string;
+  showDeviceModal: boolean = false;
+  deviceModalData!:  any;
 
   constructor(
     private central: CentralApiService,
@@ -64,8 +67,10 @@ export class NetworkComponent implements OnInit {
 
     const simulation = d3.forceSimulation(this.nodes)
                   .force("link", d3.forceLink(this.links).id((d:any) => d.id))
-                  .force("charge", d3.forceManyBody())
-                  .force("center", d3.forceCenter(this.width / 2, this.height / 3));
+                  .force("charge", d3.forceManyBody().strength(-3000))
+                  .force("center", d3.forceCenter(this.width / 2, this.height / 2))
+                  .force("x", d3.forceX(this.width / 2).strength(1))
+                  .force("y", d3.forceY(this.height / 2).strength(1));
 
     const drag = (simulation: d3.Simulation<any, undefined>) => {
       function dragstarted(event: { active: any; subject: { fx: any; x: any; fy: any; y: any; }; }) {
@@ -85,15 +90,16 @@ export class NetworkComponent implements OnInit {
         event.subject.fy = null;
       }
 
-    return d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
+      return d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended);
     }
+
 
     const link = this.svg.append("g")
                           .attr("stroke", "#777")
-                          .attr("stroke-opacity", 1)
+                          .attr("stroke-opacity", 0.6)
                           .selectAll("line")
                           .data(this.links)
                           .join("line")
@@ -108,12 +114,22 @@ export class NetworkComponent implements OnInit {
                           .attr("r", 8)
                           .call(drag(simulation))
                           .text((d:any)=>d.id)
+                          .attr("fill", "#ff0000")
+                          .attr("stroke", "#555")
+                          .attr("stroke-width", 3);
+                        /*
                           .attr("fill", (d: any) => {
                             const scale = d3.scaleOrdinal(d3.schemeCategory10);
                             return this.color(d.group);
                           })
-                          .attr("stroke", "#555")
-                          .attr("stroke-width", 3);
+                        */
+
+    var texts = this.svg.selectAll("text.label")
+                        .data(this.nodes)
+                        .enter().append("text")
+                        .attr("class", "label")
+                        .attr("fill", "#6e6e6e")
+                        .text(function(d) {  return d.id;  });
 
     simulation.on("tick", () => {
       link.attr("x1", (d: { source: { x: any; }; }) => d.source.x)
@@ -123,6 +139,19 @@ export class NetworkComponent implements OnInit {
 
       node.attr("cx", (d: { x: any; }) => d.x)
           .attr("cy", (d: { y: any; }) => d.y);
+
+      texts.attr("transform", function(d) {
+            let x = d.x + 10;
+            let y = d.y + 10;
+            return "translate(" + x + "," + y + ")";
+        });
+    });
+
+    node.on("click", function(d){
+      console.log("clicked node: " + d.target.__data__.device_id);
+      if (d.target.__data__.device_id != null || d.target.__data.device_id != undefined){
+        window.location.href = '/devices/' + d.target.__data__.device_id;
+      }
     });
   }
 }
