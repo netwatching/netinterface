@@ -287,6 +287,12 @@
             </div>
           </div>
           <div class="field">
+            <label class="label">Hostname</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Hostname" formControlName="hostname">
+            </div>
+          </div>
+          <div class="field">
             <label class="label">IP-Address</label>
             <div class="control">
               <input class="input" type="text" placeholder="IP-Address" formControlName="ip">
@@ -297,12 +303,12 @@
             <div class="control">
               <div class="select">
                 <select formControlName="category">
-                  <option *ngFor="let category of categories; let i=index" id="form-elements" [value]="category.id">
-                    {{ category.category }}
+                  <option id="form-elements" *ngFor="let category of categories; let i=index">
+                    <input [value]="category.id">{{ category.category }}
                   </option>
                 </select>
               </div>
-            </div>
+            </div>]
           </div>
         </form>
       </section>

@@ -36,6 +36,7 @@ export class DeviceComponent implements OnInit {
   device: string;
   category: string;
   ip: string;
+  hostname: string;
   newDeviceName: string;
 
   showAddCategoryDialog = false;
@@ -298,6 +299,7 @@ export class DeviceComponent implements OnInit {
     this.addDeviceForm = new FormGroup({
       device: new FormControl(''),
       ip: new FormControl(''),
+      hostname: new FormControl(''),
       category: new FormControl(''),
     });
   }
@@ -307,6 +309,7 @@ export class DeviceComponent implements OnInit {
     this.addDeviceForm.patchValue({
       device: this.device,
       ip: this.ip,
+      hostname: this.hostname,
       category: this.category,
     })
     this.showAddDeviceDialog = true;
@@ -338,8 +341,9 @@ export class DeviceComponent implements OnInit {
     requestBody['device'] = this.addDeviceForm.get('device').value;
     this.newDeviceName = this.addDeviceForm.get('device').value;
     requestBody['ip'] = this.addDeviceForm.get('ip').value;
+    requestBody['hostname'] = this.addDeviceForm.get('hostname').value;
     requestBody['category'] = this.addDeviceForm.get('category').value;
-    console.log(requestBody)
+    console.log(requestBody);
     this.addDevice(requestBody);
   }
 
