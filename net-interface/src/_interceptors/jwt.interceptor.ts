@@ -6,6 +6,7 @@ import { User } from '../_interfaces/user';
 import { AuthService } from '../_services/auth.service';
 import { Jwt } from '../_interfaces/jwt';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { environment } from '../environments/environment';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
@@ -21,9 +22,9 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest < unknown > , next: HttpHandler): Observable < HttpEvent < unknown >> {
     let auth_request = request;
     const requestData: any = {};
-    requestData['id'] = "1" //this.authService.user!.id;
-    requestData['name'] = "zoppothp"//this.authService.user!.username;
-    requestData['pw'] = 'TYlZfng0wwuEOaxcyyoJ2N5otTPS0g4X6fXq9s777yJxwtcpHsRQC1F5Ao5PI3MT42xlMeBOP4jN7fUAA5a5vEtM7WWIMYvQPDebr5Lcgz9Ri1yEQiwmObINIHyI8pMw';
+    requestData['id'] = this.authService.user!.id;
+    requestData['name'] = this.authService.user!.username;
+    requestData['pw'] = environment.apiKey;
 
     // console.log('current access token: ', localStorage.getItem('access_token'))
     // console.log('is expired: ', this.helper.isTokenExpired(localStorage.getItem('access_token')?.toString()))
