@@ -4,7 +4,7 @@ import { Timestamp } from "rxjs/internal/operators/timestamp";
 export interface Device {
     id: string;
     category_id: string;
-    device: string;
+    hostname: string;
     category: string;
 
 }

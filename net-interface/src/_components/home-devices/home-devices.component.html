@@ -4,7 +4,7 @@
     <div *ngFor="let device of devices">
       <a href="/devices/{{ device.id }}">
         <div class="box my-5 device-box">
-          <h4 class="is-size-4 has-text-weight-bold">{{ device.device }}</h4>
+          <h4 class="is-size-4 has-text-weight-bold">{{ device.hostname }}</h4>
           <p>
             <span class="has-text-weight-semibold">Category: </span><span class="tag is-info"><b>{{ device.category }}</b></span>
           </p>

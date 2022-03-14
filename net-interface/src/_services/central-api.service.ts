@@ -10,6 +10,7 @@ import { Event } from '../_interfaces/event';
 import { EventData } from '../_interfaces/event-data';
 import { DeviceData } from 'src/_interfaces/device-data';
 import { Category } from 'src/_interfaces/category';
+import { Tree } from 'src/_interfaces/tree';
 
 @Injectable({
   providedIn: 'root'
@@ -143,6 +144,13 @@ export class CentralApiService {
       .post < object > (`${this.BASE_URL}/categories`, body).pipe(
         retry(5)
       ).toPromise();
+  }
+
+  public getTree(): Observable < Tree > {
+    return this.httpClient
+      .get < Tree > (`${this.BASE_URL}/tree`).pipe(
+        retry(3)
+      );
   }
 
 }

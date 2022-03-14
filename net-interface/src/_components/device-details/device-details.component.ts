@@ -86,14 +86,15 @@ export class DeviceDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getDevice()
-    this.getDeviceFeatures()
-    this.getEvents(1, this.alertsPerPage);
+    //this.getDeviceFeatures()
+    //this.getEvents(1, this.alertsPerPage);
     this.firstCall = true;
   }
 
   getDevice() {
     this.central.getDeviceById(this.deviceId).subscribe((device) => {
             this.device = device;
+            console.log(device);
         },
         (error) => {
             if (error.status == 404) {
