@@ -55,7 +55,7 @@ export class CentralApiService {
       ).toPromise();
   }
 
-  public getDeviceById(deviceId: string): Observable < Device > {
+  public getDeviceById(deviceId: string): Observable < any > {
     return this.httpClient
       .get < Device > (`${this.BASE_URL}/devices/${deviceId}`).pipe(
         retry(3)

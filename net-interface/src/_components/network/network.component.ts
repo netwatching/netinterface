@@ -19,10 +19,10 @@ export class NetworkComponent implements OnInit {
   private height: number;
   public svg: any;
   private tree: Tree;
-  private links: Link[];
-  private nodes: Node[];
-  // private links = data.links;
-  //private nodes = data.nodes;
+  //private links: Link[];
+  //private nodes: Node[];
+  private links = data.links;
+  private nodes = data.nodes;
   private color: any;
   errorMessage: string | undefined;
   clickedDeviceId!: string;
@@ -45,8 +45,8 @@ export class NetworkComponent implements OnInit {
   private generateNetwork() {
     this.central.getTree().subscribe((tree) => {
       this.tree = tree;
-      this.links = tree.links;
-      this.nodes = tree.nodes;
+      //this.links = tree.links;
+      //this.nodes = tree.nodes;
       console.log(this.tree);
       this.buildSVG();
     },

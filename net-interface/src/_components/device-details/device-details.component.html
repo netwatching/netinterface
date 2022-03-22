@@ -1,13 +1,15 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
-  <div class="box" *ngIf="(features.system| keyvalue)?.length">
-    <h2 class="headline" *ngIf="features.system.name">{{ features.system.name }} <span
-        *ngIf="device.category">({{ device.category }})</span></h2>
-    <p *ngIf="features.system.description">{{ features.system.description }}</p>
-    <p *ngIf="features.system.uptime">up since {{ upSince  | date }} at {{ upSince | date:'HH:mm:ss'}}</p>
-    <p *ngIf="features.system.contact">contact: {{ features.system.contact }}</p>
-    <p *ngIf="features.system.location">location: {{ features.system.location }}</p>
+  <div class="box" *ngIf="(system | keyvalue)?.length">
+    <h2 class="headline">{{ device.hostname }} <span>({{ device.category }})</span></h2>
+    <p>{{ system.description }}</p>
+    <p>name: {{ system.name }}</p>
+    <p>up since {{ upSince  | date }} at {{ upSince | date:'HH:mm:ss'}}</p>
+    <p>contact: {{ system.contact }}</p>
+    <p>location: {{ system.location }}</p>
   </div>
+
+  <!-- todo
   <div class="box" *ngIf="(features.ipAddresses)?.length">
     <h2 class="sub-headline">IP Addresses</h2>
     <div class="flex-container">
@@ -19,6 +21,7 @@
       </div>
     </div>
   </div>
+
   <div class="box" id="filter" *ngIf="((events | keyvalue)?.length)">
     <form [formGroup]="severityForm" (ngSubmit)="submitForm()" novalidate>
       <div class="columns">
@@ -290,8 +293,10 @@
         </tr>
       </tbody>
     </table>
-  </div>
-  <div class="box" *ngIf="(features.interfaces | keyvalue)?.length">
+  </div>-->
+
+
+  <div class="box" *ngIf="(interfaces | keyvalue)?.length">
     <h2 class="sub-headline" style="margin-bottom: 1%">Interfaces</h2>
     <app-device-details-switch *ngIf="device.category == 'Switch'"></app-device-details-switch>
     <table class="table">
@@ -305,7 +310,7 @@
           <th>Operating status</th>
         </tr>
       </thead>
-      <tbody *ngFor="let interface of features.interfaces">
+      <tbody *ngFor="let interface of interfaces">
         <tr class="table-row" *ngIf="(interface | keyvalue)?.length">
           <td class="table-data"
             [ngClass]="{'sw-port-admin-up': interface.admin_status == 'up','sw-port-admin-down': interface.admin_status == 'down','sw-port-operational-up': interface.operating_status == 'up','sw-port-operational-down': interface.operating_status== 'down','sw-port-10mbps': interface.speed == 10000000,'sw-port-100mbps': interface.speed == 100000000, 'sw-port-1000mbps': interface.speed == 1000000000}">

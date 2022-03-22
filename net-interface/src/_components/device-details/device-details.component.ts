@@ -18,10 +18,10 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class DeviceDetailsComponent implements OnInit {
 
-  device!: Device;
+  device!: any;
   deviceId!: string;
   features!: Feature;
-  interfaces!: Array < NetworkInterface >;
+  //interfaces!: Array < NetworkInterface >;
   errorMessage: string | undefined;
   date!: Date;
   upSince!: string;
@@ -33,6 +33,12 @@ export class DeviceDetailsComponent implements OnInit {
   alertsPerPage: number | undefined = 20;
   selectedSeverities: string | undefined;
   severityForm: FormGroup;
+
+  static!: any;
+  live!: any;
+  system!: any;
+  interfaces!: any;
+  neighbors!: any;
 
   severityRanks: Array < any > = [{
       name: 'debug',
@@ -86,15 +92,46 @@ export class DeviceDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getDevice()
-    //this.getDeviceFeatures()
-    //this.getEvents(1, this.alertsPerPage);
+    this.getEvents(1, this.alertsPerPage);
     this.firstCall = true;
   }
 
   getDevice() {
     this.central.getDeviceById(this.deviceId).subscribe((device) => {
-            this.device = device;
-            console.log(device);
+            this.device = device.device;
+            this.static = this.device.static;
+            this.live = this.device.live;
+
+            for (let i = 0; i < this.static.length; i){
+              console.log(this.static[i].key)
+              if(this.static[i].key == "system"){
+                this.system = this.static[i].data.system;
+              } else if (this.static[i].key == "network_interfaces") {
+                let ints = [];
+                for (let o in this.static[i].data){
+                  ints.push(this.static[i].data[o]);
+                }
+                this.interfaces = ints;
+              } else if (this.static[i].key == "neighbors") {
+                this.neighbors = this.static[i].data;
+              }
+              i++;
+            }
+
+            console.log('this.device -------------->');
+            console.log(this.device);
+            console.log('this.static -------------->');
+            console.log(this.static);
+            console.log('this.live -------------->');
+            console.log(this.live);
+            console.log('this.system -------------->');
+            console.log(this.system);
+            console.log('this.network_interfaces -------------->');
+            console.log(this.interfaces);
+            console.log('this.neighbors -------------->');
+            console.log(this.neighbors);
+
+            this.calcUpTime();
         },
         (error) => {
             if (error.status == 404) {
@@ -105,26 +142,14 @@ export class DeviceDetailsComponent implements OnInit {
     );
   }
 
-  getDeviceFeatures() {
-    this.central.getFeaturesByDevice(this.deviceId).subscribe((features) => {
-      this.features = features;
-      console.log(features.interfaces.sort(this.compareIfIndex))
-      this.interfaces = features.interfaces.sort(this.compareIfIndex);
-      this.calcUpTime()
-      },
-      (error) => {
-        if (error.status == 404) {
-          this.router.navigate(['']);
-        }
-        this.errorMessage = error.message;
-      }
-    );
-  }
-
   getEvents(page: number, amount: number) {
     this.central.getEventsByDevice(page, amount, this.deviceId).subscribe((eventData) => {
         this.eventData = eventData;
         this.events = eventData.alerts;
+
+        console.log(this.eventData);
+        console.log(this.events);
+
         if (this.firstCall == true) {
           this.calcPageAmount(this.alertsPerPage)
           this.firstCall = false;
@@ -212,6 +237,6 @@ export class DeviceDetailsComponent implements OnInit {
 
   calcUpTime(){
     this.date=new Date();
-    this.upSince = String(Date.parse(String(this.date)) - this.features.system.uptime)
+    this.upSince = String(Date.parse(String(this.date)) - this.system.uptime)
   }
 }

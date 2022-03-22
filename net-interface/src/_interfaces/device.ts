@@ -6,5 +6,4 @@ export interface Device {
     category_id: string;
     hostname: string;
     category: string;
-
 }

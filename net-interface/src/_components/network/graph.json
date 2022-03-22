@@ -1,9 +1,19 @@
 {
   "links": [
-    { "source": "Alpha", "target": "Beta", "value": 50}
+    { "source": "Alpha", "target": "Beta", "value": 50},
+    { "source": "Alpha", "target": "C", "value": 50},
+    { "source": "Alpha", "target": "D", "value": 50},
+    { "source": "Beta", "target": "E", "value": 50},
+    { "source": "Beta", "target": "F", "value": 50},
+    { "source": "E", "target": "G", "value": 50}
   ],
   "nodes": [
-    { "id": "Alpha", "group": 1, "index": 0, "x": null, "y": null, "device_id": "blabla"},
-    { "id": "Beta", "group": 2, "index": 1, "x": null, "y": null, "device_id": "blabla"}
+    { "id": "Alpha", "group": 1, "index": 0, "x": null, "y": null, "device_id": "62388bc64fd2a6f232f8aedb"},
+    { "id": "Beta", "group": 2, "index": 1, "x": null, "y": null, "device_id": "62388bc64fd2a6f232f8aedb"},
+    { "id": "C", "group": 3, "index": 2, "x": null, "y": null, "device_id": "62388bc64fd2a6f232f8aedb"},
+    { "id": "D", "group": 3, "index": 3, "x": null, "y": null, "device_id": "62388bc64fd2a6f232f8aedb"},
+    { "id": "E", "group": 3, "index": 4, "x": null, "y": null, "device_id": "62388bc64fd2a6f232f8aedb"},
+    { "id": "F", "group": 3, "index": 5, "x": null, "y": null, "device_id": "62388bc64fd2a6f232f8aedb"},
+    { "id": "G", "group": 3, "index": 6, "x": null, "y": null, "device_id": "62388bc64fd2a6f232f8aedb"}
   ]
 }
