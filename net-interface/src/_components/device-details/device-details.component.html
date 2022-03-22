@@ -325,4 +325,69 @@
     </table>
   </div>
 </div>
+
+
+<!-- <span *ngIf="showDeleteCategoryDialog">
+  <div class="modal" [ngClass]="{'is-active': showDeleteCategoryDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Delete category</p>
+        <button (click)="closeDeleteCategoryDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        Are you sure you want to delete the category <strong>{{categoryName}}</strong>?
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons" style="text-align: center !important;">
+          <a class="button is-primary" style="background-color: #ff0000;" (click)="deleteCategory(categoryId)">
+            <strong>Delete category</strong>
+          </a>
+          <a class="button mx-auto" (click)="closeDeleteCategoryDialog()">
+            <strong>Close</strong>
+          </a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showDeleteCategorySuccessDialog">
+  <div class="modal" [ngClass]="{'is-active': showDeleteCategorySuccessDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">SUCCESS</p>
+        <button (click)="closeDeleteCategorySuccessDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        Category <strong>{{categoryName}}</strong> was deleted sucessfully!
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeDeleteCategorySuccessDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showDeleteCategoryErrorDialog">
+  <div class="modal" [ngClass]="{'is-active': showDeleteCategoryErrorDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">ERROR</p>
+        <button (click)="closeDeleteCategoryErrorDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        An unknown error occurred while trying to delte the <strong>{{categoryName}}</strong>! API error code:
+        {{errorMessage}}
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeDeleteCategoryErrorDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span> -->
+
+
 <app-footer></app-footer>

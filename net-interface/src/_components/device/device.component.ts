@@ -25,7 +25,7 @@ export class DeviceComponent implements OnInit {
 
   pageCount: number | undefined = 1;
   totalPages: number | undefined = 0;
-  devicesPerPage: number | undefined = 18;
+  devicesPerPage: number | undefined = 9;
   selectedCategories: string | undefined;
 
   showAddDeviceDialog = false;
