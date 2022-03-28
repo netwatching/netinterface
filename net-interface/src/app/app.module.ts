@@ -17,7 +17,7 @@ import { MsalModule,
   MsalService,
   MSAL_INSTANCE } from '@azure/msal-angular';
 import { OAuthSettings } from '../_interfaces/oauth';
-import { JwtInterceptor } from '../_interceptors/jwt.interceptor';
+// import { JwtInterceptor } from '../_interceptors/jwt.interceptor';
 import { EventsComponent } from './../_components/events/events.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeDevicesComponent } from './../_components/home-devices/home-devices.component';
@@ -95,7 +95,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     MatFormFieldModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     {
       provide: MSAL_INSTANCE,
       useFactory: MSALInstanceFactory
