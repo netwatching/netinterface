@@ -21,10 +21,10 @@ export class CentralApiService {
   helper = new JwtHelperService();
   
   private BASE_URL = 'https://palguin.htl-vil.local:8443/api';
-  private headers = new HttpHeaders().set("Accept", "application/json").set('Content-Type', 'text/plain; charset=utf-8').set("Authorization", "Bearer " + sessionStorage.getItem('access_token').toString());
+  private headers = new HttpHeaders().set("Accept", "application/json").set('Content-Type', 'text/plain; charset=utf-8').set("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
   private httpOptions: object = {
     headers: this.headers,
-    responseType: 'text'
+    responseType: 'json'
   }
 
   constructor(private httpClient: HttpClient) {}
