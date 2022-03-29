@@ -21,7 +21,7 @@ import { Configs } from 'src/_interfaces/configs';
 export class CentralApiService {
 
   helper = new JwtHelperService();
-  
+
   private BASE_URL = 'https://palguin.htl-vil.local:8443/api';
   private headers = new HttpHeaders().set("Accept", "application/json").set('Content-Type', 'application/json; charset=utf-8').set("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
   private httpOptions: object = {
@@ -29,7 +29,7 @@ export class CentralApiService {
     responseType: 'json'
   }
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {this.jwtHandler()}
 
   private jwtHandler(){
     if (this.helper.isTokenExpired(sessionStorage.getItem('access_token')?.toString()) || !sessionStorage.getItem('access_token')){
