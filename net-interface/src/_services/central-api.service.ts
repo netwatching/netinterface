@@ -12,6 +12,8 @@ import { DeviceData } from 'src/_interfaces/device-data';
 import { Category } from 'src/_interfaces/category';
 import { Tree } from 'src/_interfaces/tree';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { Module } from 'src/_interfaces/module';
+import { Configs } from 'src/_interfaces/configs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,7 @@ export class CentralApiService {
   helper = new JwtHelperService();
   
   private BASE_URL = 'https://palguin.htl-vil.local:8443/api';
-  private headers = new HttpHeaders().set("Accept", "application/json").set('Content-Type', 'text/plain; charset=utf-8').set("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
+  private headers = new HttpHeaders().set("Accept", "application/json").set('Content-Type', 'application/json; charset=utf-8').set("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
   private httpOptions: object = {
     headers: this.headers,
     responseType: 'json'
@@ -30,12 +32,12 @@ export class CentralApiService {
   constructor(private httpClient: HttpClient) {}
 
   private jwtHandler(){
-    if (this.helper.isTokenExpired(sessionStorage.getItem('access_token')?.toString()) || !sessionStorage.getItem('access_token').toString()){
+    if (this.helper.isTokenExpired(sessionStorage.getItem('access_token')?.toString()) || !sessionStorage.getItem('access_token')){
       const requestData: any = {};
       requestData['pw'] = environment.apiKey;
       this.getJWTToken(requestData).subscribe((object) => {
       sessionStorage.setItem('access_token', object.access_token);
-      // this.headers.set("Authorization", "Bearer " + object.access_token);
+      this.headers.set("Authorization", "Bearer " + object.access_token);
       })
     }
   }
@@ -144,6 +146,52 @@ export class CentralApiService {
       );
   }
 
+  public getCategories(): Observable < Array < Category >> {
+    this.jwtHandler()
+    return this.httpClient
+      .get < Array < Category >> (`${this.BASE_URL}/categories`, this.httpOptions).pipe(
+        retry(3)
+      );
+  }
+
+  public getModules(): Observable < Array < Module >> {
+    this.jwtHandler()
+    return this.httpClient
+      .get <Array< Module >> (`${this.BASE_URL}/modules`, this.httpOptions).pipe(
+        retry(3)
+      );
+  }
+
+  public getModulesAssignedToDevice(deviceId): Observable < Configs > {
+    this.jwtHandler()
+    return this.httpClient
+      .get < Configs > (`${this.BASE_URL}/devices/${deviceId}/config`, this.httpOptions).pipe(
+        retry(3)
+      );
+  }
+
+  public async addModule(deviceId, body: object): Promise < object > {
+    this.jwtHandler()
+    return await this.httpClient
+      .post < object > (`${this.BASE_URL}/devices/${deviceId}/config`, body, this.httpOptions,).pipe().toPromise();
+  }
+
+  public async addCategory(body: object): Promise < object > {
+    this.jwtHandler()
+    return await this.httpClient
+      .post < object > (`${this.BASE_URL}/categories`, body, this.httpOptions).pipe(
+        retry(5)
+      ).toPromise();
+  }
+
+  public getTree(): Observable < Tree > {
+    this.jwtHandler()
+    return this.httpClient
+      .get < Tree > (`${this.BASE_URL}/tree`, this.httpOptions).pipe(
+        retry(3)
+      );
+  }
+
   public getJWTToken(body: object): Observable < Jwt > {
     return this.httpClient
       .post < Jwt > (`${this.BASE_URL}/login`, body).pipe(
@@ -155,30 +203,6 @@ export class CentralApiService {
     return this.httpClient
       .post < Jwt > (`${this.BASE_URL}/request`, "").pipe(
         retry(1)
-      );
-  }
-
-  public getCategories(): Observable < Array < Category >> {
-    this.jwtHandler()
-    return this.httpClient
-      .get < Array < Category >> (`${this.BASE_URL}/categories`, this.httpOptions).pipe(
-        retry(3)
-      );
-  }
-
-  public async addCategory(body: object): Promise < object > {
-    this.jwtHandler()
-    return await this.httpClient
-      .post < object > (`${this.BASE_URL}/categories`, this.httpOptions, body).pipe(
-        retry(5)
-      ).toPromise();
-  }
-
-  public getTree(): Observable < Tree > {
-    this.jwtHandler()
-    return this.httpClient
-      .get < Tree > (`${this.BASE_URL}/tree`, this.httpOptions).pipe(
-        retry(3)
       );
   }
 

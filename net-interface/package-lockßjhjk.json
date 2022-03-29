@@ -22,7 +22,7 @@
         "@auth0/angular-jwt": "^5.0.2",
         "@azure/msal-angular": "^2.0.2",
         "@azure/msal-browser": "^2.16.1",
-        "@fortawesome/angular-fontawesome": "^0.10.2",
+        "@fortawesome/angular-fontawesome": "^0.10.1",
         "@fortawesome/fontawesome-svg-core": "~1.2.36",
         "@fortawesome/free-solid-svg-icons": "^5.15.4",
         "@microsoft/microsoft-graph-client": "^3.0.0",
@@ -43,7 +43,7 @@
         "@angular-devkit/build-angular": "~12.2.9",
         "@angular/cli": "~12.2.9",
         "@angular/compiler-cli": "~12.2.0",
-        "@microsoft/microsoft-graph-types": "^2.16.0",
+        "@microsoft/microsoft-graph-types": "^2.10.0",
         "@nativescript/schematics": "^11.2.0",
         "@schematics/angular": "^13.0.1",
         "@types/d3": "^7.1.0",
@@ -239,6 +239,17 @@
         "yarn": ">= 1.13.0"
       }
     },
+    "node_modules/@angular-devkit/build-angular/node_modules/core-js": {
+      "version": "3.16.0",
+      "resolved": "https://registry.npmjs.org/core-js/-/core-js-3.16.0.tgz",
+      "integrity": "sha512-5+5VxRFmSf97nM8Jr2wzOwLqRo6zphH2aX+7KsAUONObyzakDNq2G/bgbhinxB4PoV9L3aXQYhiDKyIKWd2c8g==",
+      "dev": true,
+      "hasInstallScript": true,
+      "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/core-js"
+      }
+    },
     "node_modules/@angular-devkit/build-angular/node_modules/tslib": {
       "version": "2.3.0",
       "resolved": "https://registry.npmjs.org/tslib/-/tslib-2.3.0.tgz",
@@ -381,20 +392,19 @@
       }
     },
     "node_modules/@angular/cdk": {
-      "version": "12.2.13",
-      "resolved": "https://registry.npmjs.org/@angular/cdk/-/cdk-12.2.13.tgz",
-      "integrity": "sha512-zSKRhECyFqhingIeyRInIyTvYErt4gWo+x5DQr0b7YLUbU8DZSwWnG4w76Ke2s4U8T7ry1jpJBHoX/e8YBpGMg==",
+      "version": "11.2.13",
+      "resolved": "https://registry.npmjs.org/@angular/cdk/-/cdk-11.2.13.tgz",
+      "integrity": "sha512-FkE4iCwoLbQxLDUOjV1I7M/6hmpyb7erAjEdWgch7nGRNxF1hqX5Bqf1lvLFKPNCbx5NRI5K7YVAdIUQUR8vug==",
       "peer": true,
       "dependencies": {
-        "tslib": "^2.2.0"
+        "tslib": "^2.0.0"
       },
       "optionalDependencies": {
         "parse5": "^5.0.0"
       },
       "peerDependencies": {
-        "@angular/common": "^12.0.0 || ^13.0.0-0",
-        "@angular/core": "^12.0.0 || ^13.0.0-0",
-        "rxjs": "^6.5.3 || ^7.0.0"
+        "@angular/common": "^11.0.0 || ^12.0.0-0",
+        "@angular/core": "^11.0.0 || ^12.0.0-0"
       }
     },
     "node_modules/@angular/cdk/node_modules/parse5": {
@@ -2494,14 +2504,14 @@
       }
     },
     "node_modules/@fortawesome/angular-fontawesome": {
-      "version": "0.10.2",
-      "resolved": "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.10.2.tgz",
-      "integrity": "sha512-VxsCAo2lK74KwD236AKAhGpiethfz9yqCViIG2iRAZqgNmuZ6ihwumjbLW32n6hV4fFvCqLcHmpngoEl3TNiOg==",
+      "version": "0.10.1",
+      "resolved": "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.10.1.tgz",
+      "integrity": "sha512-4nVRm+NcLcdaNrNFhThb/7/tb5CDm0vQwJFyljR3XMCQyEr94hMX5SiUYbvYm9YJVImMYfdpR0lO0B8sh12Vbw==",
       "dependencies": {
         "tslib": "^2.3.1"
       },
       "peerDependencies": {
-        "@fortawesome/fontawesome-svg-core": "~1.2.27 || ~1.3.0-beta2 || ^6.1.0"
+        "@fortawesome/fontawesome-svg-core": "~1.2.27 || ~1.3.0-beta2"
       }
     },
     "node_modules/@fortawesome/fontawesome-common-types": {
@@ -2595,9 +2605,9 @@
       }
     },
     "node_modules/@microsoft/microsoft-graph-types": {
-      "version": "2.16.0",
-      "resolved": "https://registry.npmjs.org/@microsoft/microsoft-graph-types/-/microsoft-graph-types-2.16.0.tgz",
-      "integrity": "sha512-Qvxv9mpXb/F4xlESEkSLjREHj3dAixTkH3LVO6Ct6sllc5RWrQxPxaSGqW9IpcLU6jI49f2XNSGLotVef3Irdg==",
+      "version": "2.10.0",
+      "resolved": "https://registry.npmjs.org/@microsoft/microsoft-graph-types/-/microsoft-graph-types-2.10.0.tgz",
+      "integrity": "sha512-Eqmik1bTG0K9PxbyB/Y6rX82Yu98JjITpjyiVknwurrzHzGtKLUwdOG/cd8G8NWMxAV9LfpQkV2LkytQPyHuuw==",
       "dev": true
     },
     "node_modules/@nativescript/schematics": {
@@ -5416,17 +5426,6 @@
       "funding": {
         "type": "opencollective",
         "url": "https://opencollective.com/webpack"
-      }
-    },
-    "node_modules/core-js": {
-      "version": "3.16.0",
-      "resolved": "https://registry.npmjs.org/core-js/-/core-js-3.16.0.tgz",
-      "integrity": "sha512-5+5VxRFmSf97nM8Jr2wzOwLqRo6zphH2aX+7KsAUONObyzakDNq2G/bgbhinxB4PoV9L3aXQYhiDKyIKWd2c8g==",
-      "dev": true,
-      "hasInstallScript": true,
-      "funding": {
-        "type": "opencollective",
-        "url": "https://opencollective.com/core-js"
       }
     },
     "node_modules/core-js-compat": {
@@ -18024,6 +18023,12 @@
             "source-map": "0.7.3"
           }
         },
+        "core-js": {
+          "version": "3.16.0",
+          "resolved": "https://registry.npmjs.org/core-js/-/core-js-3.16.0.tgz",
+          "integrity": "sha512-5+5VxRFmSf97nM8Jr2wzOwLqRo6zphH2aX+7KsAUONObyzakDNq2G/bgbhinxB4PoV9L3aXQYhiDKyIKWd2c8g==",
+          "dev": true
+        },
         "tslib": {
           "version": "2.3.0",
           "resolved": "https://registry.npmjs.org/tslib/-/tslib-2.3.0.tgz",
@@ -18121,13 +18126,12 @@
       }
     },
     "@angular/cdk": {
-      "version": "12.2.13",
-      "resolved": "https://registry.npmjs.org/@angular/cdk/-/cdk-12.2.13.tgz",
-      "integrity": "sha512-zSKRhECyFqhingIeyRInIyTvYErt4gWo+x5DQr0b7YLUbU8DZSwWnG4w76Ke2s4U8T7ry1jpJBHoX/e8YBpGMg==",
+      "version": "https://registry.npmjs.org/@angular/cdk/-/cdk-11.2.13.tgz",
+      "integrity": "sha512-FkE4iCwoLbQxLDUOjV1I7M/6hmpyb7erAjEdWgch7nGRNxF1hqX5Bqf1lvLFKPNCbx5NRI5K7YVAdIUQUR8vug==",
       "peer": true,
       "requires": {
         "parse5": "^5.0.0",
-        "tslib": "^2.2.0"
+        "tslib": "^2.0.0"
       },
       "dependencies": {
         "parse5": {
@@ -19592,9 +19596,9 @@
       "dev": true
     },
     "@fortawesome/angular-fontawesome": {
-      "version": "0.10.2",
-      "resolved": "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.10.2.tgz",
-      "integrity": "sha512-VxsCAo2lK74KwD236AKAhGpiethfz9yqCViIG2iRAZqgNmuZ6ihwumjbLW32n6hV4fFvCqLcHmpngoEl3TNiOg==",
+      "version": "0.10.1",
+      "resolved": "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.10.1.tgz",
+      "integrity": "sha512-4nVRm+NcLcdaNrNFhThb/7/tb5CDm0vQwJFyljR3XMCQyEr94hMX5SiUYbvYm9YJVImMYfdpR0lO0B8sh12Vbw==",
       "requires": {
         "tslib": "^2.3.1"
       }
@@ -19655,9 +19659,9 @@
       }
     },
     "@microsoft/microsoft-graph-types": {
-      "version": "2.16.0",
-      "resolved": "https://registry.npmjs.org/@microsoft/microsoft-graph-types/-/microsoft-graph-types-2.16.0.tgz",
-      "integrity": "sha512-Qvxv9mpXb/F4xlESEkSLjREHj3dAixTkH3LVO6Ct6sllc5RWrQxPxaSGqW9IpcLU6jI49f2XNSGLotVef3Irdg==",
+      "version": "2.10.0",
+      "resolved": "https://registry.npmjs.org/@microsoft/microsoft-graph-types/-/microsoft-graph-types-2.10.0.tgz",
+      "integrity": "sha512-Eqmik1bTG0K9PxbyB/Y6rX82Yu98JjITpjyiVknwurrzHzGtKLUwdOG/cd8G8NWMxAV9LfpQkV2LkytQPyHuuw==",
       "dev": true
     },
     "@nativescript/schematics": {
@@ -21949,12 +21953,6 @@
           }
         }
       }
-    },
-    "core-js": {
-      "version": "3.16.0",
-      "resolved": "https://registry.npmjs.org/core-js/-/core-js-3.16.0.tgz",
-      "integrity": "sha512-5+5VxRFmSf97nM8Jr2wzOwLqRo6zphH2aX+7KsAUONObyzakDNq2G/bgbhinxB4PoV9L3aXQYhiDKyIKWd2c8g==",
-      "dev": true
     },
     "core-js-compat": {
       "version": "3.19.1",

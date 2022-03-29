@@ -1,5 +1,6 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
+
   <div class="box" *ngIf="(system | keyvalue)?.length">
     <h2 class="headline">{{ device.hostname }} <span>({{ device.category }})</span></h2>
     <p>{{ system.description }}</p>
@@ -8,6 +9,39 @@
     <p>contact: {{ system.contact }}</p>
     <p>location: {{ system.location }}</p>
   </div>
+
+  <div *ngIf="assignedModules; else nothingAssigned">
+    <div class="box" style="width: 40%;">
+      <a class="button is-primary is-rounded" style="background-color: #ff0000; margin-bottom: 1%;"
+        (click)="openAddModuleDialog()">
+        <fa-icon [icon]="faPlus"></fa-icon> &nbsp; module
+      </a>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="event-heading" style="width: 60%;">Module</th>
+            <th style="width: 20%;"></th>
+            <th style="width: 20%;"></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let module of assignedModules.configs">
+          <tr class="table-row">
+            <td>{{module.name}}</td>
+            <td><a class="trashcan" (click)="openEditModuleDialog(module.name)">
+                <fa-icon [icon]="faPen"></fa-icon>
+              </a></td>
+            <td><a class="trashcan" (click)="openDeleteModuleDialog(module.name)">
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <ng-template #nothingAssigned><a class="button is-primary is-rounded" style="background-color: #ff0000; margin-bottom: 1%;"
+    (click)="openAddModuleDialog()">
+    <fa-icon [icon]="faPlus"></fa-icon> &nbsp; module
+  </a></ng-template>
 
   <!-- todo
   <div class="box" *ngIf="(features.ipAddresses)?.length">
@@ -389,5 +423,211 @@
   </div>
 </span> -->
 
+
+<!-- Add device pop-up -->
+
+<span *ngIf="showAddModuleDialog">
+  <div class="modal" [ngClass]="{'is-active': showAddModuleDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Assign module to device</p>
+        <button (click)="closeAddModuleDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <form [formGroup]="addModuleForm" novalidate>
+          <div class="field">
+            <label class="label">Select module</label>
+            <div class="control">
+              <div class="select">
+                <select formControlName="module">
+                  <option *ngFor="let module of modules; let i=index" id="form-elements" [value]="module.type">
+                    {{ module.type }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons" style="text-align: center !important;">
+          <a class="button is-primary" style="background-color: #ff0000;" (click)="submitAddModuleForm()">
+            <strong>Assign module</strong>
+          </a>
+          <a class="button mx-auto" (click)="closeAddModuleDialog()">
+            <strong>Close</strong>
+          </a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showAddModuleSuccessDialog">
+  <div class="modal" [ngClass]="{'is-active': showAddModuleSuccessDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">SUCCESS</p>
+        <button (click)="closeAddModuleSuccessDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        The selected module <strong>{{module}}</strong> was assigned sucessfully to the device!
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeAddModuleSuccessDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showAddModuleErrorDialog">
+  <div class="modal" [ngClass]="{'is-active': showAddModuleErrorDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">ERROR</p>
+        <button (click)="closeAddModuleErrorDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        An unknown error occurred while trying to assign the selected module <strong>{{module}}</strong> to the device!
+        API error code:
+        {{errorMessage}}
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeAddModuleErrorDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<!-- Edit device pop-up -->
+
+<span *ngIf="showEditModuleDialog">
+  <div class="modal" [ngClass]="{'is-active': showEditModuleDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Edit module: {{selectedModule}}</p>
+        <button (click)="closeEditModuleDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons" style="text-align: center !important;">
+          <a class="button is-primary" style="background-color: #ff0000;">
+            <strong>Assign module</strong>
+          </a>
+          <a class="button mx-auto" (click)="closeEditModuleDialog()">
+            <strong>Close</strong>
+          </a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showEditModuleSuccessDialog">
+  <div class="modal" [ngClass]="{'is-active': showEditModuleSuccessDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">SUCCESS</p>
+        <button (click)="closeEditModuleSuccessDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        The configuration of the selected module <strong>{{selectedModule}}</strong> was edited sucessfully!
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeEditModuleSuccessDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showEditModuleErrorDialog">
+  <div class="modal" [ngClass]="{'is-active': showEditModuleErrorDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">ERROR</p>
+        <button (click)="closeEditModuleErrorDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        An unknown error occurred while trying to edit the configuration of the selected module <strong>{{selectedModule}}</strong>!
+        API error code:
+        {{errorMessage}}
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeEditModuleErrorDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<!-- Delete module pop-up -->
+
+<span *ngIf="showDeleteModuleDialog">
+  <div class="modal" [ngClass]="{'is-active': showDeleteModuleDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Remove module</p>
+        <button (click)="closeDeleteModuleDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        Are you sure you want to remove the module <strong>{{selectedModule}}</strong>?
+      </section>
+      <footer class="modal-card-foot">
+        <div class="buttons" style="text-align: center !important;">
+           <a class="button is-primary" style="background-color: #ff0000;"> <!--(click)="deleteModule(selectedModule)" -->
+            <strong>Remove Module</strong>
+          </a>
+          <a class="button mx-auto" (click)="closeDeleteModuleDialog()">
+            <strong>Close</strong>
+          </a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showDeleteModuleSuccessDialog">
+  <div class="modal" [ngClass]="{'is-active': showDeleteModuleSuccessDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">SUCCESS</p>
+        <button (click)="closeDeleteModuleSuccessDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        Model <strong>{{selectedModule}}</strong> was removed sucessfully!
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeDeleteModuleSuccessDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span>
+
+<span *ngIf="showDeleteModuleErrorDialog">
+  <div class="modal" [ngClass]="{'is-active': showDeleteModuleErrorDialog}">
+    <div class="modal-background"></div>
+    <div class="modal-card my-5">
+      <header class="modal-card-head">
+        <p class="modal-card-title">ERROR</p>
+        <button (click)="closeDeleteModuleErrorDialog()" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        An unknown error occurred while trying to remove the model <strong>{{selectedModule}}</strong>! API error code:
+        {{errorMessage}}
+      </section>
+      <footer class="modal-card-foot">
+        <button (click)="closeDeleteModuleErrorDialog()" class="button mx-auto">close</button>
+      </footer>
+    </div>
+  </div>
+</span>
 
 <app-footer></app-footer>
