@@ -35,6 +35,8 @@ import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NetworkComponent } from 'src/_components/network/network.component';
+import { JsonFormsModule } from '@jsonforms/angular';
+import { JsonFormsAngularMaterialModule } from '@jsonforms/angular-material';
 
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
@@ -88,7 +90,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       echarts: () => import('echarts')
     }),
     DialogModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    JsonFormsModule,
+    JsonFormsAngularMaterialModule
   ],
   exports: [
     MatInputModule,
@@ -102,6 +106,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     },
     MsalService
   ],
+  schemas: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

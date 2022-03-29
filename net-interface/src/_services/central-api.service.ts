@@ -15,6 +15,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { Module } from 'src/_interfaces/module';
 import { Configs } from 'src/_interfaces/configs';
 
+
 @Injectable({
   providedIn: 'root'
 })

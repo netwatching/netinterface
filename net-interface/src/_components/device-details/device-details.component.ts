@@ -44,14 +44,35 @@ import {
 import {
   Module
 } from 'src/_interfaces/module';
-import { Configs } from 'src/_interfaces/configs';
+import {
+  Configs
+} from 'src/_interfaces/configs';
+import {
+  angularMaterialRenderers
+} from '@jsonforms/angular-material';
+import { and, createAjv, isControl, optionIs, rankWith, schemaTypeIs, scopeEndsWith, Tester } from '@jsonforms/core';
+import { Generate } from '@jsonforms/core';
+
 
 @Component({
   selector: 'app-device-details',
   templateUrl: './device-details.component.html',
-  styleUrls: ['./device-details.component.scss']
+  styleUrls: ['./device-details.component.scss'],
+  template: `<jsonforms
+  [data]="data"
+  [schema]="schema"
+  [uischema]="uischema"
+  [renderers]="renderers"
+></jsonforms>`,
 })
 export class DeviceDetailsComponent implements OnInit {
+
+  //JSONForms
+
+  renderers = angularMaterialRenderers;
+  schema = {};
+  data = {};
+  uischema = {};
 
   device!: any;
   deviceId!: string;
@@ -72,7 +93,7 @@ export class DeviceDetailsComponent implements OnInit {
   module: string;
   addModuleForm: FormGroup;
   modules: Array < Module > ;
-  assignedModules: Configs ;
+  assignedModules: Configs;
   selectedModule: string;
 
   static!: any;
@@ -118,7 +139,6 @@ export class DeviceDetailsComponent implements OnInit {
     }
   ];
 
-
   constructor(
     private actRoute: ActivatedRoute,
     private central: CentralApiService,
@@ -160,6 +180,26 @@ export class DeviceDetailsComponent implements OnInit {
     this.getModules();
     this.getAssignedModules();
     this.firstCall = true;
+  }
+
+  getConfigSchema(moduleType){
+    this.central.getModulesAssignedToDevice(this.deviceId).subscribe((data) => {
+      data.configs.forEach(function(config){
+        if(config.name==moduleType){
+          this.data = config.type.config;
+          this.schema = config.type.signature;
+          this.uischema = Generate.uiSchema(this.schema, "Categorization");
+        }
+        console.log(this.uischema)
+      });
+    },
+    (error) => {
+      if (error.status == 404) {
+        this.router.navigate(['']);
+      }
+      this.errorMessage = error.message;
+    }
+  );
   }
 
   getDevice() {
@@ -213,9 +253,6 @@ export class DeviceDetailsComponent implements OnInit {
         this.eventData = eventData;
         this.events = eventData.alerts;
 
-        console.log(this.eventData);
-        console.log(this.events);
-
         if (this.firstCall == true) {
           this.calcPageAmount(this.alertsPerPage)
           this.firstCall = false;
@@ -268,16 +305,16 @@ export class DeviceDetailsComponent implements OnInit {
     );
   }
 
-  unassignModuleFromDevice(moduleType){
+  unassignModuleFromDevice(moduleType) {
     this.central.deleteModuleFromDevice(this.deviceId, moduleType).then(() => {
-      this.closeDeleteModuleDialog();
-      this.openDeleteModuleSuccessDialog();
-      this.refreshData()
-    },
-    err => {
-      this.closeDeleteModuleDialog();
-      this.openDeleteModuleErrorDialog(err.status);
-    });
+        this.closeDeleteModuleDialog();
+        this.openDeleteModuleSuccessDialog();
+        this.refreshData()
+      },
+      err => {
+        this.closeDeleteModuleDialog();
+        this.openDeleteModuleErrorDialog(err.status);
+      });
   }
 
   getEventsBySeverity(page: number, amount: number, severity: string) {
@@ -411,6 +448,7 @@ export class DeviceDetailsComponent implements OnInit {
   openEditModuleDialog(type) {
     this.selectedModule = type;
     this.showEditModuleDialog = true;
+    this.loadModuleConfig(type);
   }
 
   openEditModuleSuccessDialog() {
@@ -432,6 +470,10 @@ export class DeviceDetailsComponent implements OnInit {
 
   closeEditModuleErrorDialog() {
     this.showEditModuleErrorDialog = false;
+  }
+
+  loadModuleConfig(moduleType){
+    this.getConfigSchema(moduleType);
   }
 
   //delete module dialog

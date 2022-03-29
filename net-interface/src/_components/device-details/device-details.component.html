@@ -38,10 +38,10 @@
       </table>
     </div>
   </div>
-  <ng-template #nothingAssigned><a class="button is-primary is-rounded" style="background-color: #ff0000; margin-bottom: 1%;"
-    (click)="openAddModuleDialog()">
-    <fa-icon [icon]="faPlus"></fa-icon> &nbsp; module
-  </a></ng-template>
+  <ng-template #nothingAssigned><a class="button is-primary is-rounded"
+      style="background-color: #ff0000; margin-bottom: 1%;" (click)="openAddModuleDialog()">
+      <fa-icon [icon]="faPlus"></fa-icon> &nbsp; module
+    </a></ng-template>
 
   <!-- todo
   <div class="box" *ngIf="(features.ipAddresses)?.length">
@@ -512,7 +512,8 @@
         <button (click)="closeEditModuleDialog()" class="delete" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
-        
+      <!-- <jsonforms [data]="data" [uischema]="uischema" [schema]="schema" [renderers]="renderers">
+        </jsonforms> -->
       </section>
       <footer class="modal-card-foot">
         <div class="buttons" style="text-align: center !important;">
@@ -555,7 +556,8 @@
         <button (click)="closeEditModuleErrorDialog()" class="delete" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
-        An unknown error occurred while trying to edit the configuration of the selected module <strong>{{selectedModule}}</strong>!
+        An unknown error occurred while trying to edit the configuration of the selected module
+        <strong>{{selectedModule}}</strong>!
         API error code:
         {{errorMessage}}
       </section>
@@ -581,7 +583,8 @@
       </section>
       <footer class="modal-card-foot">
         <div class="buttons" style="text-align: center !important;">
-           <a class="button is-primary" style="background-color: #ff0000;" (click)="unassignModuleFromDevice(selectedModule)">
+          <a class="button is-primary" style="background-color: #ff0000;"
+            (click)="unassignModuleFromDevice(selectedModule)">
             <strong>Remove module</strong>
           </a>
           <a class="button mx-auto" (click)="closeDeleteModuleDialog()">
