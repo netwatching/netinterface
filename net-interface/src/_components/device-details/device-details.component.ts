@@ -268,6 +268,18 @@ export class DeviceDetailsComponent implements OnInit {
     );
   }
 
+  unassignModuleFromDevice(moduleType){
+    this.central.deleteModuleFromDevice(this.deviceId, moduleType).then(() => {
+      this.closeDeleteModuleDialog();
+      this.openDeleteModuleSuccessDialog();
+      this.refreshData()
+    },
+    err => {
+      this.closeDeleteModuleDialog();
+      this.openDeleteModuleErrorDialog(err.status);
+    });
+  }
+
   getEventsBySeverity(page: number, amount: number, severity: string) {
     this.central.getEventsBySeverityByDevice(page, amount, severity, this.deviceId).subscribe((eventData) => {
         this.eventData = eventData;

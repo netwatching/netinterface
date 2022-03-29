@@ -455,7 +455,7 @@
             <strong>Assign module</strong>
           </a>
           <a class="button mx-auto" (click)="closeAddModuleDialog()">
-            <strong>Close</strong>
+            <strong>Cancel</strong>
           </a>
         </div>
       </footer>
@@ -508,7 +508,7 @@
     <div class="modal-background"></div>
     <div class="modal-card my-5">
       <header class="modal-card-head">
-        <p class="modal-card-title">Edit module: {{selectedModule}}</p>
+        <p class="modal-card-title">Edit configuration of <strong>{{selectedModule}}</strong></p>
         <button (click)="closeEditModuleDialog()" class="delete" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
@@ -517,10 +517,10 @@
       <footer class="modal-card-foot">
         <div class="buttons" style="text-align: center !important;">
           <a class="button is-primary" style="background-color: #ff0000;">
-            <strong>Assign module</strong>
+            <strong>Save configuration</strong>
           </a>
           <a class="button mx-auto" (click)="closeEditModuleDialog()">
-            <strong>Close</strong>
+            <strong>Cancel</strong>
           </a>
         </div>
       </footer>
@@ -581,11 +581,11 @@
       </section>
       <footer class="modal-card-foot">
         <div class="buttons" style="text-align: center !important;">
-           <a class="button is-primary" style="background-color: #ff0000;"> <!--(click)="deleteModule(selectedModule)" -->
-            <strong>Remove Module</strong>
+           <a class="button is-primary" style="background-color: #ff0000;" (click)="unassignModuleFromDevice(selectedModule)">
+            <strong>Remove module</strong>
           </a>
           <a class="button mx-auto" (click)="closeDeleteModuleDialog()">
-            <strong>Close</strong>
+            <strong>Cancel</strong>
           </a>
         </div>
       </footer>
