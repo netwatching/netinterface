@@ -1,7 +1,4 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Device
 } from '../../_interfaces/device';
@@ -50,7 +47,7 @@ import {
 import {
   angularMaterialRenderers, VerticalLayoutRenderer
 } from '@jsonforms/angular-material';
-import { and, createAjv, HorizontalLayout, isControl, JsonSchema, optionIs, rankWith, schemaTypeIs, scopeEndsWith, Tester, UISchemaElement, VerticalLayout } from '@jsonforms/core';
+import { and, createAjv, generateJsonSchema, HorizontalLayout, isControl, JsonFormsRendererRegistryEntry, JsonSchema, optionIs, rankWith, schemaTypeIs, scopeEndsWith, Tester, UISchemaElement, VerticalLayout } from '@jsonforms/core';
 import { Generate } from '@jsonforms/core';
 
 
@@ -63,10 +60,9 @@ export class DeviceDetailsComponent implements OnInit {
 
   //JSONForms
 
-  renderers = angularMaterialRenderers;
-  schema: object;
+  renderers: JsonFormsRendererRegistryEntry[] = angularMaterialRenderers;
+  schema: JsonSchema;
   data: object;
-  uischema!: UISchemaElement;
 
   device!: any;
   deviceId!: string;
@@ -180,18 +176,16 @@ export class DeviceDetailsComponent implements OnInit {
     this.central.getModulesAssignedToDevice(this.deviceId).subscribe((data) => {
       var render_data = {};
       var schema = {};
+      console.log(data.configs);
       data.configs.forEach(function(config){
         if(config.name==moduleType){
           render_data = config.type.config;
           schema = config.type.signature;
         }
       });
-      this.schema = schema;
-      console.log(this.schema)
-      this.uischema = Generate.uiSchema({'type': 'object', 'properties': {'timeout': {'type': 'number', 'title': 'Timeout'}}, 'required': ['timeout']});
-      this.data = render_data;
-      console.log('uischema', this.uischema);
-      console.log('uischema type', this.uischema.type)
+      this.schema = JSON.parse(schema.toString().replace(/'/g, '"'));
+      this.data = JSON.parse(render_data.toString().replace(/'/g, '"'));
+      this.showEditModuleDialog = true;
     },
     (error) => {
       if (error.status == 404) {
@@ -446,7 +440,6 @@ export class DeviceDetailsComponent implements OnInit {
 
   openEditModuleDialog(type) {
     this.selectedModule = type;
-    this.showEditModuleDialog = true;
     this.loadModuleConfig(type);
   }
 
