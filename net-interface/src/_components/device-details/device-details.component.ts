@@ -172,6 +172,10 @@ export class DeviceDetailsComponent implements OnInit {
     this.firstCall = true;
   }
 
+  uploadJSONFormData() {
+    console.log(this.data);
+  }
+
   getConfigSchema(moduleType){
     this.central.getModulesAssignedToDevice(this.deviceId).subscribe((data) => {
       var render_data = {};
