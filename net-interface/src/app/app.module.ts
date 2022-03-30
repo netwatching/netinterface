@@ -37,6 +37,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NetworkComponent } from 'src/_components/network/network.component';
 import { JsonFormsModule } from '@jsonforms/angular';
 import { JsonFormsAngularMaterialModule } from '@jsonforms/angular-material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
@@ -92,7 +93,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     DialogModule,
     FontAwesomeModule,
     JsonFormsModule,
-    JsonFormsAngularMaterialModule
+    JsonFormsAngularMaterialModule,
+    BrowserAnimationsModule
   ],
   exports: [
     MatInputModule,

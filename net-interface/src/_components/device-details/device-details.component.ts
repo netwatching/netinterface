@@ -48,9 +48,9 @@ import {
   Configs
 } from 'src/_interfaces/configs';
 import {
-  angularMaterialRenderers
+  angularMaterialRenderers, VerticalLayoutRenderer
 } from '@jsonforms/angular-material';
-import { and, createAjv, isControl, optionIs, rankWith, schemaTypeIs, scopeEndsWith, Tester } from '@jsonforms/core';
+import { and, createAjv, HorizontalLayout, isControl, JsonSchema, optionIs, rankWith, schemaTypeIs, scopeEndsWith, Tester, UISchemaElement, VerticalLayout } from '@jsonforms/core';
 import { Generate } from '@jsonforms/core';
 
 
@@ -58,21 +58,15 @@ import { Generate } from '@jsonforms/core';
   selector: 'app-device-details',
   templateUrl: './device-details.component.html',
   styleUrls: ['./device-details.component.scss'],
-  template: `<jsonforms
-  [data]="data"
-  [schema]="schema"
-  [uischema]="uischema"
-  [renderers]="renderers"
-></jsonforms>`,
 })
 export class DeviceDetailsComponent implements OnInit {
 
   //JSONForms
 
   renderers = angularMaterialRenderers;
-  schema = {};
-  data = {};
-  uischema = {};
+  schema: object;
+  data: object;
+  uischema!: UISchemaElement;
 
   device!: any;
   deviceId!: string;
@@ -184,14 +178,20 @@ export class DeviceDetailsComponent implements OnInit {
 
   getConfigSchema(moduleType){
     this.central.getModulesAssignedToDevice(this.deviceId).subscribe((data) => {
+      var render_data = {};
+      var schema = {};
       data.configs.forEach(function(config){
         if(config.name==moduleType){
-          this.data = config.type.config;
-          this.schema = config.type.signature;
-          this.uischema = Generate.uiSchema(this.schema, "Categorization");
+          render_data = config.type.config;
+          schema = config.type.signature;
         }
-        console.log(this.uischema)
       });
+      this.schema = schema;
+      console.log(this.schema)
+      this.uischema = Generate.uiSchema({'type': 'object', 'properties': {'timeout': {'type': 'number', 'title': 'Timeout'}}, 'required': ['timeout']});
+      this.data = render_data;
+      console.log('uischema', this.uischema);
+      console.log('uischema type', this.uischema.type)
     },
     (error) => {
       if (error.status == 404) {
@@ -252,7 +252,6 @@ export class DeviceDetailsComponent implements OnInit {
     this.central.getEventsByDevice(page, amount, this.deviceId).subscribe((eventData) => {
         this.eventData = eventData;
         this.events = eventData.alerts;
-
         if (this.firstCall == true) {
           this.calcPageAmount(this.alertsPerPage)
           this.firstCall = false;

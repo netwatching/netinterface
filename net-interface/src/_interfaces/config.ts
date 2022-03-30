@@ -4,8 +4,8 @@ export interface Config {
     name: string,
     type: {
       type: string,
-      config: string,
-      signature: string,
-      _cls: string
+      config: Object,
+      signature: Object,
+      _cls: Object
     }
 }
