@@ -199,6 +199,14 @@ export class CentralApiService {
       );
   }
 
+  public getTreeByVLAN(vlan: number): Observable < Tree > {
+    this.jwtHandler()
+    return this.httpClient
+      .get < Tree > (`${this.BASE_URL}/tree?vlan_id=${vlan}`, this.httpOptions).pipe(
+        retry(3)
+      );
+  }
+
   public getJWTToken(body: object): Observable < Jwt > {
     return this.httpClient
       .post < Jwt > (`${this.BASE_URL}/login`, body).pipe(

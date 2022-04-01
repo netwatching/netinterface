@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
-import {json} from "d3";
-import data from './graph.json'
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CentralApiService } from '../../_services/central-api.service';
 import { Tree } from 'src/_interfaces/tree';
 import { Link } from 'src/_interfaces/links';
 import { Node } from 'src/_interfaces/nodes';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-network',
@@ -19,15 +18,12 @@ export class NetworkComponent implements OnInit {
   private height: number;
   public svg: any;
   private tree: Tree;
-  //private links: Link[];
-  //private nodes: Node[];
-  private links = data.links;
-  private nodes = data.nodes;
+  private links: Link[];
+  private nodes: Node[];
   private color: any;
   errorMessage: string | undefined;
   clickedDeviceId!: string;
-  showDeviceModal: boolean = false;
-  deviceModalData!:  any;
+  vlanId = new FormControl('', Validators.maxLength(5));
 
   constructor(
     private central: CentralApiService,
@@ -42,11 +38,26 @@ export class NetworkComponent implements OnInit {
     this.generateNetwork();
   }
 
+  async searchVlan(): Promise<void> {
+    if (this.vlanId.valid){
+      if (this.vlanId.value > 0){
+        this.generateNetworkByVlanID(this.vlanId.value);
+      } else {
+        console.log('vlanID not valid');
+        this.generateNetwork();
+      }
+    }
+  }
+
+  async showAllVlans(): Promise<void> {
+    this.generateNetwork();
+  }
+
   private generateNetwork() {
     this.central.getTree().subscribe((tree) => {
       this.tree = tree;
-      //this.links = tree.links;
-      //this.nodes = tree.nodes;
+      this.links = tree.links;
+      this.nodes = tree.nodes;
       console.log(this.tree);
       this.buildSVG();
     },
@@ -58,14 +69,46 @@ export class NetworkComponent implements OnInit {
     });
   }
 
+  private generateNetworkByVlanID(vlanId: number) {
+    this.central.getTreeByVLAN(vlanId).subscribe((tree) => {
+      this.tree = tree;
+      this.links = tree.links;
+      this.nodes = tree.nodes;
+      if (this.links.length == 0 && this.nodes.length == 0) {
+        this.nodes = [{
+          "id": "There are no devices in this VLAN",
+          "group": 1,
+          "index": 0,
+          "x": 0,
+          "y": 0
+        }]
+      }
+      console.log(this.nodes);
+      this.buildSVG();
+    },
+    (error) => {
+        if (error.status == 404) {
+            this.router.navigate(['']);
+        }
+        this.errorMessage = error.message;
+    });
+  }
+
   private buildSVG() {
+    this.svg = null;
+    let link = null;
+    let node = null;
+    let texts = null;
+    let simulation = null;
+    d3.select("svg").remove();
+
     this.svg = d3.select("#networkGraph")
                   .append("svg")
                   .attr("width", this.width)
                   .attr("height", this.height)
                   .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
-    const simulation = d3.forceSimulation(this.nodes)
+    simulation = d3.forceSimulation(this.nodes)
                   .force("link", d3.forceLink(this.links).id((d:any) => d.id))
                   .force("charge", d3.forceManyBody().strength(-3000))
                   .force("center", d3.forceCenter(this.width / 2, this.height / 2))
@@ -97,7 +140,7 @@ export class NetworkComponent implements OnInit {
     }
 
 
-    const link = this.svg.append("g")
+    link = this.svg.append("g")
                           .attr("stroke", "#777")
                           .attr("stroke-opacity", 0.6)
                           .selectAll("line")
@@ -105,7 +148,7 @@ export class NetworkComponent implements OnInit {
                           .join("line")
                           .attr("stroke-width", (d: { value: number; }) => Math.sqrt(d.value));
 
-    const node = this.svg.append("g")
+    node = this.svg.append("g")
                           .attr("class", "nodes")
                           .selectAll("circle")
                           .data(this.nodes)
@@ -117,14 +160,8 @@ export class NetworkComponent implements OnInit {
                           .attr("fill", "#ff0000")
                           .attr("stroke", "#555")
                           .attr("stroke-width", 3);
-                        /*
-                          .attr("fill", (d: any) => {
-                            const scale = d3.scaleOrdinal(d3.schemeCategory10);
-                            return this.color(d.group);
-                          })
-                        */
 
-    var texts = this.svg.selectAll("text.label")
+    texts = this.svg.selectAll("text.label")
                         .data(this.nodes)
                         .enter().append("text")
                         .attr("class", "label")
