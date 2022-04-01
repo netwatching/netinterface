@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
 import {
   Device
 } from '../../_interfaces/device';
@@ -45,10 +48,31 @@ import {
   Configs
 } from 'src/_interfaces/configs';
 import {
-  angularMaterialRenderers, VerticalLayoutRenderer
+  angularMaterialRenderers,
+  VerticalLayoutRenderer
 } from '@jsonforms/angular-material';
-import { and, createAjv, generateJsonSchema, HorizontalLayout, isControl, JsonFormsRendererRegistryEntry, JsonSchema, optionIs, rankWith, schemaTypeIs, scopeEndsWith, Tester, UISchemaElement, VerticalLayout } from '@jsonforms/core';
-import { Generate } from '@jsonforms/core';
+import {
+  and,
+  createAjv,
+  generateJsonSchema,
+  HorizontalLayout,
+  isControl,
+  JsonFormsRendererRegistryEntry,
+  JsonSchema,
+  optionIs,
+  rankWith,
+  schemaTypeIs,
+  scopeEndsWith,
+  Tester,
+  UISchemaElement,
+  VerticalLayout
+} from '@jsonforms/core';
+import {
+  Generate
+} from '@jsonforms/core';
+import {
+  resolve
+} from 'dns';
 
 
 @Component({
@@ -165,39 +189,34 @@ export class DeviceDetailsComponent implements OnInit {
   }
 
   refreshData() {
-    this.getDevice()
+    this.getDevice();
     this.getEvents(1, this.alertsPerPage);
     this.getModules();
     this.getAssignedModules();
     this.firstCall = true;
   }
 
-  uploadJSONFormData() {
-    console.log(this.data);
-  }
-
-  getConfigSchema(moduleType){
+  getConfigSchema(moduleType) {
     this.central.getModulesAssignedToDevice(this.deviceId).subscribe((data) => {
-      var render_data = {};
-      var schema = {};
-      console.log(data.configs);
-      data.configs.forEach(function(config){
-        if(config.name==moduleType){
-          render_data = config.type.config;
-          schema = config.type.signature;
+        var render_data = {};
+        var schema = {};
+        data.configs.forEach(function (config) {
+          if (config.name == moduleType) {
+            render_data = config.type.config;
+            schema = config.type.signature;
+          }
+        });
+        this.schema = JSON.parse(schema.toString().replace(/'/g, '"'));
+        this.data = JSON.parse(render_data.toString().replace(/'/g, '"'));
+        this.showEditModuleDialog = true;
+      },
+      (error) => {
+        if (error.status == 404) {
+          this.router.navigate(['']);
         }
-      });
-      this.schema = JSON.parse(schema.toString().replace(/'/g, '"'));
-      this.data = JSON.parse(render_data.toString().replace(/'/g, '"'));
-      this.showEditModuleDialog = true;
-    },
-    (error) => {
-      if (error.status == 404) {
-        this.router.navigate(['']);
+        this.errorMessage = error.message;
       }
-      this.errorMessage = error.message;
-    }
-  );
+    );
   }
 
   getDevice() {
@@ -207,7 +226,6 @@ export class DeviceDetailsComponent implements OnInit {
         this.live = this.device.live;
 
         for (let i = 0; i < this.static.length; i) {
-          console.log(this.static[i].key)
           if (this.static[i].key == "system") {
             this.system = this.static[i].data.system;
           } else if (this.static[i].key == "network_interfaces") {
@@ -221,20 +239,6 @@ export class DeviceDetailsComponent implements OnInit {
           }
           i++;
         }
-
-        console.log('this.device -------------->');
-        console.log(this.device);
-        console.log('this.static -------------->');
-        console.log(this.static);
-        console.log('this.live -------------->');
-        console.log(this.live);
-        console.log('this.system -------------->');
-        console.log(this.system);
-        console.log('this.network_interfaces -------------->');
-        console.log(this.interfaces);
-        console.log('this.neighbors -------------->');
-        console.log(this.neighbors);
-
         this.calcUpTime();
       },
       (error) => {
@@ -289,6 +293,18 @@ export class DeviceDetailsComponent implements OnInit {
       });
   }
 
+  saveModuleConfiguration(body) {
+    this.central.addModule(this.deviceId, body).then(() => {
+        this.closeEditModuleDialog();
+        this.openEditModuleSuccessDialog();
+        this.refreshData();
+      },
+      err => {
+        this.closeEditModuleDialog();
+        this.openEditModuleErrorDialog(err.status);
+      });
+  }
+
   getAssignedModules() {
     this.central.getModulesAssignedToDevice(this.deviceId).subscribe((moduleData) => {
         this.assignedModules = moduleData;
@@ -306,11 +322,12 @@ export class DeviceDetailsComponent implements OnInit {
     this.central.deleteModuleFromDevice(this.deviceId, moduleType).then(() => {
         this.closeDeleteModuleDialog();
         this.openDeleteModuleSuccessDialog();
-        this.refreshData()
+        this.refreshData();
       },
       err => {
         this.closeDeleteModuleDialog();
         this.openDeleteModuleErrorDialog(err.status);
+        this.refreshData();
       });
   }
 
@@ -437,7 +454,6 @@ export class DeviceDetailsComponent implements OnInit {
     };
 
     this.addModule(requestBody);
-    console.log(requestBody)
   }
 
   //edit module dialog
@@ -468,8 +484,20 @@ export class DeviceDetailsComponent implements OnInit {
     this.showEditModuleErrorDialog = false;
   }
 
-  loadModuleConfig(moduleType){
+  loadModuleConfig(moduleType) {
     this.getConfigSchema(moduleType);
+  }
+
+  fetchJSONFormData() {
+    const requestBody: any = {
+      config: [{
+        config: this.data,
+        type: {
+          id: this.selectedModule
+        }
+      }]
+    };
+    this.saveModuleConfiguration(requestBody);    
   }
 
   //delete module dialog
