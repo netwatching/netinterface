@@ -24,7 +24,7 @@ export class CentralApiService {
   helper = new JwtHelperService();
 
   private BASE_URL = 'https://palguin.htl-vil.local:8443/api';
-  private headers = new HttpHeaders().set("Accept", "application/json").set('Content-Type', 'application/json; charset=utf-8').set("Authorization", "Bearer " + sessionStorage.getItem('access_token'));
+  private headers = new HttpHeaders().set("Accept", "application/json").set('Content-Type', 'application/json; charset=utf-8').set("Authorization", "Bearer " + localStorage.getItem('access_token'));
   private httpOptions: object = {
     headers: this.headers,
     responseType: 'json'
@@ -33,11 +33,11 @@ export class CentralApiService {
   constructor(private httpClient: HttpClient) {this.jwtHandler()}
 
   private jwtHandler(){
-    if (this.helper.isTokenExpired(sessionStorage.getItem('access_token')?.toString()) || !sessionStorage.getItem('access_token')){
+    if (this.helper.isTokenExpired(localStorage.getItem('access_token')?.toString())){
       const requestData: any = {};
       requestData['pw'] = environment.apiKey;
       this.getJWTToken(requestData).subscribe((object) => {
-      sessionStorage.setItem('access_token', object.access_token);
+      localStorage.setItem('access_token', object.access_token);
       this.headers.set("Authorization", "Bearer " + object.access_token);
       })
     }
