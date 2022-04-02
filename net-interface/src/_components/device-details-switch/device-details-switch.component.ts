@@ -12,14 +12,15 @@ import { NetworkInterface } from 'src/_interfaces/network-interface';
   styleUrls: ['./device-details-switch.component.css']
 })
 export class DeviceDetailsSwitchComponent implements OnInit {
-  device!: Device;
+  device!: any;
   deviceId!: string;
-  features!: Feature;
   errorMessage: string | undefined;
   switch!: Array < Switch >;
+  static!: any;
+  interfaces!: any;
 
   showSwInterfaceModal: boolean = false;
-  swInterfaceModalData!:  NetworkInterface;
+  swInterfaceModalData!:  any;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -49,8 +50,7 @@ export class DeviceDetailsSwitchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDevice()
-    this.getDeviceFeatures()
+    this.getDevice();
   }
 
   swPortClicked(portIndex:number){
@@ -63,9 +63,19 @@ export class DeviceDetailsSwitchComponent implements OnInit {
     this.showSwInterfaceModal = false;
   }
 
+  getTooltip(port:number){
+    let out = '';
+    for (let i of this.interfaces){
+      if (i.index === port){
+        out = "<b>Interface:</b> " + i.index + "</br><b>Description:</b> " + i.description + "</br><b>Type:</b> " + i.type + "</br><b>Admin status:</b> " + i.admin_status + "</br><b>Operating status:</b> " + i.operating_status;
+      }
+    }
+    return out;
+  }
+
 
   getInterfaceByIndex(portIndex:number){
-    for (let i of this.features.interfaces){
+    for (let i of this.interfaces){
       if (i.index === portIndex){
         this.swInterfaceModalData = i;
         console.log(i);
@@ -75,32 +85,30 @@ export class DeviceDetailsSwitchComponent implements OnInit {
 
   getDevice() {
     this.central.getDeviceById(this.deviceId).subscribe((device) => {
-            this.device = device;
-        },
-        (error) => {
-            if (error.status == 404) {
-                this.router.navigate(['']);
-            }
-            this.errorMessage = error.message;
+      this.device = device.device;
+      this.static = this.device.static;
+
+      for (let i = 0; i < this.static.length; i) {
+        if (this.static[i].key == "network_interfaces") {
+          let ints = [];
+          for (let o in this.static[i].data) {
+            ints.push(this.static[i].data[o]);
+          }
+          this.interfaces = ints;
         }
-    );
-  }
-
-  getDeviceFeatures() {
-    this.central.getFeaturesByDevice(this.deviceId).subscribe((features) => {
-      this.features = features;
-
-      let interfaces = [];
-      for (let i of this.features.interfaces){
-        interfaces.push(i);
+        i++;
       }
-      interfaces = interfaces.sort(this.compareIfIndex);
+      this.interfaces = this.interfaces.sort(this.compareIfIndex);
+
+      console.log('log interfaces after sorting');
+      console.log(this.interfaces);
+      console.log('---------------');
 
       let sw: Switch[] = [];
-      if (interfaces.length > 12){
+      if (this.interfaces.length > 12){
         let int1 = null;
         let c = 0;
-        for (let i of interfaces){
+        for (let i of this.interfaces){
           if (i.type != 'ieee8023adLag'){
             if (c % 2 == 0) {
               int1 = i;
@@ -117,8 +125,8 @@ export class DeviceDetailsSwitchComponent implements OnInit {
           }
         }
 
-        if (interfaces.length % 2 == 1){
-          let i = interfaces[interfaces.length - 1]
+        if (this.interfaces.length % 2 == 1){
+          let i = this.interfaces[this.interfaces.length - 1]
           if (i.type != 'ieee8023adLag'){
             sw.push({
               isTwoPort: false,
@@ -128,8 +136,12 @@ export class DeviceDetailsSwitchComponent implements OnInit {
           }
         }
       } else {
-        for (let i of interfaces){
+        for (let i of this.interfaces){
           if (i.type != 'ieee8023adLag'){
+
+            i.index = Number(i.index);
+            i.speed = Number(i.speed);
+
             sw.push({
               isTwoPort: false,
               int1: i,
@@ -139,6 +151,9 @@ export class DeviceDetailsSwitchComponent implements OnInit {
         }
       }
       this.switch = sw;
+      console.log('log switch after creation');
+      console.log(this.switch);
+      console.log('---------------');
     },
     (error) => {
       if (error.status == 404) {
