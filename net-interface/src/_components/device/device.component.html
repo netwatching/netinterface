@@ -303,8 +303,8 @@
             <div class="control">
               <div class="select">
                 <select formControlName="category">
-                  <option id="form-elements" *ngFor="let category of categories; let i=index">
-                    <input [value]="category.id">{{ category.category }}
+                  <option *ngFor="let category of categories" [ngValue]="category.category">
+                    {{ category.category }}
                   </option>
                 </select>
               </div>

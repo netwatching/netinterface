@@ -21,7 +21,7 @@ export class DeviceComponent implements OnInit {
   errorMessage: string | undefined;
 
   categoryForm: FormGroup;
-  categories!: Array < Category > ;
+  categories!: any;
 
   pageCount: number | undefined = 1;
   totalPages: number | undefined = 0;
@@ -124,7 +124,7 @@ export class DeviceComponent implements OnInit {
 
   getCategories() {
     this.central.getCategories().subscribe((categories) => {
-        this.categories = categories;
+        this.categories = categories.categories;
       },
       (error) => {
         if (error.status == 404) {

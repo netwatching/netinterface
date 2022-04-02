@@ -70,7 +70,7 @@ export class CentralApiService {
   public async addDevice(body: object): Promise < object > {
     this.jwtHandler()
     return await this.httpClient
-      .post < object > (`${this.BASE_URL}/devices`, this.httpOptions, body).pipe(
+      .post < object > (`${this.BASE_URL}/devices`, body, this.httpOptions).pipe(
         retry(5)
       ).toPromise();
   }
@@ -94,7 +94,7 @@ export class CentralApiService {
   public async deleteCategoryById(categoryId: string) {
     this.jwtHandler()
     return await this.httpClient
-      .delete(`${this.BASE_URL}/category/${categoryId}`, this.httpOptions).pipe(
+      .delete(`${this.BASE_URL}/categories/${categoryId}`, this.httpOptions).pipe(
         retry(1)
       ).toPromise();
   }
@@ -147,10 +147,10 @@ export class CentralApiService {
       );
   }
 
-  public getCategories(): Observable < Array < Category >> {
+  public getCategories(): Observable < any > {
     this.jwtHandler()
     return this.httpClient
-      .get < Array < Category >> (`${this.BASE_URL}/categories`, this.httpOptions).pipe(
+      .get < any > (`${this.BASE_URL}/categories`, this.httpOptions).pipe(
         retry(3)
       );
   }
