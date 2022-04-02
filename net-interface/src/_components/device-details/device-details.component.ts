@@ -225,6 +225,8 @@ export class DeviceDetailsComponent implements OnInit {
         this.static = this.device.static;
         this.live = this.device.live;
 
+        console.log(this.device)
+
         for (let i = 0; i < this.static.length; i) {
           if (this.static[i].key == "system") {
             this.system = this.static[i].data.system;
@@ -497,7 +499,7 @@ export class DeviceDetailsComponent implements OnInit {
         }
       }]
     };
-    this.saveModuleConfiguration(requestBody);    
+    this.saveModuleConfiguration(requestBody);
   }
 
   //delete module dialog

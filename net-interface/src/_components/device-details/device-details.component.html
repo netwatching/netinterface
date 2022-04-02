@@ -1,13 +1,15 @@
 <app-nav-bar></app-nav-bar>
 <div class="container">
 
-  <div class="box" *ngIf="(system | keyvalue)?.length">
+  <div class="box" *ngIf="(device | keyvalue)?.length">
     <h2 class="headline">{{ device.hostname }} <span>({{ device.category }})</span></h2>
-    <p>{{ system.description }}</p>
-    <p>name: {{ system.name }}</p>
-    <p>up since {{ upSince  | date }} at {{ upSince | date:'HH:mm:ss'}}</p>
-    <p>contact: {{ system.contact }}</p>
-    <p>location: {{ system.location }}</p>
+    <span *ngIf="(system | keyvalue)?.length">
+      <p *ngIf="system.description != null">{{ system.description }}</p>
+      <p *ngIf="system.name != null">name: {{ system.name }}</p>
+      <p *ngIf="upSince != null">up since {{ upSince  | date }} at {{ upSince | date:'HH:mm:ss'}}</p>
+      <p *ngIf="system.contact != null">contact: {{ system.contact }}</p>
+      <p *ngIf="system.location != null">location: {{ system.location }}</p>
+    </span>
   </div>
 
   <div *ngIf="assignedModules; else nothingAssigned">
@@ -42,19 +44,6 @@
       style="background-color: #ff0000; margin-bottom: 1%;" (click)="openAddModuleDialog()">
       <fa-icon [icon]="faPlus"></fa-icon> &nbsp; module
     </a></ng-template>
-
-  <!-- todo
-  <div class="box" *ngIf="(features.ipAddresses)?.length">
-    <h2 class="sub-headline">IP Addresses</h2>
-    <div class="flex-container">
-      <div *ngFor="let ip of features.ipAddresses">
-        <div class="box flex-item mx-2 my-3">
-          <p><b>IP Address:</b> {{ ip.address }}</p>
-          <p><b>Netmask:</b> {{ ip.netmask }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="box" id="filter" *ngIf="((events | keyvalue)?.length)">
     <form [formGroup]="severityForm" (ngSubmit)="submitForm()" novalidate>
@@ -327,7 +316,7 @@
         </tr>
       </tbody>
     </table>
-  </div>-->
+  </div>
 
 
   <div class="box" *ngIf="(interfaces | keyvalue)?.length">

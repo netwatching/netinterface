@@ -54,7 +54,6 @@ export class DeviceDetailsSwitchComponent implements OnInit {
   }
 
   swPortClicked(portIndex:number){
-    console.log('Port ' + portIndex.toString() + ' clicked!')
     this.getInterfaceByIndex(portIndex);
     this.showSwInterfaceModal = true;
   }
@@ -78,7 +77,6 @@ export class DeviceDetailsSwitchComponent implements OnInit {
     for (let i of this.interfaces){
       if (i.index === portIndex){
         this.swInterfaceModalData = i;
-        console.log(i);
       }
     }
   }
@@ -99,10 +97,6 @@ export class DeviceDetailsSwitchComponent implements OnInit {
         i++;
       }
       this.interfaces = this.interfaces.sort(this.compareIfIndex);
-
-      console.log('log interfaces after sorting');
-      console.log(this.interfaces);
-      console.log('---------------');
 
       let sw: Switch[] = [];
       if (this.interfaces.length > 12){
@@ -151,9 +145,6 @@ export class DeviceDetailsSwitchComponent implements OnInit {
         }
       }
       this.switch = sw;
-      console.log('log switch after creation');
-      console.log(this.switch);
-      console.log('---------------');
     },
     (error) => {
       if (error.status == 404) {

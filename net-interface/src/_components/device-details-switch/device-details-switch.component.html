@@ -103,39 +103,39 @@
       <section class="modal-card-body">
         <table class="table mx-auto">
           <tbody>
-            <tr class="table-row">
+            <tr class="table-row" *ngIf="swInterfaceModalData.index != null">
               <td class="table-data"><b>Interface</b></td>
               <td class="table-data">{{ swInterfaceModalData.index }}</td>
             </tr>
-            <tr class="table-row">
+            <tr class="table-row" *ngIf="swInterfaceModalData.description != null">
               <td class="table-data"><b>Description</b></td>
               <td class="table-data">{{ swInterfaceModalData.description }}</td>
             </tr>
-            <tr class="table-row">
+            <tr class="table-row" *ngIf="swInterfaceModalData.definition != null">
               <td class="table-data"><b>Definition</b></td>
               <td class="table-data">{{ swInterfaceModalData.definition }}</td>
             </tr>
-            <tr class="table-row">
+            <tr class="table-row" *ngIf="swInterfaceModalData.type != null">
               <td class="table-data"><b>Type</b></td>
               <td class="table-data">{{ swInterfaceModalData.type }}</td>
             </tr>
-            <tr class="table-row">
+            <tr class="table-row" *ngIf="swInterfaceModalData.admin_status != null">
               <td class="table-data"><b>Admin status</b></td>
               <td class="table-data">{{ swInterfaceModalData.admin_status }}</td>
             </tr>
-            <tr class="table-row">
+            <tr class="table-row" *ngIf="swInterfaceModalData.operating_status != null">
               <td class="table-data"><b>Opertating status</b></td>
               <td class="table-data">{{ swInterfaceModalData.operating_status }}</td>
             </tr>
-            <tr class="table-row">
+            <tr class="table-row" *ngIf="swInterfaceModalData.mac_address != null">
               <td class="table-data"><b>MAC</b></td>
               <td class="table-data">{{ swInterfaceModalData.mac_address }}</td>
             </tr>
-            <tr class="table-row">
+            <tr class="table-row" *ngIf="swInterfaceModalData.speed != null">
               <td class="table-data"><b>Speed</b></td>
               <td class="table-data">{{ swInterfaceModalData.speed/1000000000 }} Gbps</td>
             </tr>
-            <tr class="table-row">
+            <tr class="table-row" *ngIf="swInterfaceModalData.mtu != null">
               <td class="table-data"><b>MTU</b></td>
               <td class="table-data">{{ swInterfaceModalData.mtu }}</td>
             </tr>
