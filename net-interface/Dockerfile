@@ -1,12 +1,13 @@
-# stage 1
-
-FROM node:alpine AS my-app-build
+# base image
+FROM node:latest
+# set working directory
 WORKDIR /app
-COPY . .
-RUN npm ci && npm run build
+# install and cache app dependencies
+COPY package.json /app/package.json
+#RUN npm install -g @angular/cli@13.1.2
 
-# stage 2
-
-FROM nginx:alpine
-COPY --from=my-app-build /app/dist/net-interface /usr/share/nginx/html
-EXPOSE 80
+# add app
+COPY . /app
+RUN npm install
+# start app
+CMD ng serve --host 0.0.0.0
