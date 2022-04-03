@@ -220,7 +220,7 @@ export class DeviceComponent implements OnInit {
   // pagination
 
   calcPageAmount(devicesPerPage: number) {
-    this.totalPages = Math.round(this.deviceData.total / devicesPerPage);
+    this.totalPages = Math.ceil(this.deviceData.total / devicesPerPage);
   }
 
   gotoPage(num: number) {
