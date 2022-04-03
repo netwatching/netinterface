@@ -198,11 +198,17 @@ export class DeviceDetailsComponent implements OnInit {
 
   getConfigSchema(moduleType) {
     this.central.getModulesAssignedToDevice(this.deviceId).subscribe((data) => {
+      console.log(data);
         var render_data = {};
         var schema = {};
         data.configs.forEach(function (config) {
           if (config.name == moduleType) {
-            render_data = config.config;
+            if(config.config == "[]"){
+              render_data = config.type.config;
+            }
+            else{
+              render_data = config.config;
+            }
             schema = config.type.signature;
           }
         });
@@ -309,6 +315,7 @@ export class DeviceDetailsComponent implements OnInit {
 
   getAssignedModules() {
     this.central.getModulesAssignedToDevice(this.deviceId).subscribe((moduleData) => {
+        console.log(moduleData);
         this.assignedModules = moduleData;
       },
       (error) => {
@@ -321,7 +328,16 @@ export class DeviceDetailsComponent implements OnInit {
   }
 
   unassignModuleFromDevice(moduleType) {
-    this.central.deleteModuleFromDevice(this.deviceId, moduleType).then(() => {
+    //TODO
+    var moduleid: string = ""
+    console.log(1);
+    this.assignedModules.configs.forEach(function (value) {
+      console.log("test",value);
+      if(value.name == moduleType) {
+        moduleid = value.id;
+      }
+    });
+    this.central.deleteModuleFromDevice(this.deviceId, moduleid).then(() => {
         this.closeDeleteModuleDialog();
         this.openDeleteModuleSuccessDialog();
         this.refreshData();

@@ -1,7 +1,7 @@
 import { JsonSchema } from "@jsonforms/core"
 
 export interface Config {
-    config: [],
+    config: [] | string,
     id: string,
     name: string,
     type: {

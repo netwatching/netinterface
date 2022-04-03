@@ -177,10 +177,10 @@ export class CentralApiService {
       .post < object > (`${this.BASE_URL}/devices/${deviceId}/config`, body, this.httpOptions).pipe().toPromise();
   }
 
-  public async deleteModuleFromDevice(deviceId, configType): Promise < object > {
+  public async deleteModuleFromDevice(deviceId, moduleId): Promise < object > {
     this.jwtHandler()
     return await this.httpClient
-      .delete < object > (`${this.BASE_URL}/devices/${deviceId}/config/${configType}`, this.httpOptions).pipe().toPromise();
+      .delete < object > (`${this.BASE_URL}/devices/${deviceId}/module/${moduleId}`, this.httpOptions).pipe().toPromise();
   }
 
   public async addCategory(body: object): Promise < object > {
