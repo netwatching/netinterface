@@ -202,7 +202,7 @@ export class DeviceDetailsComponent implements OnInit {
         var schema = {};
         data.configs.forEach(function (config) {
           if (config.name == moduleType) {
-            render_data = config.type.config;
+            render_data = config.config;
             schema = config.type.signature;
           }
         });

@@ -125,6 +125,7 @@ export class DeviceComponent implements OnInit {
   getCategories() {
     this.central.getCategories().subscribe((categories) => {
         this.categories = categories.categories;
+        console.log(this.categories);
       },
       (error) => {
         if (error.status == 404) {
