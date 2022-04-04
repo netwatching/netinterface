@@ -103,7 +103,7 @@ export class DeviceDetailsSwitchComponent implements OnInit {
         let int1 = null;
         let c = 0;
         for (let i of this.interfaces){
-          if (i.type != 'ieee8023adLag'){
+          if (i.type != 'ieee8023adLag' && i.type != 'softwareLoopback'){
             if (c % 2 == 0) {
               int1 = i;
             }
@@ -121,7 +121,7 @@ export class DeviceDetailsSwitchComponent implements OnInit {
 
         if (this.interfaces.length % 2 == 1){
           let i = this.interfaces[this.interfaces.length - 1]
-          if (i.type != 'ieee8023adLag'){
+          if (i.type != 'ieee8023adLag' && i.type != 'softwareLoopback'){
             sw.push({
               isTwoPort: false,
               int1: i,
@@ -131,11 +131,7 @@ export class DeviceDetailsSwitchComponent implements OnInit {
         }
       } else {
         for (let i of this.interfaces){
-          if (i.type != 'ieee8023adLag'){
-
-            i.index = Number(i.index);
-            i.speed = Number(i.speed);
-
+          if (i.type != 'ieee8023adLag' && i.type != 'softwareLoopback'){
             sw.push({
               isTwoPort: false,
               int1: i,

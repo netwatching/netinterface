@@ -3,6 +3,7 @@
 
   <div class="box" *ngIf="(device | keyvalue)?.length">
     <h2 class="headline">{{ device.hostname }} <span>({{ device.category }})</span></h2>
+    <p *ngIf="device.ip != null">IP Address: {{ device.ip }}</p>
     <span *ngIf="(system | keyvalue)?.length">
       <p *ngIf="system.description != null">{{ system.description }}</p>
       <p *ngIf="system.name != null">name: {{ system.name }}</p>
@@ -319,7 +320,7 @@
   </div>
 
 
-  <div class="box" *ngIf="(interfaces | keyvalue)?.length">
+  <div class="box my-5" *ngIf="(interfaces | keyvalue)?.length">
     <h2 class="sub-headline" style="margin-bottom: 1%">Interfaces</h2>
     <app-device-details-switch *ngIf="device.category == 'Switch'"></app-device-details-switch>
     <table class="table">
