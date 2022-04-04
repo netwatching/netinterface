@@ -133,7 +133,7 @@
             </tr>
             <tr class="table-row" *ngIf="swInterfaceModalData.speed != null">
               <td class="table-data"><b>Speed</b></td>
-              <td class="table-data">{{ swInterfaceModalData.speed/1000000000 }} Gbps</td>
+              <td class="table-data">{{ swInterfaceModalData.speed/1000000000 | number:'.1-2'}} Gbps</td>
             </tr>
             <tr class="table-row" *ngIf="swInterfaceModalData.mtu != null">
               <td class="table-data"><b>MTU</b></td>
