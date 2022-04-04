@@ -337,7 +337,7 @@
       <tbody *ngFor="let interface of interfaces">
         <tr class="table-row" *ngIf="(interface | keyvalue)?.length">
           <td class="table-data"
-            [ngClass]="{'sw-port-admin-up': interface.admin_status == 'up','sw-port-admin-down': interface.admin_status == 'down','sw-port-operational-up': interface.operating_status == 'up','sw-port-operational-down': interface.operating_status== 'down','sw-port-10mbps': interface.speed == 10000000,'sw-port-100mbps': interface.speed == 100000000, 'sw-port-1000mbps': interface.speed == 1000000000}">
+            [ngClass]="{'sw-port-admin-up': interface.admin_status == 'up','sw-port-admin-down': interface.admin_status == 'down','sw-port-operational-up': interface.operating_status == 'up','sw-port-10mbps': interface.speed == 10000000,'sw-port-100mbps': interface.speed == 100000000, 'sw-port-1000mbps': interface.speed == 1000000000,'sw-port-1000mbps-plus': interface.speed > 1000000000, 'sw-port-operational-down': interface.operating_status== 'down'}">
             {{ interface.index }}</td>
           <td class="table-data">{{ interface.description }}</td>
           <td class="table-data">{{ interface.type }}</td>

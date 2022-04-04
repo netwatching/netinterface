@@ -45,14 +45,6 @@
   border-left: var(--sw-port-admin-up) 5px solid;
 }
 
-.sw-port-operational-down{
-  border-left: var(--sw-port-operational-down) 5px solid;
-}
-
-.sw-port-admin-down{
-  border-left: var(--sw-port-admin-down) 5px solid;
-}
-
 .sw-port-operational-up{
   border-left: var(--sw-port-operational-up) 5px solid;
 }
@@ -67,6 +59,14 @@
 
 .sw-port-1000mbps{
   border-left: var(--sw-port-1000mbps) 5px solid;
+}
+
+.sw-port-operational-down{
+  border-left: var(--sw-port-operational-down) 5px solid;
+}
+
+.sw-port-admin-down{
+  border-left: var(--sw-port-admin-down) 5px solid;
 }
 
 .flex-container{

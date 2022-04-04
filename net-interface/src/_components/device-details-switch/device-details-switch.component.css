@@ -28,14 +28,6 @@
   fill: var(--sw-port-admin-up);
 }
 
-.sw-port-operational-down{
-  fill: var(--sw-port-operational-down);
-}
-
-.sw-port-admin-down{
-  fill: var(--sw-port-admin-down);
-}
-
 .sw-port-operational-up{
   fill: var(--sw-port-operational-up);
 }
@@ -54,4 +46,12 @@
 
 .sw-port-1000mbps-plus{
   fill: var(--sw-port-1000mpbs-plus);
+}
+
+.sw-port-operational-down{
+  fill: var(--sw-port-operational-down);
+}
+
+.sw-port-admin-down{
+  fill: var(--sw-port-admin-down);
 }
