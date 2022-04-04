@@ -30,7 +30,6 @@ export class HomeAlertsComponent implements OnInit {
 
     this.central.getEvents(1, size).subscribe((alertData) => {
       this.alerts = alertData.alerts;
-      console.log(this.alerts)
     },
     (error) => {
         if (error.status == 404) {

@@ -43,7 +43,6 @@ export class NetworkComponent implements OnInit {
       if (this.vlanId.value > 0){
         this.generateNetworkByVlanID(this.vlanId.value);
       } else {
-        console.log('vlanID not valid');
         this.generateNetwork();
       }
     }
@@ -58,7 +57,6 @@ export class NetworkComponent implements OnInit {
       this.tree = tree;
       this.links = tree.links;
       this.nodes = tree.nodes;
-      console.log(this.tree);
       this.buildSVG();
     },
     (error) => {
@@ -83,7 +81,6 @@ export class NetworkComponent implements OnInit {
           "y": 0
         }]
       }
-      console.log(this.nodes);
       this.buildSVG();
     },
     (error) => {
@@ -185,7 +182,6 @@ export class NetworkComponent implements OnInit {
     });
 
     node.on("click", function(d){
-      console.log("clicked node: " + d.target.__data__.device_id);
       if (d.target.__data__.device_id != null || d.target.__data.device_id != undefined){
         window.location.href = '/devices/' + d.target.__data__.device_id;
       }

@@ -125,7 +125,6 @@ export class DeviceComponent implements OnInit {
   getCategories() {
     this.central.getCategories().subscribe((categories) => {
         this.categories = categories.categories;
-        console.log(this.categories);
       },
       (error) => {
         if (error.status == 404) {
@@ -290,7 +289,6 @@ export class DeviceComponent implements OnInit {
   submitAddCategoryForm() {
     const requestBody: any = {};
     requestBody['category'] = this.addCategoryForm.get('category').value;
-    console.log(requestBody)
     this.addCategory(requestBody);
   }
 
@@ -344,7 +342,6 @@ export class DeviceComponent implements OnInit {
     requestBody['ip'] = this.addDeviceForm.get('ip').value;
     requestBody['hostname'] = this.addDeviceForm.get('hostname').value;
     requestBody['category'] = this.addDeviceForm.get('category').value;
-    console.log(requestBody);
     this.addDevice(requestBody);
   }
 
