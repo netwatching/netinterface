@@ -1,7 +1,10 @@
 .switch{
-  height: 2.1vw;
+  height: 7rem;
   width: 100%;
-
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding-bottom: 10px;
 }
 
 .switch-legend{

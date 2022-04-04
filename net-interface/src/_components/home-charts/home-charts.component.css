@@ -11,3 +11,7 @@
   height: 90vh;
   overflow: scroll;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
