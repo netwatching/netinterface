@@ -32,7 +32,6 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ErrorComponent } from 'src/_components/error/error.component';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
-import { DialogModule } from '@progress/kendo-angular-dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NetworkComponent } from 'src/_components/network/network.component';
 import { JsonFormsModule } from '@jsonforms/angular';
@@ -90,7 +89,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),
-    DialogModule,
     FontAwesomeModule,
     JsonFormsModule,
     JsonFormsAngularMaterialModule,

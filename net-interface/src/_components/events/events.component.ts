@@ -133,7 +133,7 @@ export class EventsComponent implements OnInit {
   }
 
   calcPageAmount(alertsPerPage: number) {
-    this.totalPages = Math.round(this.eventData.total / alertsPerPage);
+    this.totalPages = Math.ceil(this.eventData.total / alertsPerPage);
   }
 
   gotoPage(num: number) {

@@ -198,7 +198,6 @@ export class DeviceDetailsComponent implements OnInit {
 
   getConfigSchema(moduleType) {
     this.central.getModulesAssignedToDevice(this.deviceId).subscribe((data) => {
-      console.log(data);
         var render_data = {};
         var schema = {};
         data.configs.forEach(function (config) {
@@ -230,9 +229,6 @@ export class DeviceDetailsComponent implements OnInit {
         this.device = device.device;
         this.static = this.device.static;
         this.live = this.device.live;
-
-        console.log(this.device)
-
         for (let i = 0; i < this.static.length; i) {
           if (this.static[i].key == "system") {
             this.system = this.static[i].data.system;
@@ -315,7 +311,6 @@ export class DeviceDetailsComponent implements OnInit {
 
   getAssignedModules() {
     this.central.getModulesAssignedToDevice(this.deviceId).subscribe((moduleData) => {
-        console.log(moduleData);
         this.assignedModules = moduleData;
       },
       (error) => {
@@ -330,9 +325,7 @@ export class DeviceDetailsComponent implements OnInit {
   unassignModuleFromDevice(moduleType) {
     //TODO
     var moduleid: string = ""
-    console.log(1);
     this.assignedModules.configs.forEach(function (value) {
-      console.log("test",value);
       if(value.name == moduleType) {
         moduleid = value.id;
       }
@@ -390,7 +383,7 @@ export class DeviceDetailsComponent implements OnInit {
   }
 
   calcPageAmount(alertsPerPage: number) {
-    this.totalPages = Math.round(this.eventData.total / alertsPerPage);
+    this.totalPages = Math.ceil(this.eventData.total / alertsPerPage);
   }
 
   gotoPage(num: number) {
