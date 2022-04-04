@@ -278,7 +278,7 @@ export class DeviceDetailsComponent implements OnInit {
       },
       (error) => {
         if (error.status == 404) {
-          this.router.navigate(['']);
+          //this.router.navigate(['']);
         }
         this.errorMessage = error.message;
       }
@@ -315,7 +315,7 @@ export class DeviceDetailsComponent implements OnInit {
       },
       (error) => {
         if (error.status == 404) {
-          this.router.navigate(['']);
+          //this.router.navigate(['']);
         }
         this.errorMessage = error.message;
       }
