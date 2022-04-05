@@ -1,53 +1,71 @@
-// import { Injectable } from '@angular/core';
-// import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-// import { Observable } from 'rxjs';
-// import { CentralApiService } from '../_services/central-api.service';
-// import { User } from '../_interfaces/user';
-// import { AuthService } from '../_services/auth.service';
-// import { Jwt } from '../_interfaces/jwt';
-// import { JwtHelperService } from "@auth0/angular-jwt";
-// import { environment } from '../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpBackend } from '@angular/common/http';
+import { throwError, Observable, BehaviorSubject, of } from "rxjs";
+import { CentralApiService } from '../_services/central-api.service';
+import { User } from '../_interfaces/user';
+import { AuthService } from '../_services/auth.service';
+import { Jwt } from '../_interfaces/jwt';
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { environment } from '../environments/environment';
+import { catchError, filter, take, switchMap, finalize } from "rxjs/operators";
 
-// const TOKEN_HEADER_KEY = 'Authorization';
+const TOKEN_HEADER_KEY = 'Authorization';
 
-// @Injectable()
-// export class JwtInterceptor implements HttpInterceptor {
-//   // login_url = 'http://palguin.htl-vil.local:8080/api/login'
-//   login_url = 'https://palguin.htl-vil.local:8443/api/login'
-//   jwt!: Jwt;
-//   helper = new JwtHelperService();
+@Injectable()
+export class JwtInterceptor implements HttpInterceptor {
+    constructor(public centralApiService: CentralApiService, private httpBackend: HttpBackend) {}
+    helper = new JwtHelperService();
+    private refreshingToken = false;
+    private accessTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-//   constructor(public centralApiService: CentralApiService, public authService: AuthService) {}
+    intercept(request: HttpRequest<any>, next: HttpHandler) {
+        request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+        let token: string | null = localStorage.getItem("access_token");
+        if (!token || this.helper.isTokenExpired(token, 30)) {
+            // token expired
+            if(this.refreshingToken) {
+                this.accessTokenSubject.pipe(
+                    filter(result => result !== null),
+                    take(1),
+                    switchMap(() => {return next.handle(this.addTokenHeader(request))})
+                );
+            }
+            else {
+                this.accessTokenSubject.next(null);
+                this.refreshingToken = true;
+                var refresh_token: string | null = localStorage.getItem("refresh_token");
+                if (refresh_token && !this.helper.isTokenExpired(refresh_token, 30)) {
+                    // use refresh_token for new tokens
+                    this.centralApiService.refreshToken().subscribe((jwtData) => {
+                        localStorage.setItem("access_token", jwtData["access_token"]);
+                        localStorage.setItem("refresh_token", jwtData["refresh_token"]);
+                        this.accessTokenSubject.next(true);
+                        this.refreshingToken = false
+                        return next.handle(this.addTokenHeader(request));
+                    });
+                }
+                else {
+                    // use shared secret for new tokens
+                    const requestData: any = {};
+                    requestData['pw'] = environment.apiKey;
+                    this.centralApiService.getJWTToken(requestData).subscribe((jwtData) => {
+                        localStorage.setItem("access_token", jwtData["access_token"]);
+                        localStorage.setItem("refresh_token", jwtData["refresh_token"]);
+                        this.accessTokenSubject.next(true);
+                        this.refreshingToken = false
+                        return next.handle(this.addTokenHeader(request));
+                    });
+                }
+            }
+        }
+        return next.handle(this.addTokenHeader(request));
+    }
 
-//   intercept(request: HttpRequest < unknown > , next: HttpHandler): Observable < HttpEvent < unknown >> {
-//     let auth_request = request;
-//     const requestData: any = {};
-//     requestData['id'] = this.authService.user!.id;
-//     requestData['name'] = this.authService.user!.username;
-//     requestData['pw'] = environment.apiKey;
-
-//     // console.log('current access token: ', localStorage.getItem('access_token'))
-//     // console.log('is expired: ', this.helper.isTokenExpired(localStorage.getItem('access_token')?.toString()))
-
-//     if (!this.helper.isTokenExpired(localStorage.getItem('access_token')?.toString()) || !localStorage.getItem('access_token')) {
-//       if (!localStorage.getItem('access_token') && !request.url.startsWith(this.login_url)) {
-//         this.centralApiService.getJWTToken(requestData).subscribe((object) => {
-//           localStorage.setItem('refresh_token', object.refresh_token);
-//           localStorage.setItem('access_token', object.access_token);
-//         });
-//       }
-//     } else {
-//         this.centralApiService.getJWTToken(requestData).subscribe((object) => {
-//           localStorage.setItem('refresh_token', object.refresh_token);
-//           localStorage.setItem('access_token', object.access_token);
-//         });
-//     }
-
-//     if (this.authService.authenticated) {
-//         auth_request = request.clone({
-//           headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + localStorage.getItem('access_token'))
-//         });
-//     }
-//     return next.handle(auth_request);
-//   }
-// }
+    private addTokenHeader(request: HttpRequest<any>) {
+        /* for Spring Boot back-end */
+        // return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+        /* for Node.js Express back-end */
+        let access_token: string | null = localStorage.getItem("access_token");
+        return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, "Bearer " + access_token) });
+      }
+}
