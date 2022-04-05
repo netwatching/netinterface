@@ -21,9 +21,23 @@ export class JwtInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler) {
         request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
         let token: string | null = localStorage.getItem("access_token");
-        if (!token || this.helper.isTokenExpired(token, 30)) {
+        var forcegenerate = false;
+        try {
+            //check if token is valid. If not: Force generate one using shared secret
+            this.helper.isTokenExpired(token, 30);
+        }
+        catch(error) {
+            console.log("Token not valid, generating new one!");
+            forcegenerate = true;
+        }
+        // check if token is still valid
+        if (!token || forcegenerate || this.helper.isTokenExpired(token, 30)) {
             // token expired
+
+            // check if token already gets refreshed
             if(this.refreshingToken) {
+                // token is currenty getting refreshed
+                // wait until token got refreshed
                 this.accessTokenSubject.pipe(
                     filter(result => result !== null),
                     take(1),
@@ -31,10 +45,21 @@ export class JwtInterceptor implements HttpInterceptor {
                 );
             }
             else {
+                // token is no longer valid and has to be refreshed
                 this.accessTokenSubject.next(null);
                 this.refreshingToken = true;
                 var refresh_token: string | null = localStorage.getItem("refresh_token");
-                if (refresh_token && !this.helper.isTokenExpired(refresh_token, 30)) {
+                try {
+                    //check if token is valid. If not: Force generate one using shared secret
+                    this.helper.isTokenExpired(refresh_token, 30);
+                }
+                catch(error) {
+                    console.log("Token not valid, generating new one!");
+                    forcegenerate = true;
+                }
+
+                //check if refresh token is still valid. If not: use shared secret
+                if ( !forcegenerate && refresh_token && !this.helper.isTokenExpired(refresh_token, 30)) {
                     // use refresh_token for new tokens
                     this.centralApiService.refreshToken().subscribe((jwtData) => {
                         localStorage.setItem("access_token", jwtData["access_token"]);
@@ -58,13 +83,12 @@ export class JwtInterceptor implements HttpInterceptor {
                 }
             }
         }
+        // add token if token is still valid
         return next.handle(this.addTokenHeader(request));
     }
 
     private addTokenHeader(request: HttpRequest<any>) {
-        /* for Spring Boot back-end */
         // return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
-        /* for Node.js Express back-end */
         let access_token: string | null = localStorage.getItem("access_token");
         return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, "Bearer " + access_token) });
       }
