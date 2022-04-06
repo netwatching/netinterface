@@ -54,6 +54,8 @@ export class AuthService {
   }
 
   async signOut(): Promise<void> {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
     await this.msalService.logout().toPromise();
     this.user = undefined;
     this.authenticated = false;
