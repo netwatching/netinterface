@@ -72,11 +72,10 @@ export class AuthService {
         interactionType: InteractionType.Popup
       }
     );
-
-    this.graphClient = Client.initWithMiddleware({
-      authProvider: authProvider
-    });
     try {
+      this.graphClient = Client.initWithMiddleware({
+        authProvider: authProvider
+      });
       const graphUser: MicrosoftGraph.User = await this.graphClient
       .api('/me')
       .select('displayName,mail,mailboxSettings,userPrincipalName')
@@ -88,12 +87,11 @@ export class AuthService {
       // user.avatar = "https://graph.microsoft.com/v1.0/users("+graphUser.id+")/photo"
       user.id = graphUser.id!;
       user.username = graphUser.userPrincipalName!.split("@", 1).toString()
-
+  
       // const graphtoken = await this.msalService.acquireTokenSilent({
       //   scopes: [ "User.Read" ]
       // })
       // graphtoken.subscribe(val=>console.log(val.accessToken))
-
       return user;
     }
     catch(error) {
