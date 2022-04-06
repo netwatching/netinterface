@@ -76,25 +76,30 @@ export class AuthService {
     this.graphClient = Client.initWithMiddleware({
       authProvider: authProvider
     });
-
-    const graphUser: MicrosoftGraph.User = await this.graphClient
+    try {
+      const graphUser: MicrosoftGraph.User = await this.graphClient
       .api('/me')
       .select('displayName,mail,mailboxSettings,userPrincipalName')
       .get();
+      const user = new User();
+      user.displayName = graphUser.displayName ?? '';
+      user.email = graphUser.mail ?? graphUser.userPrincipalName ?? '';
+      user.timeZone = graphUser.mailboxSettings?.timeZone ?? 'UTC';
+      // user.avatar = "https://graph.microsoft.com/v1.0/users("+graphUser.id+")/photo"
+      user.id = graphUser.id!;
+      user.username = graphUser.userPrincipalName!.split("@", 1).toString()
 
-    const user = new User();
-    user.displayName = graphUser.displayName ?? '';
-    user.email = graphUser.mail ?? graphUser.userPrincipalName ?? '';
-    user.timeZone = graphUser.mailboxSettings?.timeZone ?? 'UTC';
-    // user.avatar = "https://graph.microsoft.com/v1.0/users("+graphUser.id+")/photo"
-    user.id = graphUser.id!;
-    user.username = graphUser.userPrincipalName!.split("@", 1).toString()
+      // const graphtoken = await this.msalService.acquireTokenSilent({
+      //   scopes: [ "User.Read" ]
+      // })
+      // graphtoken.subscribe(val=>console.log(val.accessToken))
 
-    // const graphtoken = await this.msalService.acquireTokenSilent({
-    //   scopes: [ "User.Read" ]
-    // })
-    // graphtoken.subscribe(val=>console.log(val.accessToken))
-
-    return user;
+      return user;
+    }
+    catch(error) {
+      localStorage.clear();
+      window.location.reload();
+      return undefined;
+    }
   }
 }
