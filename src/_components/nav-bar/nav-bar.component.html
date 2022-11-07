@@ -1,0 +1,72 @@
+<div id="nav">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" routerLink="">
+        <img src="assets/_img/logo.png">
+      </a>
+
+      <a (click)="toggleNavbar()" #navBurger role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu" #navMenu>
+      <div class="navbar-start">
+        <a class="navbar-item" routerLink="">
+          home
+        </a>
+
+        <a class="navbar-item" routerLink="/devices">
+          devices
+        </a>
+
+        <a class="navbar-item" routerLink="/events">
+          events
+        </a>
+
+        <a class="navbar-item" routerLink="/network">
+          network
+        </a>
+
+        <!-- <a class="navbar-item" routerLink="/alerts" [routerLinkActive]='["active"]'>
+          alerts
+        </a> -->
+
+        <!-- <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            more
+          </a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              about
+            </a>
+            <a class="navbar-item">
+              contact
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              imprint
+            </a>
+          </div> -->
+        <!-- </div> -->
+
+      </div>
+      <div class="navbar-end">
+        <a class="navbar-item" id="user" href="https://www.office.com/" target="_blank" rel="noopener">
+          <p>{{user != null ? user.displayName : ''}}<br><span id="mail">{{user != null ? user.email : ''}}</span></p>
+        </a>
+        <div class="navbar-item" *ngIf="authenticated">
+          <div class="buttons" (click)="signOut()">
+            <a class="button is-primary" style="background-color: #ff0000;">
+              <strong>Logout</strong>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

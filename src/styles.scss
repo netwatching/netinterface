@@ -1,0 +1,110 @@
+// 1. Import the initial variables
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+$blue: #ff0000;
+;
+// // Add pink and its invert
+// $pink: #ffb3b3;
+// $pink-invert: #fff;
+// // Add a serif family
+// $family-serif: "Merriweather", "Georgia", serif;
+
+// // 3. Set the derived variables
+// // Use the new pink as the primary color
+// $primary: $pink;
+// $primary-invert: $pink-invert;
+// // Use the existing orange as the danger color
+// $danger: $orange;
+// // Use the new serif family
+// $family-primary: $family-serif;
+
+// // 4. Setup your Custom Colors
+// $linkedin: #0077b5;
+// $linkedin-invert: findColorInvert($linkedin);
+// $twitter: #55acee;
+// $twitter-invert: findColorInvert($twitter);
+// $github: #333;
+// $github-invert: findColorInvert($github);
+
+// // 5. Add new color variables to the color map.
+// @import "~bulma/sass/utilities/derived-variables";
+// $addColors: (
+//   "twitter":($twitter, $twitter-invert),
+//   "linkedin": ($linkedin, $linkedin-invert),
+//   "github": ($github, $github-invert)
+// );
+// $colors: map-merge($colors, $addColors);
+
+// // 6. Import the rest of Bulma
+@import "~bulma";
+@import 'tippy.js/dist/tippy.css';
+
+// body {
+//   min-height: 80vh;
+//   display: flex;
+//   flex-direction: column;
+// }
+
+:root {
+
+  // events
+  --events_debug: rgb(158, 158, 158);
+  --events_information: rgb(255, 213, 0);
+  --events_warning: rgb(255, 145, 0);
+  --events_error: rgb(255, 68, 0);
+  --events_disaster: rgb(255, 0, 0);
+
+  //switch
+  --sw-port: rgb(255, 255, 255);
+  --sw-port-hover: rgb(190, 53, 202);
+  --sw-port-admin-up: rgb(66, 66, 66);
+  --sw-port-operational-down: rgb(150, 150, 150);
+  --sw-port-admin-down: rgb(202, 45, 45);
+  --sw-port-operational-up: rgb(176, 218, 136);
+  --sw-port-10mbps: rgb(247, 234, 59);
+  --sw-port-100mbps: rgb(236, 170, 26);
+  --sw-port-1000mbps: rgb(95, 179, 0);
+  --sw-port-1000mpbs-plus: rgb(99, 206, 0);
+}
+
+.hyperlink {
+  color: black;
+}
+
+.hyperlink:hover {
+  color: #ff0000;
+  text-decoration: none;
+}
+
+.trashcan{
+  color: grey;
+}
+
+.trashcan:hover{
+  color: #ff0000;
+}
+
+.headline {
+  font-size: 140%;
+  font-weight: bold;
+}
+
+.sub-headline {
+  font-size: 110%;
+  font-weight: bold;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.container {
+  min-height: calc(100vh - 382px);
+}

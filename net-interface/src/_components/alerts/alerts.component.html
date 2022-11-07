@@ -1,6 +1,0 @@
-<div *ngFor="let alert of alertsService.alerts">
-  <div class="notification" (close)="close(alert)">
-    {{alert.message}}
-    <pre *ngIf="alert.debug" class="alert-pre border bg-light p-2 mt-2"><code>{{alert.debug}}</code></pre>
-  </div>
-</div>
