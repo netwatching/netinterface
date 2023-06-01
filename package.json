@@ -26,7 +26,7 @@
     "@auth0/angular-jwt": "^5.0.2",
     "@azure/msal-angular": "^2.0.2",
     "@azure/msal-browser": "^2.16.1",
-    "@fortawesome/angular-fontawesome": "^0.10.2",
+    "@fortawesome/angular-fontawesome": "^0.11.0",
     "@fortawesome/fontawesome-svg-core": "~1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@jsonforms/angular": "^3.0.0-beta.1",
